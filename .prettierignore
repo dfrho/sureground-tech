@@ -1,0 +1,11 @@
+.next
+node_modules
+pnpm-lock.yaml
+coverage
+playwright-report
+test-results
+.outbox
+next-env.d.ts
+docs/research
+CLAUDE.md
+docs/brand-guide.md

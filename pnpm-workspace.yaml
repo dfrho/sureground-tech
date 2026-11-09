@@ -1,0 +1,11 @@
+# Only packages listed here as true may run install scripts (A03 supply chain).
+# esbuild, sharp and unrs-resolver ship prebuilt binaries through optional
+# dependencies, so their install scripts are not needed.
+allowBuilds:
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
+saveExact: true
+# Do not resolve package versions published less than 1 day ago (minutes).
+# Dependabot adds a 7-day cooldown for updates; see docs/decisions.md.
+minimumReleaseAge: 1440

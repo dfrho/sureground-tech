@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Placeholder until Phase 1 adds the brand tokens and fonts. */
+:root {
+  color-scheme: dark;
+  --bg: #0e1116;
+  --text: #f2f2ef;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
