@@ -5,8 +5,9 @@ Owner: David unless noted. Check items off as they are done.
 ## Accounts and DNS
 
 - [x] GitHub repository created (private, dfrho/sureground-tech) and pushed; CI green (2026-11-09)
-- [ ] Vercel project created and linked to the repository
-- [ ] Vercel deployment protection on for preview deployments
+- [x] Vercel project `david-rhodes-projects/sureground-tech` created and linked to the GitHub repository (2026-11-09)
+- [x] Vercel deployment protection on (Standard: every deployment except the custom domain needs a Vercel login)
+- [ ] Move the Vercel team from Hobby to Pro before launch (Hobby is for non-commercial use)
 - [ ] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex
 - [ ] Resend sending subdomain (`send.sureground.tech` or Resend's recommendation) verified
 - [ ] Google Workspace SPF, DKIM and DMARC in place for the root domain
