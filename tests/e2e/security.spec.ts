@@ -43,7 +43,11 @@ test.describe("security baseline", () => {
       }
     });
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    // Wait for hydration (the theme toggle marks itself ready), then a beat
+    // for late scripts and styles. Not "networkidle": link prefetches for
+    // pages that do not exist yet return 404 streams that never settle.
+    await expect(page.locator("[data-theme-toggle][data-ready]").first()).toBeAttached();
+    await page.waitForTimeout(500);
     expect(violations).toEqual([]);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("SureGround");
   });
@@ -56,9 +60,15 @@ test.describe("security baseline", () => {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 
-  test("static assets get the security headers too", async ({ request }) => {
-    const response = await request.get("/favicon.ico");
+  test("static assets get the security headers too", async ({ page, request }) => {
+    // Build assets skip proxy.ts; next.config.ts headers() still covers them.
+    await page.goto("/");
+    const href = await page.locator('link[rel="stylesheet"]').first().getAttribute("href");
+    expect(href).toMatch(/^\/_next\/static\//);
+    const response = await request.get(href!);
+    expect(response.status()).toBe(200);
     expect(response.headers()["x-content-type-options"]).toBe("nosniff");
+    expect(response.headers()["x-frame-options"]).toBe("DENY");
   });
 
   test("cross-site and Origin-less POSTs are rejected", async ({ request }) => {

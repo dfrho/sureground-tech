@@ -212,7 +212,7 @@ Header: Wordmark, Services, Pricing, Scorecard, Blog, About, theme toggle, "Book
 
 ## Offers
 
-All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `group`, `summary`, `deliverables[]`, `duration`, `startingAt` (number in USD or `0` for free), `cadence` (`one-time` or `monthly`), `terms` (credits and guarantees, exact approved wording), `confirmed` (boolean). The prices below are **recommendations from the research report, not confirmed by David**. Seed them with `confirmed: false` and list them as open items.
+All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `group`, `summary`, `deliverables[]`, `duration`, `startingAt` (number in USD or `0` for free), `cadence` (`one-time` or `monthly`), `terms` (credits and guarantees, exact approved wording), `confirmed` (boolean). The prices and terms below started as recommendations from the research report; **David confirmed all of them as written on 2026-11-09** and every offer is `confirmed: true`. Any later change needs his approval again.
 
 ### Core services (the three pillars)
 
@@ -360,9 +360,9 @@ A production build fails if any required variable is missing.
 
 ## Open items for David
 
-1. Confirm or change every proposed price, duration, credit and guarantee in the Offers section.
-2. Approve the AI Enablement pricing ($1,500 half-day workshop; $4,500 four-week team program).
-3. Supply a headshot and approve the About story.
+1. Done 2026-11-09: every price, duration, credit and guarantee in the Offers section confirmed as written, including both AI Enablement prices.
+2. Done 2026-11-09: Vercel team moved to Pro.
+3. Headshot chosen; save it as `public/images/david-rhodes.jpg`. Approve the About story.
 4. Approve the scorecard questions, band names and recommendations.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. Choose a LinkedIn company URL and any other social handles to show in the footer.

@@ -1,14 +1,149 @@
 @import "tailwindcss";
 
-/* Placeholder until Phase 1 adds the brand tokens and fonts. */
-:root {
-  color-scheme: dark;
-  --bg: #0e1116;
-  --text: #f2f2ef;
+/*
+ * Theme tokens. Values must match lib/design/tokens.ts (a unit test checks).
+ * Light is the base; the `dark` class from next-themes switches to dark. The
+ * media query covers visitors without JavaScript who prefer dark.
+ */
+:root,
+.light {
+  color-scheme: light;
+  --bg: #f2f2ef;
+  --surface: #ffffff;
+  --text: #0e1116;
+  --muted: #4a5261;
+  --border: #d9dbd3;
+  --accent-text: #2a55cc;
+  --accent-fill: #4c7dff;
+  --highlight: #c6f36b;
+  --on-accent: #0e1116;
+  --on-highlight: #0e1116;
+  --logo-tile: #0e1116;
+  --logo-steps: #f2f2ef;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  color-scheme: dark;
+  --bg: #0e1116;
+  --surface: #1b2029;
+  --text: #f2f2ef;
+  --muted: #9aa3b2;
+  --border: #2a303a;
+  --accent-text: #4c7dff;
+  --accent-fill: #4c7dff;
+  --highlight: #c6f36b;
+  --on-accent: #0e1116;
+  --on-highlight: #0e1116;
+  --logo-tile: #4c7dff;
+  --logo-steps: #0e1116;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --bg: #0e1116;
+    --surface: #1b2029;
+    --text: #f2f2ef;
+    --muted: #9aa3b2;
+    --border: #2a303a;
+    --accent-text: #4c7dff;
+    --accent-fill: #4c7dff;
+    --highlight: #c6f36b;
+    --on-accent: #0e1116;
+    --on-highlight: #0e1116;
+    --logo-tile: #4c7dff;
+    --logo-steps: #0e1116;
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  /* Only brand tokens: the default Tailwind palette is removed. */
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent-text: var(--accent-text);
+  --color-accent-fill: var(--accent-fill);
+  --color-highlight: var(--highlight);
+  --color-on-accent: var(--on-accent);
+  --color-on-highlight: var(--on-highlight);
+  --color-logo-tile: var(--logo-tile);
+  --color-logo-steps: var(--logo-steps);
+
+  --font-display: var(--font-space-grotesk), Arial, sans-serif;
+  --font-sans: var(--font-plex-sans), Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), "Courier New", monospace;
+
+  --radius-card: 10px;
+  --radius-button: 8px;
+  --radius-tile: 12px;
+
+  /* Type scale from docs/brand-guide.md section 6. */
+  --text-display: 4rem;
+  --text-display--line-height: 4.25rem;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+  --text-h1: 2.75rem;
+  --text-h1--line-height: 3rem;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 2.125rem;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 500;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.75rem;
+  --text-h3--font-weight: 600;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6875rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.3125rem;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.125rem;
+  --text-label--letter-spacing: 0.08em;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+  }
+
+  /* Lock page scroll while the mobile menu dialog is open. */
+  html:has(dialog[open]:modal) {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

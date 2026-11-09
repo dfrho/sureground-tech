@@ -7,7 +7,7 @@ Owner: David unless noted. Check items off as they are done.
 - [x] GitHub repository created (private, dfrho/sureground-tech) and pushed; CI green (2026-11-09)
 - [x] Vercel project `david-rhodes-projects/sureground-tech` created and linked to the GitHub repository (2026-11-09)
 - [x] Vercel deployment protection on (Standard: every deployment except the custom domain needs a Vercel login)
-- [ ] Move the Vercel team from Hobby to Pro before launch (Hobby is for non-commercial use)
+- [x] Vercel team moved from Hobby to Pro (David, 2026-11-09)
 - [ ] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex
 - [ ] Resend sending subdomain (`send.sureground.tech` or Resend's recommendation) verified
 - [ ] Google Workspace SPF, DKIM and DMARC in place for the root domain
@@ -30,8 +30,8 @@ Owner: David unless noted. Check items off as they are done.
 
 ## Content and approvals
 
-- [ ] David's headshot added at `public/images/david-rhodes.jpg`; About copy approved
-- [ ] Every offer `confirmed: true`; guarantees approved word for word (`pnpm check:offers` passes)
+- [ ] David's headshot added at `public/images/david-rhodes.jpg` (photo chosen 2026-11-09; file still to be saved in the repo); About copy approved
+- [x] Every offer `confirmed: true`; guarantees approved word for word (`pnpm check:offers` passes) (David, 2026-11-09)
 - [ ] Scorecard questions, band names and recommendations approved
 - [ ] LinkedIn company URL and other social handles chosen
 - [ ] Privacy policy and terms reviewed by a lawyer

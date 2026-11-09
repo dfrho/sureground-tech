@@ -1,6 +1,7 @@
 /**
- * Theme color tokens, the source of truth for both themes. Phase 1 writes
- * these into app/globals.css as CSS variables; check:contrast reads them here.
+ * Theme color tokens, the source of truth for both themes. app/globals.css
+ * repeats them as CSS variables (tests/unit/tokens-css.test.ts keeps the two
+ * in sync); check:contrast reads them here.
  */
 
 export const palette = {
@@ -28,7 +29,9 @@ export type TokenName =
   | "accent-fill"
   | "highlight"
   | "on-accent"
-  | "on-highlight";
+  | "on-highlight"
+  | "logo-tile"
+  | "logo-steps";
 
 export const tokens: Record<Theme, Record<TokenName, string>> = {
   dark: {
@@ -42,6 +45,8 @@ export const tokens: Record<Theme, Record<TokenName, string>> = {
     highlight: palette.volt,
     "on-accent": palette.carbon,
     "on-highlight": palette.carbon,
+    "logo-tile": palette.signalBlue,
+    "logo-steps": palette.carbon,
   },
   light: {
     bg: palette.bone,
@@ -54,6 +59,8 @@ export const tokens: Record<Theme, Record<TokenName, string>> = {
     highlight: palette.volt,
     "on-accent": palette.carbon,
     "on-highlight": palette.carbon,
+    "logo-tile": palette.carbon,
+    "logo-steps": palette.bone,
   },
 };
 
