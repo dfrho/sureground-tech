@@ -92,4 +92,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit. Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit and `docs/security/audit-2026-11-09-phase1.md` for Phase 1. Medium and Low items not fixed are listed there with an owner.
+
+- **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
+- **OWASP-A08-001 (Phase 1, Informational):** `next/font/google` downloads font files at build time without a pinned hash. Kept for now; switching to committed `woff2` files with `next/font/local` would remove it. Owner: Claude, Phase 6.

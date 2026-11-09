@@ -369,12 +369,15 @@ A production build fails if any required variable is missing.
 
 ## Current status
 
-**Phase 0 (Foundation): done, 2026-11-09.** Code is in the private repo `dfrho/sureground-tech`; CI passes and Dependabot is on. Vercel project `david-rhodes-projects/sureground-tech` is linked with Node 24 and Standard deployment protection; previews build. Production deploys fail by design until every offer is confirmed and the production env vars are set.
+**Phase 1 (Design system and shell): done, 2026-11-09** (branch `p1/design-shell`).
 
-- Next.js 16.4.5, React 19.3, Node 24, pnpm 12, strict TS, ESLint, Prettier, Vitest, Playwright (Chromium; 360/768/1280 x light/dark).
-- Nonce CSP and security headers in `proxy.ts` and `next.config.ts`; fail-closed same-origin check on POSTs; `security.txt`; Zod env validation; offers seeded with `confirmed: false`.
-- Checks passing: typecheck, lint, lint:copy, check:contrast, format:check, test (46), test:e2e (42), audit:deps. `check:offers` fails by design until David confirms prices.
-- OWASP audit: `docs/security/audit-2026-11-09.md`, no open Critical, High, Medium or Low.
-- Choices recorded in `docs/decisions.md` (nonce CSP instead of SRI, so pages render per request and Partial Prerendering is off).
+- Brand tokens for both themes in `app/globals.css` (kept in sync with `lib/design/tokens.ts` by a unit test); default Tailwind palette removed; brand type scale as `text-display` through `text-label`.
+- Space Grotesk, IBM Plex Sans and IBM Plex Mono via `next/font` (served from the site).
+- `Logo`, `Wordmark`, `Header`, `Footer`, `MobileNav` (native modal dialog), three-state `ThemeToggle` (next-themes, nonce on its script, no flash, works without JavaScript), skip link, 404, `error.tsx` and `global-error.tsx`.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (52), test:e2e (102, with full-page screenshots at 360/768/1280 in light and dark, uploaded by CI), audit:deps.
+- OWASP audit: `docs/security/audit-2026-11-09-phase1.md`, no Critical, High, Medium or Low; two Informational items accepted in `docs/decisions.md`.
+- David confirmed every offer (all `confirmed: true`) and moved Vercel to Pro. Production builds still fail at the env check until the production variables are set.
 
-Next: Phase 1 (design system and shell).
+**Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
+
+Next: Phase 2 (marketing pages). Before it starts, David saves his headshot as `public/images/david-rhodes.jpg`.
