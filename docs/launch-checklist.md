@@ -4,7 +4,7 @@ Owner: David unless noted. Check items off as they are done.
 
 ## Accounts and DNS
 
-- [ ] GitHub repository created and this repo pushed; CI green
+- [x] GitHub repository created (private, dfrho/sureground-tech) and pushed; CI green (2026-11-09)
 - [ ] Vercel project created and linked to the repository
 - [ ] Vercel deployment protection on for preview deployments
 - [ ] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex

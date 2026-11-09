@@ -369,7 +369,7 @@ A production build fails if any required variable is missing.
 
 ## Current status
 
-**Phase 0 (Foundation): done locally, 2026-11-09**, except two items that need David's accounts: pushing to a GitHub repository (so CI and Dependabot run) and linking the Vercel project.
+**Phase 0 (Foundation): done locally, 2026-11-09**, except linking the Vercel project, which needs David's Vercel access. The code is in the private repo `dfrho/sureground-tech`; CI passes on `main` and Dependabot is on.
 
 - Next.js 16.4.5, React 19.3, Node 24, pnpm 12, strict TS, ESLint, Prettier, Vitest, Playwright (Chromium; 360/768/1280 x light/dark).
 - Nonce CSP and security headers in `proxy.ts` and `next.config.ts`; fail-closed same-origin check on POSTs; `security.txt`; Zod env validation; offers seeded with `confirmed: false`.
@@ -377,4 +377,4 @@ A production build fails if any required variable is missing.
 - OWASP audit: `docs/security/audit-2026-11-09.md`, no open Critical, High, Medium or Low.
 - Choices recorded in `docs/decisions.md` (nonce CSP instead of SRI, so pages render per request and Partial Prerendering is off).
 
-Next: Phase 1 (design system and shell), after the GitHub and Vercel setup.
+Next: link Vercel, then Phase 1 (design system and shell).
