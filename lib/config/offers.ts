@@ -26,9 +26,29 @@ export const offerSchema = z
     cadence: z.enum(["one-time", "monthly"]),
     /** Credits and guarantees, worded exactly as David approves them. */
     terms: z.array(z.string().min(1)),
+    /**
+     * Optional priced options within one offer. When present, startingAt
+     * must equal the lowest tier price.
+     */
+    tiers: z
+      .array(
+        z
+          .object({
+            name: z.string().min(1),
+            duration: z.string().min(1),
+            startingAt: z.number().int().nonnegative(),
+          })
+          .strict(),
+      )
+      .min(2)
+      .optional(),
     confirmed: z.boolean(),
   })
-  .strict();
+  .strict()
+  .refine((o) => !o.tiers || o.startingAt === Math.min(...o.tiers.map((t) => t.startingAt)), {
+    message: "startingAt must equal the lowest tier price",
+    path: ["startingAt"],
+  });
 
 export type Offer = z.infer<typeof offerSchema>;
 
@@ -85,7 +105,11 @@ const offerList = [
     duration: "Half-day workshop, or a 4-week team program",
     startingAt: 1500,
     cadence: "one-time",
-    terms: ["Half-day workshop from $1,500; 4-week team program from $4,500"],
+    terms: [],
+    tiers: [
+      { name: "Half-day workshop", duration: "Half day", startingAt: 1500 },
+      { name: "Team program", duration: "4 weeks", startingAt: 4500 },
+    ],
     confirmed: false,
   },
 

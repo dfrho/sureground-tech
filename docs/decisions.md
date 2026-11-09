@@ -52,7 +52,8 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Offers shape (Phase 0)
 
-- Every offer in `lib/config/offers.ts` counts as published. AI Enablement has two prices; `startingAt` is the lower ($ amounts stay in offers.ts) and the second tier is in `terms` for now. Phase 2 may add an optional `tiers` field if David wants both shown as prices; ask first.
+- Every offer in `lib/config/offers.ts` counts as published.
+- Optional `tiers` field (name, duration, startingAt) for offers with more than one price. AI Enablement uses it: half-day workshop and 4-week team program. The schema requires `startingAt` to equal the lowest tier, so "starting at" copy stays correct. Added at David's request on 2026-11-09.
 
 ## Supply chain delays (Phase 0 audit)
 
