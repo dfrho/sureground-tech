@@ -61,6 +61,13 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - pnpm `minimumReleaseAge` is 1 day (1440 minutes). Seven days rejected the current lockfile because Next.js 16.4.5 was 6 days old when scaffolded. Raise it to 7 days once the lockfile has aged (owner: Claude, next dependency update).
 - The proxy matcher has no `missing` clause for prefetch headers, so a POST cannot skip the origin check by sending one (audit OWASP-A01-001).
 
+## Vercel project (2026-11-09)
+
+- Project `sureground-tech` in team "David Rhodes' projects" (`david-rhodes-projects`), linked to `dfrho/sureground-tech`, production branch `main`.
+- Node.js set to 24.x (it defaulted to 26.x). `vercel.json` pins `pnpm install --frozen-lockfile` and `pnpm build`, so `check-env` and `check:offers --production-only` run before `next build`.
+- Deployment protection is Vercel's Standard setting (`all_except_custom_domains`).
+- Vercel CLI 65.12.1 is required for `vercel login` (device flow); 29.x login methods were removed by Vercel in February 2026.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
