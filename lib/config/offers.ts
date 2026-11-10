@@ -5,9 +5,11 @@ import { z } from "zod";
  * durations live. Components and MDX read from here; `pnpm lint:copy` fails
  * on dollar amounts anywhere else.
  *
- * Every value below is a recommendation from docs/research/offerings-report.md
- * and is NOT confirmed by David. Production builds fail (`pnpm check:offers`)
- * until every offer is `confirmed: true`.
+ * Values started as recommendations from docs/research/offerings-report.md.
+ * David confirmed every price, duration, credit and guarantee as written on
+ * 2026-11-09. Any change needs his approval again: set that offer's
+ * `confirmed` to false until he approves, and production builds fail
+ * (`pnpm check:offers`) while any offer is unconfirmed.
  */
 
 export const offerGroups = ["core", "start", "build", "specialty", "operate"] as const;
@@ -70,7 +72,7 @@ const offerList = [
     startingAt: 10000,
     cadence: "one-time",
     terms: [],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "agent-development",
@@ -87,7 +89,7 @@ const offerList = [
     startingAt: 10000,
     cadence: "one-time",
     terms: [],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "ai-enablement",
@@ -110,7 +112,7 @@ const offerList = [
       { name: "Half-day workshop", duration: "Half day", startingAt: 1500 },
       { name: "Team program", duration: "4 weeks", startingAt: 4500 },
     ],
-    confirmed: false,
+    confirmed: true,
   },
 
   // Start
@@ -128,7 +130,7 @@ const offerList = [
     startingAt: 0,
     cadence: "one-time",
     terms: [],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "safe-start",
@@ -147,7 +149,7 @@ const offerList = [
     startingAt: 2500,
     cadence: "one-time",
     terms: ["Credited in full toward any next offer within 60 days"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "opportunity-assessment",
@@ -165,7 +167,7 @@ const offerList = [
     startingAt: 3500,
     cadence: "one-time",
     terms: ["Credited in full toward a Pilot Sprint within 60 days"],
-    confirmed: false,
+    confirmed: true,
   },
 
   // Build
@@ -186,7 +188,7 @@ const offerList = [
     startingAt: 10000,
     cadence: "one-time",
     terms: ["Paid in milestones", "Live in 90 days or we keep working at no charge"],
-    confirmed: false,
+    confirmed: true,
   },
 
   // Specialty
@@ -205,7 +207,7 @@ const offerList = [
     startingAt: 7500,
     cadence: "one-time",
     terms: ["Half credited toward a build", "Fee returned if no blocker is named"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "answer-engine",
@@ -223,7 +225,7 @@ const offerList = [
     startingAt: 7500,
     cadence: "one-time",
     terms: ["Optional upkeep $750 per month"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "catalog-readiness",
@@ -240,7 +242,7 @@ const offerList = [
     startingAt: 6000,
     cadence: "one-time",
     terms: [],
-    confirmed: false,
+    confirmed: true,
   },
 
   // Operate
@@ -260,7 +262,7 @@ const offerList = [
     startingAt: 1000,
     cadence: "monthly",
     terms: ["Month to month, no lock-in"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "fractional-se",
@@ -279,7 +281,7 @@ const offerList = [
     startingAt: 5000,
     cadence: "monthly",
     terms: [],
-    confirmed: false,
+    confirmed: true,
   },
 ] satisfies Offer[];
 

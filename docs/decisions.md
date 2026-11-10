@@ -68,6 +68,20 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - Deployment protection is Vercel's Standard setting (`all_except_custom_domains`).
 - Vercel CLI 65.12.1 is required for `vercel login` (device flow); 29.x login methods were removed by Vercel in February 2026.
 
+## Design system and shell (Phase 1, 2026-11-09)
+
+- **Tokens:** `lib/design/tokens.ts` stays the source of truth. `app/globals.css` repeats the values as CSS variables for `.light`, `.dark` and a `prefers-color-scheme: dark` fallback for visitors without JavaScript; `tests/unit/tokens-css.test.ts` fails if they drift. Two non-text tokens were added for the logo (`logo-tile`, `logo-steps`): primary mark in dark mode, reversed mark in light mode, per the brand guide.
+- **Tailwind:** `@theme inline` maps the tokens to utilities (`bg-bg`, `text-muted`, `text-accent-text` and so on) and removes the default Tailwind palette (`--color-*: initial`), so only brand colors can be used. The brand type scale is available as `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-body`, `text-small` and `text-label`. Prettier's Tailwind plugin reads `app/globals.css` (`tailwindStylesheet`) so it sorts the custom classes correctly.
+- **Theme:** `next-themes` 0.4.6 (on the CLAUDE.md stack) with `attribute="class"`, `defaultTheme="system"`. Its no-flash inline script gets the per-request CSP nonce from the root layout, which reads `x-nonce` with `headers()`. That read also keeps every page rendering per request, so the `connection()` call was dropped.
+- **Theme toggle:** three native radio buttons in a fieldset, so arrow keys and screen readers work without extra code. Until mount it renders the same controls disabled with none selected (no layout shift, no hydration mismatch).
+- **Mobile nav:** a native modal `<dialog>` (focus trap, Escape, inert page, focus returned to the menu button) instead of a dialog library. shadcn/ui is deferred until a component actually needs it.
+- **Breakpoint:** inline navigation from 1024px (`lg`); below that the menu button. At 768px five links, the toggle and the Book a call button do not fit beside the wordmark.
+- **Fonts:** `next/font/google` downloads Space Grotesk, IBM Plex Sans and IBM Plex Mono at build time and serves them from the site, so `font-src 'self'` is enough and visitors never contact Google. Builds need network access to Google Fonts.
+- **Favicon:** the scaffold `favicon.ico` was replaced by `app/icon.svg` (primary mark).
+- **Error pages:** `error.tsx` and `global-error.tsx` show fixed text and never the error message or digest. `global-error.tsx` follows the operating-system theme only, since next-themes is not loaded there.
+- **E2E screenshots:** `tests/e2e/shell.spec.ts` saves a full-page screenshot of every page in every project (360, 768, 1280 by light and dark) to `test-results/`; CI uploads them as the `playwright-screenshots` artifact for 14 days. They are review artifacts, not pixel-diff baselines: baselines differ between macOS and the Linux CI runner.
+- **Known until Phase 2:** header and footer links point to pages that do not exist yet. Their background prefetches return 404 RSC responses whose bodies never finish, so tests must not wait for `networkidle`.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
@@ -78,4 +92,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit. Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit and `docs/security/audit-2026-11-09-phase1.md` for Phase 1. Medium and Low items not fixed are listed there with an owner.
+
+- **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
+- **OWASP-A08-001 (Phase 1, Informational):** `next/font/google` downloads font files at build time without a pinned hash. Kept for now; switching to committed `woff2` files with `next/font/local` would remove it. Owner: Claude, Phase 6.

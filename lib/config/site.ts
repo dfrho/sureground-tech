@@ -5,6 +5,9 @@ export const site = {
   name: "SureGround",
   tagline: "AI on sure ground.",
   positioning: "You don't have to be the pioneer.",
+  /** Short boilerplate from docs/brand-guide.md section 7. */
+  boilerplate:
+    "SureGround is an AI engineering and enablement firm that puts AI to work on proven ground.",
   url: "https://sureground.tech",
   contactEmail: "david@sureground.tech",
   location: "Nashville, TN",
