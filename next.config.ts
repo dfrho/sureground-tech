@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-import { securityHeaders } from "./lib/security/headers";
+import { noindexRule, securityHeaders } from "./lib/security/headers";
 
 const dev = process.env.NODE_ENV === "development";
 
@@ -19,7 +19,11 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders({ dev }) }];
+    return [
+      { source: "/:path*", headers: securityHeaders({ dev }) },
+      // Only sureground.tech may be indexed; vercel.app and other hosts get noindex.
+      noindexRule(),
+    ];
   },
   turbopack: {
     rules: {

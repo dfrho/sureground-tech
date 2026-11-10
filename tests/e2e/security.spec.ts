@@ -90,6 +90,20 @@ test.describe("security baseline", () => {
     expect(prefetch.status()).toBe(403);
   });
 
+  test("only sureground.tech may be indexed", async ({ request }) => {
+    // localhost stands in for vercel.app and every other non-production host.
+    const local = await request.get("/");
+    expect(local.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+    const asset = await request.get("/.well-known/security.txt");
+    expect(asset.headers()["x-robots-tag"]).toBe("noindex, nofollow");
+
+    for (const host of ["sureground.tech", "www.sureground.tech"]) {
+      const response = await request.get("/", { headers: { host } });
+      expect(response.status(), host).toBe(200);
+      expect(response.headers()["x-robots-tag"], host).toBeUndefined();
+    }
+  });
+
   test("security.txt is published", async ({ request }) => {
     const response = await request.get("/.well-known/security.txt");
     expect(response.status()).toBe(200);

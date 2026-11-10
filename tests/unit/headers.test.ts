@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { securityHeaders } from "@/lib/security/headers";
+import {
+  INDEXABLE_HOST,
+  NOINDEX_VALUE,
+  noindexRule,
+  securityHeaders,
+} from "@/lib/security/headers";
 
 function asMap(dev: boolean) {
   return new Map(securityHeaders({ dev }).map((h) => [h.key, h.value]));
@@ -30,5 +35,36 @@ describe("securityHeaders", () => {
 
   it("omits HSTS in development", () => {
     expect(asMap(true).has("Strict-Transport-Security")).toBe(false);
+  });
+});
+
+describe("noindexRule", () => {
+  // Next.js anchors `has`/`missing` values: the whole host must match.
+  const indexable = new RegExp(`^${INDEXABLE_HOST}$`);
+
+  it("lets only the custom domain be indexed", () => {
+    expect(indexable.test("sureground.tech")).toBe(true);
+    expect(indexable.test("www.sureground.tech")).toBe(true);
+  });
+
+  it("marks every other host noindex", () => {
+    for (const host of [
+      "sureground-tech.vercel.app",
+      "sureground-tech-euskpjb9x-david-rhodes-projects.vercel.app",
+      "localhost:3100",
+      "sureground.tech.evil.example",
+      "evilsureground.tech",
+      "sureground-tech",
+    ]) {
+      expect(indexable.test(host), host).toBe(false);
+    }
+  });
+
+  it("applies X-Robots-Tag noindex when the host is not the custom domain", () => {
+    const rule = noindexRule();
+    expect(rule.source).toBe("/:path*");
+    expect(rule.missing).toEqual([{ type: "host", value: INDEXABLE_HOST }]);
+    expect(rule.headers).toEqual([{ key: "X-Robots-Tag", value: NOINDEX_VALUE }]);
+    expect(NOINDEX_VALUE).toContain("noindex");
   });
 });

@@ -33,6 +33,12 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - `lib/security/headers.ts` is the single list. `next.config.ts` `headers()` applies it to every route, including `_next/static` assets that the proxy matcher skips, and `proxy.ts` sets it again with the CSP on pages.
 - HSTS is `max-age=63072000; includeSubDomains` without `preload` until David confirms every subdomain serves HTTPS.
 
+## Indexing: only sureground.tech (2026-11-10)
+
+- Vercel Standard protection leaves the production `vercel.app` domain public, so production is reachable at `sureground-tech.vercel.app` before the custom domain is attached. "All deployments" protection is a paid add-on, so instead every host except `sureground.tech` and `www.sureground.tech` gets `X-Robots-Tag: noindex, nofollow` (`noindexRule()` in `lib/security/headers.ts`, applied in `next.config.ts`).
+- It is an allowlist, so it fails toward noindex: deployment URLs, localhost and any future alias are covered without changes. It stays after launch, so the vercel.app address never competes with the real domain in search results.
+- Full audit: `docs/security/audit-2026-11-10.md` (no new findings).
+
 ## Server Actions origin check (Phase 0)
 
 - Next.js 16 `experimental.serverActions.allowedOrigins` lists _extra_ hosts. Left empty, only the deployment's own host is accepted, which covers production and each preview URL. Body limit is `64kb`.
