@@ -96,6 +96,17 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - The rate is deliberately not in `offers.ts` or anywhere else in this public repo, and is never shown on the site. That keeps the "every displayed price lives in `offers.ts`" rule intact: nothing hourly is displayed.
 - Copy says the packaged offers have fixed fees paid in milestones; it never says "never by the hour".
 
+## Marketing pages (Phase 2, 2026-11-10)
+
+- **TSX, not MDX, for About and the legal pages.** The MDX pipeline (`@next/mdx`, a `next.config.ts` change) arrives with the blog in Phase 3. About and legal are TSX pages for now with `{/* COPY: draft */}` markers; they can move to `content/pages/*.mdx` once MDX exists.
+- **Service content is words only.** `content/services/<slug>.ts` holds headline, intro, audience, problem, steps and FAQ, validated with Zod at module load against `offers.ts` and `facts.ts`. Prices, durations and terms render from `offers.ts`; a unit test fails if a service file contains a dollar amount or a duration.
+- **Prices are formatted, never written.** `lib/offers/format.ts` turns `startingAt` into labels with `Intl.NumberFormat`, so no component contains a price.
+- **JSON-LD** goes through `components/seo/JsonLd.tsx` (nonce attached) and `lib/seo/jsonld.ts` (escapes `<`, U+2028, U+2029). `ProfessionalService` on the home page, `Person` on About, `Service` and `BreadcrumbList` on each service page.
+- **Contrast:** Signal Blue on Graphite is 4.4:1, so links inside dark cards use the text color with an underline; Signal Blue text stays on the page background or at large sizes.
+- **Facts carry no end dates.** The resume lists the most recent role as current; the site never implies David works anywhere but SureGround, so roles are shown without dates.
+- **Home latest posts** are left out until Phase 3 adds the blog.
+- **Sitemap and robots** list only static public pages; later phases add scorecard, contact and blog.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
@@ -106,7 +117,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit and `docs/security/audit-2026-11-09-phase1.md` for Phase 1. Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 and `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings). Medium and Low items not fixed are listed there with an owner.
 
 - **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
 - **OWASP-A08-001 (Phase 1, Informational):** `next/font/google` downloads font files at build time without a pinned hash. Kept for now; switching to committed `woff2` files with `next/font/local` would remove it. Owner: Claude, Phase 6.

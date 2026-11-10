@@ -1,11 +1,19 @@
 import { expect, test, type Page } from "@playwright/test";
 
+import { services } from "../../content/services";
+
 const bg = { light: "rgb(242, 242, 239)", dark: "rgb(14, 17, 22)" } as const;
 type Scheme = keyof typeof bg;
 
 // Every page that exists so far. Later phases add their pages here.
 const pages = [
   { path: "/", name: "home", status: 200 },
+  { path: "/services", name: "services", status: 200 },
+  ...services.map((s) => ({ path: `/services/${s.slug}`, name: `service-${s.slug}`, status: 200 })),
+  { path: "/pricing", name: "pricing", status: 200 },
+  { path: "/about", name: "about", status: 200 },
+  { path: "/legal/privacy", name: "privacy", status: 200 },
+  { path: "/legal/terms", name: "terms", status: 200 },
   { path: "/this-page-does-not-exist", name: "not-found", status: 404 },
 ];
 
@@ -40,6 +48,8 @@ for (const { path, name, status } of pages) {
       expect(overflow).toBeLessThanOrEqual(0);
 
       await page.evaluate(() => document.fonts.ready);
+      // Let one-shot animations (the hero step motif) finish before the screenshot.
+      await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
       const shot = testInfo.outputPath(`${name}-${testInfo.project.name}.png`);
       await page.screenshot({ path: shot, fullPage: true });
       await testInfo.attach(`${name}-${testInfo.project.name}`, {

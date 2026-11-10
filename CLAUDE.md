@@ -366,12 +366,21 @@ A production build fails if any required variable is missing. "Required" grows w
 
 1. Done 2026-11-09: every price, duration, credit and guarantee in the Offers section confirmed as written, including both AI Enablement prices.
 2. Done 2026-11-09: Vercel team moved to Pro.
-3. Headshot chosen; save it as `public/images/david-rhodes.jpg`. Approve the About story.
+3. Done 2026-11-09: headshot saved as `public/images/david-rhodes.jpg`. Still open: approve the About story, the facts in `content/facts.ts` and the Phase 2 copy in `docs/copy-review.md`.
 4. Approve the scorecard questions, band names and recommendations.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
 
 ## Current status
+
+**Phase 2 (Marketing pages): done, 2026-11-10** (branch `p2/marketing-pages`).
+
+- Home, Services index, 12 service pages, Pricing, About (with the headshot), privacy and terms drafts; `sitemap.ts` and `robots.ts`.
+- `content/facts.ts` (from the resume, no personal details, no end dates), `content/sources.ts` (three cited stats), `content/services/*.ts` (words only; prices and terms from `offers.ts`).
+- JSON-LD: ProfessionalService, Person, Service, BreadcrumbList.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (71), test:e2e (438), audit:deps.
+- OWASP audit: `docs/security/audit-2026-11-10-phase2.md`, no findings.
+- All new copy is listed as a draft in `docs/copy-review.md`. Home latest-posts section waits for Phase 3.
 
 **Phase 1 (Design system and shell): done, 2026-11-09** (branch `p1/design-shell`).
 
@@ -384,4 +393,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 2 (marketing pages). The headshot is in `public/images/david-rhodes.jpg` (1600px web copy, no metadata).
+Next: Phase 3 (blog).
