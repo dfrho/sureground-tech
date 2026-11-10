@@ -28,7 +28,7 @@ export function Logo({
     >
       {title ? <title>{title}</title> : null}
       <rect width="64" height="64" rx="12" className="fill-logo-tile" />
-      <path d="M12 50 H24 V40 H36 V30 H50 V50 Z" className="fill-logo-steps" />
+      <path d="M12 50 V44 H24 V37 H36 V30 H50 V50 Z" className="fill-logo-steps" />
       <circle cx="43" cy="21" r="5" fill="#C6F36B" stroke="#0E1116" strokeWidth="2" />
     </svg>
   );

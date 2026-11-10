@@ -1,7 +1,7 @@
 # SureGround Brand Guide
 
 **Direction:** The Engineer
-**Version:** 1.1 draft, November 8, 2026 (renamed from Inflection Works)
+**Version:** 1.2 draft, November 10, 2026 (logo SVG corrected to three steps; 1.1 renamed the brand from Inflection Works)
 **Owner:** David Rhodes, Founder
 
 ---
@@ -81,7 +81,7 @@ Three solid steps rising inside a rounded square tile, with a Volt node resting 
 ```svg
 <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
   <rect width="64" height="64" rx="12" fill="#4C7DFF"/>
-  <path d="M12 50 H24 V40 H36 V30 H50 V50 Z" fill="#0E1116"/>
+  <path d="M12 50 V44 H24 V37 H36 V30 H50 V50 Z" fill="#0E1116"/>
   <circle cx="43" cy="21" r="5" fill="#C6F36B" stroke="#0E1116" stroke-width="2"/>
 </svg>
 ```
