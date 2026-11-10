@@ -82,6 +82,12 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **E2E screenshots:** `tests/e2e/shell.spec.ts` saves a full-page screenshot of every page in every project (360, 768, 1280 by light and dark) to `test-results/`; CI uploads them as the `playwright-screenshots` artifact for 14 days. They are review artifacts, not pixel-diff baselines: baselines differ between macOS and the Linux CI runner.
 - **Known until Phase 2:** header and footer links point to pages that do not exist yet. Their background prefetches return 404 RSC responses whose bodies never finish, so tests must not wait for `networkidle`.
 
+## Hourly work (2026-11-09)
+
+- David bills hourly for work outside the packaged offers. The packaged offers keep their fixed, confirmed prices in `lib/config/offers.ts`.
+- The rate is deliberately not in `offers.ts` or anywhere else in this public repo, and is never shown on the site. That keeps the "every displayed price lives in `offers.ts`" rule intact: nothing hourly is displayed.
+- Copy says the packaged offers have fixed fees paid in milestones; it never says "never by the hour".
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
