@@ -184,7 +184,7 @@ One page per offer, generated from `content/services/*.ts` plus `offers.ts`. Eac
 
 ### Pricing (`/pricing`)
 
-The full ladder as a table on desktop and stacked cards on mobile, every number from `offers.ts`, with "starting at" wording and a short note on fixed fees and milestone payments. No hourly rates anywhere.
+The full ladder as a table on desktop and stacked cards on mobile, every number from `offers.ts`, with "starting at" wording and a short note on fixed fees and milestone payments for the packaged offers. No hourly rates anywhere (see "Hourly work" under Offers).
 
 ### First Step Scorecard (`/scorecard`)
 
@@ -235,6 +235,10 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 | Specialty | `catalog-readiness`      | Catalog and Feed Readiness Sprint            | Attribute audit, channel mapping for marketplaces and shopping ads, AI enrichment pilot on a sample SKU set with QA rules                        | 3 weeks         | $6,000                      |                                                                   |
 | Operate   | `managed-ops`            | Managed AI Operations                        | Monitoring, maintenance, a monthly block of improvements, plain-language monthly report                                                          | Monthly         | $1,000 per month            | Month to month, no lock-in                                        |
 | Operate   | `fractional-se`          | Fractional AI Solutions Engineer             | Hands-on AI lead: roadmap, vendor approvals, governance updates, customer security answers, one build slot                                       | 3-month minimum | $5,000 per month            |                                                                   |
+
+### Hourly work (David, 2026-11-09)
+
+The packaged offers above keep their fixed prices. David also bills hourly for work outside a package (extra scope, ad hoc help). The hourly rate is private: it never appears on the site, in emails, on LinkedIn copy you draft, or anywhere in this repo (the repo is public). Copy must not say or imply SureGround never bills by the hour; say the packaged offers have fixed fees instead. If an hourly option ever needs to be shown, ask David first.
 
 Boundaries: Catalog and Feed Readiness covers marketplace and shopping-ad feed requirements and data quality only, never AI-assistant visibility. Healthcare-adjacent offers target vendors' sales and security processes, never clinical data integration. Case studies (for example the AI session summary feature David prototyped at FullStory, or his RFP tooling for a 500-question insurer RFP) appear only as proof points with facts from `facts.ts`, never as priced offers.
 
