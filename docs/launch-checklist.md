@@ -17,6 +17,12 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] Cal.com event "AI Fit Call (30 min)" created and `NEXT_PUBLIC_CAL_LINK` set
 - [ ] Every variable in `.env.example` set in Vercel Production
 
+## GitHub repository (public since 2026-11-09)
+
+- [x] Ruleset on `main`: pull requests only, `checks` and `e2e` required, no force pushes or deletion; auto-merge on
+- [x] Secret scanning and push protection on (2026-11-10)
+- [x] Dependabot alerts and security updates on (2026-11-10)
+
 ## MFA (A07)
 
 - [ ] GitHub
