@@ -335,7 +335,7 @@ RATE_LIMIT_SALT=
 NEXT_PUBLIC_CAL_LINK=             # e.g. sureground/ai-fit-call
 ```
 
-A production build fails if any required variable is missing.
+A production build fails if any required variable is missing. "Required" grows with the site: `lib/env.schema.ts` groups variables by feature and `enabledFeatures` lists the groups production requires (now `core` and `email`; Phase 4 adds `forms` and `booking`). A unit test fails if code uses a variable from a group that is not enabled.
 
 ## Phases
 
@@ -380,7 +380,7 @@ A production build fails if any required variable is missing.
 - `Logo`, `Wordmark`, `Header`, `Footer`, `MobileNav` (native modal dialog), three-state `ThemeToggle` (next-themes, nonce on its script, no flash, works without JavaScript), skip link, 404, `error.tsx` and `global-error.tsx`.
 - Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (52), test:e2e (102, with full-page screenshots at 360/768/1280 in light and dark, uploaded by CI), audit:deps.
 - OWASP audit: `docs/security/audit-2026-11-09-phase1.md`, no Critical, High, Medium or Low; two Informational items accepted in `docs/decisions.md`.
-- David confirmed every offer (all `confirmed: true`) and moved Vercel to Pro. Production builds still fail at the env check until the production variables are set.
+- David confirmed every offer (all `confirmed: true`) and moved Vercel to Pro. Vercel has the core and email variables (Resend keys, separate for Production and Preview) and a rate-limit salt per environment; Turnstile, Upstash and Cal.com come in Phase 4.
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 

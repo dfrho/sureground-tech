@@ -41,7 +41,9 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 ## Environment validation (Phase 0)
 
 - `lib/env.schema.ts` holds the Zod schemas without `server-only`, so build scripts and tests can import it. `lib/env.ts` (server, imports `server-only`) and `lib/env.public.ts` (browser) wrap it.
-- `pnpm build` runs `scripts/check-env.ts` first. On Vercel production (`VERCEL_ENV=production`) every variable in `productionRequired` must be set and `EMAIL_TRANSPORT` must be `resend`. Elsewhere it validates only what is set, so local and preview builds work before accounts exist.
+- `pnpm build` runs `scripts/check-env.ts` first. On Vercel production (`VERCEL_ENV=production`) every variable for the enabled features must be set and `EMAIL_TRANSPORT` must be `resend`. Elsewhere it validates only what is set, so local and preview builds work before accounts exist.
+- **Required variables grow with features (2026-11-10, David's call).** `lib/env.schema.ts` groups variables by feature (`core`, `email`, `forms`, `booking`) and `enabledFeatures` lists what the site ships (now `core` and `email`). Production requires only those groups, so it can build before the Turnstile, Upstash and Cal.com accounts exist. The phase that ships a feature adds its group: Phase 4 adds `forms` and `booking`. A unit test fails if any shipped code mentions a variable from a group that is not enabled, so a feature cannot reach production without its settings being required. `RATE_LIMIT_SALT` sits in `forms` with Upstash, since only rate limiting uses it.
+- The production schema marks the required variables non-optional, so one run reports every missing variable. Before this change a validation error in one field stopped the check early and hid the rest.
 - `pnpm build` also runs `check:offers --production-only`, which fails Vercel production builds while any offer is unconfirmed and only warns elsewhere. Plain `pnpm check:offers` always fails on unconfirmed offers.
 
 ## Copy lint (Phase 0)
