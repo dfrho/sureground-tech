@@ -26,7 +26,6 @@ export const site = {
     { href: "/about", label: "About" },
   ],
   social: {
-    // Open item for David: LinkedIn company URL and any other handles.
-    linkedin: null as string | null,
+    linkedin: "https://www.linkedin.com/company/sureground" as string | null,
   },
 } as const;

@@ -30,10 +30,12 @@ Owner: David unless noted. Check items off as they are done.
 
 ## Content and approvals
 
-- [ ] David's headshot added at `public/images/david-rhodes.jpg` (photo chosen 2026-11-09; file still to be saved in the repo); About copy approved
+- [x] David's headshot added at `public/images/david-rhodes.jpg` (1600px web copy, metadata removed, 2026-11-09)
+- [ ] About copy approved
 - [x] Every offer `confirmed: true`; guarantees approved word for word (`pnpm check:offers` passes) (David, 2026-11-09)
 - [ ] Scorecard questions, band names and recommendations approved
-- [ ] LinkedIn company URL and other social handles chosen
+- [x] LinkedIn company page: linkedin.com/company/sureground (2026-11-09)
+- [ ] Any other social handles chosen
 - [ ] Privacy policy and terms reviewed by a lawyer
 - [ ] Every row in `docs/copy-review.md` approved
 - [ ] Trademark: "SureGround" used without the registered symbol until a registration issues
