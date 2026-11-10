@@ -365,7 +365,7 @@ A production build fails if any required variable is missing.
 3. Headshot chosen; save it as `public/images/david-rhodes.jpg`. Approve the About story.
 4. Approve the scorecard questions, band names and recommendations.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
-6. Choose a LinkedIn company URL and any other social handles to show in the footer.
+6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
 
 ## Current status
 
@@ -380,4 +380,4 @@ A production build fails if any required variable is missing.
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 2 (marketing pages). Before it starts, David saves his headshot as `public/images/david-rhodes.jpg`.
+Next: Phase 2 (marketing pages). The headshot is in `public/images/david-rhodes.jpg` (1600px web copy, no metadata).
