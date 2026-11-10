@@ -30,3 +30,21 @@ export function securityHeaders({ dev = false }: { dev?: boolean } = {}): Header
   if (!dev) headers.push({ key: "Strict-Transport-Security", value: HSTS_VALUE });
   return headers;
 }
+
+/**
+ * Hosts search engines may index: the custom domain only. Every other host
+ * that serves this app (the project's vercel.app domains, deployment URLs,
+ * localhost) gets `X-Robots-Tag: noindex`, so the site is never indexed twice.
+ * Next.js matches `has`/`missing` host values as a full regular expression.
+ */
+export const INDEXABLE_HOST = String.raw`(www\.)?sureground\.tech`;
+export const NOINDEX_VALUE = "noindex, nofollow";
+
+/** next.config.ts `headers()` rule that adds noindex on every other host. */
+export function noindexRule() {
+  return {
+    source: "/:path*",
+    missing: [{ type: "host" as const, value: INDEXABLE_HOST }],
+    headers: [{ key: "X-Robots-Tag", value: NOINDEX_VALUE }],
+  };
+}
