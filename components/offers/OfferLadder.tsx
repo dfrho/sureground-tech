@@ -34,7 +34,7 @@ const rungs: Rung[] = [
   {
     step: "04",
     title: "Operate",
-    body: "Keep it working and improving, month to month.",
+    body: "Keep it working and improving, month to month, including A/B testing.",
     offers: [{ slug: "managed-ops" }],
   },
 ];
