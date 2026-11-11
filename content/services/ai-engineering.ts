@@ -19,7 +19,7 @@ export const aiEngineering: ServiceContent = {
     },
     {
       title: "Connect your data",
-      body: "We connect the tools you already use and ground answers in your own documents.",
+      body: "We connect the tools you already use and ground answers in your own data.",
     },
     {
       title: "Test before launch",

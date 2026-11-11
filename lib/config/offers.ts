@@ -61,11 +61,11 @@ const offerList = [
     name: "AI Engineering",
     group: "core",
     summary:
-      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own documents, and evaluations. Sold as the Proven-Pattern Pilot Sprint.",
+      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own data, and evaluations. Sold as the Proven-Pattern Pilot Sprint.",
     deliverables: [
       "Integrations with the systems you already use",
       "Data pipelines that feed AI the right information",
-      "Knowledge assistants grounded in your own documents",
+      "Knowledge assistants grounded in your own data",
       "Evaluations that measure accuracy before launch",
     ],
     duration: "4 to 8 weeks per sprint",
