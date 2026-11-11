@@ -61,7 +61,7 @@ const offerList = [
     name: "AI Engineering",
     group: "core",
     summary:
-      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own data, and evaluations. Sold as the Proven-Pattern Pilot Sprint.",
+      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own data, and evaluations.",
     deliverables: [
       "Integrations with the systems you already use",
       "Data pipelines that feed AI the right information",
@@ -79,7 +79,7 @@ const offerList = [
     name: "Agent Development",
     group: "core",
     summary:
-      "Task agents with human approval points for back-office work: intake, research, drafting, reconciliation, order and ticket handling. Sold as a Pilot Sprint or added to one.",
+      "Task agents with human approval points for back-office work: intake, research, drafting, reconciliation, order and ticket handling.",
     deliverables: [
       "Task agents for intake, research, drafting and reconciliation",
       "Order and ticket handling with human approval points",
