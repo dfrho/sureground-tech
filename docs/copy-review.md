@@ -2,15 +2,15 @@
 
 Drafted copy waiting for David's approval. Each drafted page or MDX section is marked with a `{/* COPY: draft */}` comment until approved.
 
-| Where                              | What                                                                                                                                                                                                  | Status                              |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `lib/config/offers.ts`             | Prices, durations, credits and guarantees                                                                                                                                                             | Approved by David, 2026-11-09       |
-| `lib/config/offers.ts`             | Credit terms reworded in plain language for AI Safe Start, AI Opportunity Assessment and AI Pilot Triage (2026-11-11); those three offers are `confirmed: false` until David approves the new wording | Draft, needs approval               |
-| `lib/config/offers.ts`             | Offer summaries and deliverables lists (seeded from CLAUDE.md and the research report)                                                                                                                | Draft, needs approval               |
-| `lib/config/site.ts` `boilerplate` | Footer line, the short boilerplate from the brand guide                                                                                                                                               | Taken from the brand guide; confirm |
-| `app/not-found.tsx`                | 404 page heading, text and buttons                                                                                                                                                                    | Draft, needs approval               |
-| `app/error.tsx`                    | Error page heading, text and buttons                                                                                                                                                                  | Draft, needs approval               |
-| `app/global-error.tsx`             | Fallback error page when the whole layout fails                                                                                                                                                       | Draft, needs approval               |
+| Where                              | What                                                                                                                                          | Status                              |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `lib/config/offers.ts`             | Prices, durations, credits and guarantees                                                                                                     | Approved by David, 2026-11-09       |
+| `lib/config/offers.ts`             | Credit terms reworded in plain language for AI Safe Start, AI Opportunity Assessment and AI Pilot Triage (2026-11-11); approved word for word | Approved by David, 2026-11-11       |
+| `lib/config/offers.ts`             | Offer summaries and deliverables lists (seeded from CLAUDE.md and the research report)                                                        | Draft, needs approval               |
+| `lib/config/site.ts` `boilerplate` | Footer line, the short boilerplate from the brand guide                                                                                       | Taken from the brand guide; confirm |
+| `app/not-found.tsx`                | 404 page heading, text and buttons                                                                                                            | Draft, needs approval               |
+| `app/error.tsx`                    | Error page heading, text and buttons                                                                                                          | Draft, needs approval               |
+| `app/global-error.tsx`             | Fallback error page when the whole layout fails                                                                                               | Draft, needs approval               |
 
 ## Phase 2 (2026-11-10)
 

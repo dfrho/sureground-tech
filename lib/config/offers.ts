@@ -7,7 +7,7 @@ import { z } from "zod";
  *
  * Values started as recommendations from docs/research/offerings-report.md.
  * David confirmed every price, duration, credit and guarantee as written on
- * 2026-11-09. Any change needs his approval again: set that offer's
+ * 2026-11-09, and the plain-language credit wording on 2026-11-11. Any change needs his approval again: set that offer's
  * `confirmed` to false until he approves, and production builds fail
  * (`pnpm check:offers`) while any offer is unconfirmed.
  */
@@ -149,7 +149,7 @@ const offerList = [
     startingAt: 2500,
     cadence: "one-time",
     terms: ["Your full fee comes off any next offer you start within 60 days"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "opportunity-assessment",
@@ -167,7 +167,7 @@ const offerList = [
     startingAt: 3500,
     cadence: "one-time",
     terms: ["Your full fee comes off a Pilot Sprint you start within 60 days"],
-    confirmed: false,
+    confirmed: true,
   },
 
   // Build
@@ -207,7 +207,7 @@ const offerList = [
     startingAt: 7500,
     cadence: "one-time",
     terms: ["Half your fee comes off a build with us", "Fee returned if no blocker is named"],
-    confirmed: false,
+    confirmed: true,
   },
   {
     slug: "answer-engine",
