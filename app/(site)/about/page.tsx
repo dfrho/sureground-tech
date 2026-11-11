@@ -42,7 +42,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <p className="font-mono text-label text-muted uppercase">About</p>
             <h1 id="about-title" className="font-display text-h1">
-              Experience from the other side of the table.
+              Experience as a builder, GTM leader, and communicator
             </h1>
             <p className="text-h3 font-normal text-muted">
               {facts.name}, {facts.role} of SureGround, {facts.location}
