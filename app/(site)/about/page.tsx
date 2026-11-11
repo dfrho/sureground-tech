@@ -42,7 +42,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <p className="font-mono text-label text-muted uppercase">About</p>
             <h1 id="about-title" className="font-display text-h1">
-              I&apos;ve sat on the other side of the table.
+              Experience from the other side of the table.
             </h1>
             <p className="text-h3 font-normal text-muted">
               {facts.name}, {facts.role} of SureGround, {facts.location}
@@ -53,8 +53,8 @@ export default function AboutPage() {
 
       <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-12 sm:px-6 sm:py-16">
         <p>
-          I started out studying journalism and advertising at the {facts.education.school}, then
-          spent years in enterprise sales for {role("sales").employer}. I learned how buyers decide,
+          Studying journalism and advertising at the {facts.education.school} came first, then years
+          in enterprise sales for {role("sales").employer}. Those years taught me how buyers decide,
           what they worry about, and what makes them say no.
         </p>
         <p>
