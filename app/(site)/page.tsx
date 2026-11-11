@@ -87,7 +87,6 @@ export default function Home() {
         number="01"
         label="Why owners hold back"
         title="The reasons to wait are real. They're also solvable."
-        intro="Owners don't hold back because AI is too new. They hold back because they're not sure it's safe, accurate or worth it."
       >
         <div className="grid gap-4 md:grid-cols-3">
           <StatCard
@@ -97,12 +96,12 @@ export default function Home() {
           />
           <StatCard
             title="Can we trust the answers?"
-            body="We ground AI in your own documents, test it on real cases and keep a person in the loop."
+            body="We ground AI in your own data, test it on real cases and keep a person in the loop."
             sourceId="bluevine-oversight"
           />
           <StatCard
             title="Where do we even start?"
-            body="We start with one workflow, measure it, then scale what works."
+            body="We start with one workflow, measure it, then scale what works. We can also A/B test workflows while they're live."
             sourceId="goldman-training"
           />
         </div>
@@ -114,7 +113,7 @@ export default function Home() {
         number="02"
         label="Services"
         title="Three ways we put AI to work."
-        intro="Build it, automate it, and teach your team to run it."
+        intro="Build, automate, and teach your team to run it."
         className="border-t border-border"
       >
         <div className="grid gap-4 md:grid-cols-3">

@@ -4,7 +4,7 @@ export const aiEngineering: ServiceContent = {
   slug: "ai-engineering",
   headline: "AI built into the work your team already does.",
   intro:
-    "We connect proven AI tools to your systems and your documents, test them for accuracy, and hand you something your team can run.",
+    "We connect proven AI tools to your systems and your data, test them for accuracy, and hand you something your team can run.",
   whoFor: [
     "Owners whose team re-keys the same data between systems every week",
     "Teams that answer the same questions from scattered documents",
