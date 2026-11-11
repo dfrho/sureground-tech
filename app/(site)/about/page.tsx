@@ -79,12 +79,12 @@ export default function AboutPage() {
 
         <section aria-labelledby="matters-title" className="mt-4">
           <h2 id="matters-title" className="font-display text-h2">
-            Why that matters to you
+            Why that matters
           </h2>
           <p className="mt-3 text-muted">
-            I&apos;ve sat across the table from CISOs and procurement teams, and I know which
-            answers survive a review. When I build something for your business, I build it to pass
-            the questions your own customers, insurers and auditors will ask.
+            Having sat across the table from CISOs and procurement teams, I know which answers
+            survive a review. When I build something for your business, I build it to pass the
+            questions your own customers, insurers and auditors will ask.
           </p>
         </section>
 
