@@ -5,7 +5,6 @@ import { agentDevelopment } from "./agent-development";
 import { aiEnablement } from "./ai-enablement";
 import { aiEngineering } from "./ai-engineering";
 import { answerEngine } from "./answer-engine";
-import { catalogReadiness } from "./catalog-readiness";
 import { fitCall } from "./fit-call";
 import { fractionalSe } from "./fractional-se";
 import { managedOps } from "./managed-ops";
@@ -25,7 +24,6 @@ const list: ServiceContent[] = [
   pilotSprint,
   pilotTriage,
   answerEngine,
-  catalogReadiness,
   managedOps,
   fractionalSe,
 ];

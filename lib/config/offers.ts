@@ -227,23 +227,6 @@ const offerList = [
     terms: ["Optional upkeep $750 per month"],
     confirmed: true,
   },
-  {
-    slug: "catalog-readiness",
-    name: "Catalog and Feed Readiness Sprint",
-    group: "specialty",
-    summary:
-      "Get product data ready for marketplaces and shopping ads: attribute audit, channel mapping and an AI enrichment pilot with QA rules.",
-    deliverables: [
-      "Attribute audit",
-      "Channel mapping for marketplaces and shopping ads",
-      "AI enrichment pilot on a sample SKU set with QA rules",
-    ],
-    duration: "3 weeks",
-    startingAt: 6000,
-    cadence: "one-time",
-    terms: [],
-    confirmed: true,
-  },
 
   // Operate
   {

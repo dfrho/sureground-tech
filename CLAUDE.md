@@ -173,7 +173,7 @@ Its job is to lower the temperature, show proof, and start the scorecard. Sectio
 4. **Core services.** Three cards: AI Engineering, Agent Development, AI Enablement, each linking to its page.
 5. **The path.** A stepped, numbered ladder (the signature visual): Step 1 Scorecard or Fit Call, Step 2 Assess, Step 3 Pilot, Step 4 Operate. Each step names its offer and reads its starting price from `offers.ts`.
 6. **Risk off your plate.** The approved guarantees and credits from `offers.ts` (assessment fee credited, live-in-90-days, no lock-in).
-7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine, Catalog and Feed Readiness.
+7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine. (Catalog and Feed Readiness was removed on 2026-11-11, David: too soon after leaving Feedonomics. Do not bring it back unless he asks.)
 8. **About teaser** with David's photo and two lines from `facts.ts`.
 9. **Latest three blog posts.**
 10. **Final CTA** repeating the scorecard and Fit Call.
@@ -192,7 +192,7 @@ See "First Step Scorecard" below.
 
 ### About (`/about`)
 
-David's story in first person, from `content/facts.ts` only, with his photo (`public/images/david-rhodes.jpg`, supplied by David; until then a neutral placeholder and an open item). Arc: journalism and advertising degree from the University of Missouri; years in enterprise sales for a media business-intelligence platform; taught himself to code (Fullstack Academy, 2017); freelance builder of five SaaS MVPs; senior frontend engineer on AutoZone's React and TypeScript rebuild; senior solutions engineer at Shogun, FullStory and Feedonomics (with his own consultancy, BloomForge, in between; he left Feedonomics in October 2026), working with C-level buyers, security teams and global consultancies. Why that matters to an owner: he has sat across the table from CISOs and procurement teams and knows which answers survive a review. Never say or imply he currently works anywhere other than SureGround.
+David's story in first person, from `content/facts.ts` only, with his photo (`public/images/david-rhodes.jpg`, supplied by David; until then a neutral placeholder and an open item). Arc: journalism and advertising degree from the University of Missouri; years in enterprise sales for a media business-intelligence platform; taught himself Python, then finished Fullstack Academy (2017); freelance builder of five SaaS MVPs; senior frontend engineer on AutoZone's React and TypeScript rebuild; senior solutions engineer at Shogun, FullStory and Feedonomics (with his own consultancy, BloomForge, in between; he left Feedonomics in October 2026), working with C-level buyers, security teams and global consultancies. Why that matters to an owner: he has sat across the table from CISOs and procurement teams and knows which answers survive a review. Never say or imply he currently works anywhere other than SureGround.
 
 ### Blog (`/blog`)
 
@@ -232,7 +232,6 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 | Build     | `pilot-sprint`           | Proven-Pattern Pilot Sprint                  | One back-office workflow, agent or knowledge assistant on proven tools, with approval points, testing, training and a written data-handling note | 4 to 8 weeks    | $10,000, paid in milestones | Live in 90 days or we keep working at no charge                   |
 | Specialty | `pilot-triage`           | AI Pilot Triage                              | Go, kill or fix verdict on up to two stalled AI projects, the named data or integration blocker, a fixed-price next step                         | 2 weeks         | $7,500                      | Half credited toward a build; fee returned if no blocker is named |
 | Specialty | `answer-engine`          | Security Questionnaire and RFP Answer Engine | Curated answer library, AI-governance answer set, tool selection and setup, refresh process for B2B sellers                                      | 3 to 4 weeks    | $7,500                      | Optional upkeep $750 per month                                    |
-| Specialty | `catalog-readiness`      | Catalog and Feed Readiness Sprint            | Attribute audit, channel mapping for marketplaces and shopping ads, AI enrichment pilot on a sample SKU set with QA rules                        | 3 weeks         | $6,000                      |                                                                   |
 | Operate   | `managed-ops`            | Managed AI Operations                        | Monitoring, maintenance, a monthly block of improvements, plain-language monthly report                                                          | Monthly         | $1,000 per month            | Month to month, no lock-in                                        |
 | Operate   | `fractional-se`          | Fractional AI Solutions Engineer             | Hands-on AI lead: roadmap, vendor approvals, governance updates, customer security answers, one build slot                                       | 3-month minimum | $5,000 per month            |                                                                   |
 
@@ -240,7 +239,7 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 
 The packaged offers above keep their fixed prices. David also bills hourly for work outside a package (extra scope, ad hoc help). The hourly rate is private: it never appears on the site, in emails, on LinkedIn copy you draft, or anywhere in this repo (the repo is public). Copy must not say or imply SureGround never bills by the hour; say the packaged offers have fixed fees instead. If an hourly option ever needs to be shown, ask David first.
 
-Boundaries: Catalog and Feed Readiness covers marketplace and shopping-ad feed requirements and data quality only, never AI-assistant visibility. Healthcare-adjacent offers target vendors' sales and security processes, never clinical data integration. Case studies (for example the AI session summary feature David prototyped at FullStory, or his RFP tooling for a 500-question insurer RFP) appear only as proof points with facts from `facts.ts`, never as priced offers.
+Boundaries: no catalog, product-feed or AI-assistant visibility offer. Healthcare-adjacent offers target vendors' sales and security processes, never clinical data integration. Case studies (for example the AI session summary feature David prototyped at FullStory, or his RFP tooling for a 500-question insurer RFP) appear only as proof points with facts from `facts.ts`, never as priced offers.
 
 ## First Step Scorecard
 

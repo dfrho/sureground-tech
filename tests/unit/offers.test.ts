@@ -19,7 +19,6 @@ describe("offers config", () => {
       "pilot-sprint",
       "pilot-triage",
       "answer-engine",
-      "catalog-readiness",
       "managed-ops",
       "fractional-se",
     ] as const) {

@@ -58,16 +58,17 @@ export default function AboutPage() {
           what they worry about, and what makes them say no.
         </p>
         <p>
-          I taught myself to code, finished {facts.bootcamp.name} in {facts.bootcamp.year}, and
-          built five SaaS MVPs for startups as a freelancer. At AutoZone I was a senior frontend
-          engineer on the React and TypeScript rebuild of a Fortune 500 ecommerce site.
+          After teaching myself {facts.selfTaught}, I finished {facts.bootcamp.name} in{" "}
+          {facts.bootcamp.year}, and built five SaaS MVPs for startups as a freelancer. At AutoZone
+          I was a senior frontend engineer on the React and TypeScript rebuild of a Fortune 500
+          ecommerce site.
         </p>
         <p>
           Then I moved into solutions engineering at Shogun, FullStory and Feedonomics, with a
-          stretch running my own consultancy, BloomForge, in between. I worked with C-level buyers,
-          security teams and global consultancies. I ran proofs of concept that had to turn into
-          production deals, and I answered the security questions that decide whether a deal
-          survives review.
+          stretch running my own consultancy, BloomForge, in between. Working with C-level buyers,
+          security teams and global consultancies, I ran proofs of concept that had to turn into
+          production deals and answered the security questions that decide whether a deal survives
+          review.
         </p>
         <p>
           That is why SureGround exists. After {years} years of watching what works, I&apos;ve seen

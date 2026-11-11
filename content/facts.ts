@@ -27,6 +27,8 @@ export const facts = {
     degree: "Bachelor of Journalism, Advertising",
     school: "University of Missouri",
   },
+  /** David, 2026-11-11: he taught himself Python before the bootcamp. */
+  selfTaught: "Python",
   bootcamp: {
     name: "Fullstack Academy",
     year: 2017,

@@ -36,7 +36,7 @@ const riskOffers: OfferSlug[] = [
   "pilot-sprint",
   "managed-ops",
 ];
-const specialty: OfferSlug[] = ["pilot-triage", "answer-engine", "catalog-readiness"];
+const specialty: OfferSlug[] = ["pilot-triage", "answer-engine"];
 
 export default function Home() {
   const years = yearsOfExperience();
@@ -186,7 +186,7 @@ export default function Home() {
         title="Focused fixes for specific problems."
         className="border-t border-border"
       >
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {specialty.map((slug) => (
             <OfferCard key={slug} offer={getOffer(slug)} />
           ))}
