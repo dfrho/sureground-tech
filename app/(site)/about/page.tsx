@@ -4,7 +4,7 @@ import Image from "next/image";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CTA } from "@/components/site/CTA";
 import { cardClass } from "@/components/site/Section";
-import { facts, formatMonth, yearsOfExperience } from "@/content/facts";
+import { facts, yearsOfExperience } from "@/content/facts";
 import { breadcrumbLd, personLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = {
@@ -100,37 +100,10 @@ export default function AboutPage() {
             ))}
           </ul>
         </section>
-
-        <section aria-labelledby="path-title" className="mt-4">
-          <h2 id="path-title" className="font-display text-h2">
-            The path here
-          </h2>
-          <ol className="mt-4 flex flex-col gap-4 border-l border-border pl-6">
-            {facts.career.map((c) => (
-              <li key={c.id}>
-                <p className="font-mono text-label text-muted">
-                  {formatMonth(c.start)} to {formatMonth(c.end)}
-                </p>
-                <h3 className="font-semibold">
-                  {c.title}, {c.employer}
-                </h3>
-                <p className="text-muted">{c.summary}</p>
-              </li>
-            ))}
-            <li>
-              <p className="font-mono text-label text-muted">Now</p>
-              <h3 className="font-semibold">{facts.role}, SureGround</h3>
-              <p className="text-muted">
-                AI engineering and enablement for small and mid-size businesses in Nashville and
-                beyond.
-              </p>
-            </li>
-          </ol>
-        </section>
       </div>
 
       <CTA
-        title="Talk it through with me."
+        title="Let's talk."
         body="Book a free AI Fit Call, or take the five-minute scorecard first."
       />
     </>
