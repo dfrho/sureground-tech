@@ -47,6 +47,19 @@ test("home: hero, cited stats, the path and both calls to action", async ({ page
   expect(await jsonLdTypes(page)).toContain("ProfessionalService");
 });
 
+test("the path cards are all the same height and line up", async ({ page }) => {
+  await page.goto("/");
+  const boxes = await page
+    .locator("#path ol > li")
+    .evaluateAll((els) => els.map((el) => el.getBoundingClientRect()));
+  expect(boxes).toHaveLength(4);
+  for (const box of boxes) expect(Math.round(box.height)).toBe(Math.round(boxes[0]!.height));
+  // On wide screens all four sit in one row with a shared top edge.
+  if ((page.viewportSize()?.width ?? 0) >= 1024) {
+    for (const box of boxes) expect(Math.round(box.top)).toBe(Math.round(boxes[0]!.top));
+  }
+});
+
 test("pricing lists every offer with its price from offers.ts", async ({ page }) => {
   await page.goto("/pricing");
   // The table shows on wide screens and the cards on narrow ones; check whichever is visible.

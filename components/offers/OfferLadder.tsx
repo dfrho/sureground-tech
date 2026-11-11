@@ -39,20 +39,17 @@ const rungs: Rung[] = [
   },
 ];
 
-/** Each rung sits higher than the last from the lg breakpoint up. */
-const rise = ["lg:mb-0", "lg:mb-6", "lg:mb-12", "lg:mb-18"];
-
 /**
- * The signature visual: a stepped, numbered ladder. Each rung sits a little
- * higher than the last on wide screens; on mobile it is a numbered list.
+ * The signature visual: a numbered ladder. Every card has the same height at
+ * every breakpoint (auto-rows-fr), with the offers pinned to the bottom.
  */
 export function OfferLadder() {
   return (
-    <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:items-end">
+    <ol className="grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-4">
       {rungs.map((rung, i) => (
         <li
           key={rung.step}
-          className={`flex flex-col gap-3 rounded-card border border-border bg-surface p-6 ${rise[i]}`}
+          className="flex flex-col gap-3 rounded-card border border-border bg-surface p-6"
         >
           <p className="font-mono text-label text-muted">
             Step{" "}
