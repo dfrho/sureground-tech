@@ -7,7 +7,7 @@ import { z } from "zod";
  *
  * Values started as recommendations from docs/research/offerings-report.md.
  * David confirmed every price, duration, credit and guarantee as written on
- * 2026-11-09. Any change needs his approval again: set that offer's
+ * 2026-11-09, and the plain-language credit wording on 2026-11-11. Any change needs his approval again: set that offer's
  * `confirmed` to false until he approves, and production builds fail
  * (`pnpm check:offers`) while any offer is unconfirmed.
  */
@@ -61,11 +61,11 @@ const offerList = [
     name: "AI Engineering",
     group: "core",
     summary:
-      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own documents, and evaluations. Sold as the Proven-Pattern Pilot Sprint.",
+      "Builds AI into real workflows: integrations, data pipelines, knowledge assistants grounded in your own data, and evaluations.",
     deliverables: [
       "Integrations with the systems you already use",
       "Data pipelines that feed AI the right information",
-      "Knowledge assistants grounded in your own documents",
+      "Knowledge assistants grounded in your own data",
       "Evaluations that measure accuracy before launch",
     ],
     duration: "4 to 8 weeks per sprint",
@@ -79,7 +79,7 @@ const offerList = [
     name: "Agent Development",
     group: "core",
     summary:
-      "Task agents with human approval points for back-office work: intake, research, drafting, reconciliation, order and ticket handling. Sold as a Pilot Sprint or added to one.",
+      "Task agents with human approval points for back-office work: intake, research, drafting, reconciliation, order and ticket handling.",
     deliverables: [
       "Task agents for intake, research, drafting and reconciliation",
       "Order and ticket handling with human approval points",
@@ -148,7 +148,7 @@ const offerList = [
     duration: "1 to 2 weeks",
     startingAt: 2500,
     cadence: "one-time",
-    terms: ["Credited in full toward any next offer within 60 days"],
+    terms: ["Your full fee comes off any next offer you start within 60 days"],
     confirmed: true,
   },
   {
@@ -166,7 +166,7 @@ const offerList = [
     duration: "2 to 3 weeks",
     startingAt: 3500,
     cadence: "one-time",
-    terms: ["Credited in full toward a Pilot Sprint within 60 days"],
+    terms: ["Your full fee comes off a Pilot Sprint you start within 60 days"],
     confirmed: true,
   },
 
@@ -206,7 +206,7 @@ const offerList = [
     duration: "2 weeks",
     startingAt: 7500,
     cadence: "one-time",
-    terms: ["Half credited toward a build", "Fee returned if no blocker is named"],
+    terms: ["Half your fee comes off a build with us", "Fee returned if no blocker is named"],
     confirmed: true,
   },
   {
@@ -225,23 +225,6 @@ const offerList = [
     startingAt: 7500,
     cadence: "one-time",
     terms: ["Optional upkeep $750 per month"],
-    confirmed: true,
-  },
-  {
-    slug: "catalog-readiness",
-    name: "Catalog and Feed Readiness Sprint",
-    group: "specialty",
-    summary:
-      "Get product data ready for marketplaces and shopping ads: attribute audit, channel mapping and an AI enrichment pilot with QA rules.",
-    deliverables: [
-      "Attribute audit",
-      "Channel mapping for marketplaces and shopping ads",
-      "AI enrichment pilot on a sample SKU set with QA rules",
-    ],
-    duration: "3 weeks",
-    startingAt: 6000,
-    cadence: "one-time",
-    terms: [],
     confirmed: true,
   },
 

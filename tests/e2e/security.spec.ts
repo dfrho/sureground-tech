@@ -35,22 +35,26 @@ test.describe("security baseline", () => {
     for (const nonce of scripts) expect(nonce).toBe(second);
   });
 
-  test("the page runs with no CSP violations", async ({ page }) => {
-    const violations: string[] = [];
-    page.on("console", (msg) => {
-      if (msg.type() === "error" && /Content Security Policy/i.test(msg.text())) {
-        violations.push(msg.text());
-      }
+  // Pages with every kind of content so far: JSON-LD, next/image, the step
+  // motif animation, tables.
+  for (const path of ["/", "/services/pilot-sprint", "/pricing", "/about"]) {
+    test(`${path} runs with no CSP violations`, async ({ page }) => {
+      const violations: string[] = [];
+      page.on("console", (msg) => {
+        if (msg.type() === "error" && /Content Security Policy/i.test(msg.text())) {
+          violations.push(msg.text());
+        }
+      });
+      await page.goto(path);
+      // Wait for hydration (the theme toggle marks itself ready), then a beat
+      // for late scripts and styles. Not "networkidle": link prefetches for
+      // pages that do not exist yet return 404 streams that never settle.
+      await expect(page.locator("[data-theme-toggle][data-ready]").first()).toBeAttached();
+      await page.waitForTimeout(500);
+      expect(violations).toEqual([]);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     });
-    await page.goto("/");
-    // Wait for hydration (the theme toggle marks itself ready), then a beat
-    // for late scripts and styles. Not "networkidle": link prefetches for
-    // pages that do not exist yet return 404 streams that never settle.
-    await expect(page.locator("[data-theme-toggle][data-ready]").first()).toBeAttached();
-    await page.waitForTimeout(500);
-    expect(violations).toEqual([]);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("SureGround");
-  });
+  }
 
   test("no horizontal scroll", async ({ page }) => {
     await page.goto("/");

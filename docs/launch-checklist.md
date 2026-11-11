@@ -42,7 +42,7 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] Scorecard questions, band names and recommendations approved
 - [x] LinkedIn company page: linkedin.com/company/sureground (2026-11-09)
 - [ ] Any other social handles chosen
-- [ ] Privacy policy and terms reviewed by a lawyer
+- [ ] Privacy policy and terms reviewed by a lawyer (David is engaging an attorney, 2026-11-11)
 - [ ] Every row in `docs/copy-review.md` approved
 - [ ] Trademark: "SureGround" used without the registered symbol until a registration issues
 

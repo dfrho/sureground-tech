@@ -25,7 +25,7 @@ Owner and only operator: David Rhodes, `david@sureground.tech`. There is no logi
 1. **Proven ground, never pioneering.** Copy never uses pioneer framing: cutting-edge, bleeding-edge, first-of-its-kind, frontier, uncharted, revolutionary, game-changing, unleash, magic, "don't get left behind". `pnpm lint:copy` enforces the list in `lib/copy/banned-words.ts`.
 2. **No em dashes and no emojis anywhere:** copy, UI strings, alt text, emails, metadata, code comments that ship. Use commas, colons or periods. `pnpm lint:copy` enforces this.
 3. **No invented facts.** Never invent clients, testimonials, logos, case studies, metrics or statistics. Facts about David come only from `content/facts.ts` (sourced from his resume). Market statistics come only from `content/sources.ts`, each with a URL and date, and are shown with a visible citation.
-4. **Who can be named.** Former employers may be named as plain text (no logos): Feedonomics, FullStory, Shogun, AutoZone. Clients and partners are never named; describe them generically ("a national health system", "a Fortune 500 retailer", "a global consultancy"). Never mention Beacon and Main or AI visibility, GEO or LLM discoverability services; those belong to a separate brand.
+4. **Who can be named.** Former employers may be named as plain text (no logos): Feedonomics, FullStory, Shogun, AutoZone, and BloomForge (David's own former consultancy, approved 2026-11-11). Clients and partners are never named; describe them generically ("a national health system", "a Fortune 500 retailer", "a global consultancy"). Never mention Beacon and Main or AI visibility, GEO or LLM discoverability services; those belong to a separate brand.
 5. **Prices and promises live in one place.** Every price, guarantee, credit window and duration lives only in `lib/config/offers.ts`. Never hard-code one in a component or MDX file. Every offer has `confirmed: boolean`; production builds fail while any published offer is unconfirmed (`pnpm check:offers`).
 6. **Never claim results we cannot show.** No "guaranteed ROI". The only guarantees are the ones in `offers.ts`, worded exactly as David approves them.
 7. **Privacy.** David's home address, personal phone and personal email never appear. The site stores no personal data: form and scorecard submissions go out by email and are not persisted. Never log full email addresses, names, message bodies or raw IPs.
@@ -173,7 +173,7 @@ Its job is to lower the temperature, show proof, and start the scorecard. Sectio
 4. **Core services.** Three cards: AI Engineering, Agent Development, AI Enablement, each linking to its page.
 5. **The path.** A stepped, numbered ladder (the signature visual): Step 1 Scorecard or Fit Call, Step 2 Assess, Step 3 Pilot, Step 4 Operate. Each step names its offer and reads its starting price from `offers.ts`.
 6. **Risk off your plate.** The approved guarantees and credits from `offers.ts` (assessment fee credited, live-in-90-days, no lock-in).
-7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine, Catalog and Feed Readiness.
+7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine. (Catalog and Feed Readiness was removed on 2026-11-11, David: too soon after leaving Feedonomics. Do not bring it back unless he asks.)
 8. **About teaser** with David's photo and two lines from `facts.ts`.
 9. **Latest three blog posts.**
 10. **Final CTA** repeating the scorecard and Fit Call.
@@ -192,7 +192,7 @@ See "First Step Scorecard" below.
 
 ### About (`/about`)
 
-David's story in first person, from `content/facts.ts` only, with his photo (`public/images/david-rhodes.jpg`, supplied by David; until then a neutral placeholder and an open item). Arc: journalism and advertising degree from the University of Missouri; years in enterprise sales for a media business-intelligence platform; taught himself to code (Fullstack Academy, 2017); freelance builder of five SaaS MVPs; senior frontend engineer on AutoZone's React and TypeScript rebuild; senior solutions engineer at Shogun, FullStory and Feedonomics, working with C-level buyers, security teams and global consultancies. Why that matters to an owner: he has sat across the table from CISOs and procurement teams and knows which answers survive a review. Never say or imply he currently works anywhere other than SureGround.
+David's story in first person, from `content/facts.ts` only, with his photo (`public/images/david-rhodes.jpg`, supplied by David; until then a neutral placeholder and an open item). Arc: journalism and advertising degree from the University of Missouri; years in enterprise sales for a media business-intelligence platform; taught himself Python, then finished Fullstack Academy (2017); freelance builder of five SaaS MVPs; senior frontend engineer on AutoZone's React and TypeScript rebuild; senior solutions engineer at Shogun, FullStory and Feedonomics (with his own consultancy, BloomForge, in between; he left Feedonomics in October 2026), working with C-level buyers, security teams and global consultancies. Why that matters to an owner: he has sat across the table from CISOs and procurement teams and knows which answers survive a review. Never say or imply he currently works anywhere other than SureGround.
 
 ### Blog (`/blog`)
 
@@ -227,12 +227,11 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 | Group     | Slug                     | Name                                         | What it is                                                                                                                                       | Duration        | Starts at (proposed)        | Terms (proposed, needs approval)                                  |
 | --------- | ------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | --------------------------- | ----------------------------------------------------------------- |
 | Start     | `fit-call`               | AI Fit Call                                  | 30-minute call plus a one-page plan with two or three candidate uses within 48 hours                                                             | 30 min + 2 days | Free                        |                                                                   |
-| Start     | `safe-start`             | AI Safe Start                                | Shadow-AI inventory, risk rating per tool, acceptable-use policy, AI vendor checklist, approved-tools list                                       | 1 to 2 weeks    | $2,500                      | Credited in full toward any next offer within 60 days             |
-| Start     | `opportunity-assessment` | AI Opportunity Assessment                    | Workflow mapping, baseline hours, ranked opportunities with cost and ROI, 90-day roadmap with buy-versus-build picks                             | 2 to 3 weeks    | $3,500                      | Credited in full toward a Pilot Sprint within 60 days             |
+| Start     | `safe-start`             | AI Safe Start                                | Shadow-AI inventory, risk rating per tool, acceptable-use policy, AI vendor checklist, approved-tools list                                       | 1 to 2 weeks    | $2,500                      | Your full fee comes off any next offer you start within 60 days             |
+| Start     | `opportunity-assessment` | AI Opportunity Assessment                    | Workflow mapping, baseline hours, ranked opportunities with cost and ROI, 90-day roadmap with buy-versus-build picks                             | 2 to 3 weeks    | $3,500                      | Your full fee comes off a Pilot Sprint you start within 60 days             |
 | Build     | `pilot-sprint`           | Proven-Pattern Pilot Sprint                  | One back-office workflow, agent or knowledge assistant on proven tools, with approval points, testing, training and a written data-handling note | 4 to 8 weeks    | $10,000, paid in milestones | Live in 90 days or we keep working at no charge                   |
-| Specialty | `pilot-triage`           | AI Pilot Triage                              | Go, kill or fix verdict on up to two stalled AI projects, the named data or integration blocker, a fixed-price next step                         | 2 weeks         | $7,500                      | Half credited toward a build; fee returned if no blocker is named |
+| Specialty | `pilot-triage`           | AI Pilot Triage                              | Go, kill or fix verdict on up to two stalled AI projects, the named data or integration blocker, a fixed-price next step                         | 2 weeks         | $7,500                      | Half your fee comes off a build with us; fee returned if no blocker is named |
 | Specialty | `answer-engine`          | Security Questionnaire and RFP Answer Engine | Curated answer library, AI-governance answer set, tool selection and setup, refresh process for B2B sellers                                      | 3 to 4 weeks    | $7,500                      | Optional upkeep $750 per month                                    |
-| Specialty | `catalog-readiness`      | Catalog and Feed Readiness Sprint            | Attribute audit, channel mapping for marketplaces and shopping ads, AI enrichment pilot on a sample SKU set with QA rules                        | 3 weeks         | $6,000                      |                                                                   |
 | Operate   | `managed-ops`            | Managed AI Operations                        | Monitoring, maintenance, a monthly block of improvements, plain-language monthly report                                                          | Monthly         | $1,000 per month            | Month to month, no lock-in                                        |
 | Operate   | `fractional-se`          | Fractional AI Solutions Engineer             | Hands-on AI lead: roadmap, vendor approvals, governance updates, customer security answers, one build slot                                       | 3-month minimum | $5,000 per month            |                                                                   |
 
@@ -240,7 +239,7 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 
 The packaged offers above keep their fixed prices. David also bills hourly for work outside a package (extra scope, ad hoc help). The hourly rate is private: it never appears on the site, in emails, on LinkedIn copy you draft, or anywhere in this repo (the repo is public). Copy must not say or imply SureGround never bills by the hour; say the packaged offers have fixed fees instead. If an hourly option ever needs to be shown, ask David first.
 
-Boundaries: Catalog and Feed Readiness covers marketplace and shopping-ad feed requirements and data quality only, never AI-assistant visibility. Healthcare-adjacent offers target vendors' sales and security processes, never clinical data integration. Case studies (for example the AI session summary feature David prototyped at FullStory, or his RFP tooling for a 500-question insurer RFP) appear only as proof points with facts from `facts.ts`, never as priced offers.
+Boundaries: no catalog, product-feed or AI-assistant visibility offer. Healthcare-adjacent offers target vendors' sales and security processes, never clinical data integration. Case studies (for example the AI session summary feature David prototyped at FullStory, or his RFP tooling for a 500-question insurer RFP) appear only as proof points with facts from `facts.ts`, never as priced offers.
 
 ## First Step Scorecard
 
@@ -366,12 +365,22 @@ A production build fails if any required variable is missing. "Required" grows w
 
 1. Done 2026-11-09: every price, duration, credit and guarantee in the Offers section confirmed as written, including both AI Enablement prices.
 2. Done 2026-11-09: Vercel team moved to Pro.
-3. Headshot chosen; save it as `public/images/david-rhodes.jpg`. Approve the About story.
+3. Done 2026-11-09: headshot saved as `public/images/david-rhodes.jpg`. Still open: approve the About story, the facts in `content/facts.ts` and the Phase 2 copy in `docs/copy-review.md`.
 4. Approve the scorecard questions, band names and recommendations.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
 
 ## Current status
+
+**Phase 2 (Marketing pages): done, 2026-11-10** (branch `p2/marketing-pages`).
+
+- Home, Services index, 12 service pages, Pricing, About (with the headshot), privacy and terms drafts; `sitemap.ts` and `robots.ts`.
+- `content/facts.ts` (from the resume, no personal details, no end dates), `content/sources.ts` (three cited stats), `content/services/*.ts` (words only; prices and terms from `offers.ts`).
+- JSON-LD: ProfessionalService, Person, Service, BreadcrumbList.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (71), test:e2e (438), audit:deps.
+- OWASP audit: `docs/security/audit-2026-11-10-phase2.md`, no findings.
+- All new copy is listed as a draft in `docs/copy-review.md`. Home latest-posts section waits for Phase 3.
+- David's review round, 2026-11-11: copy edits on home, AI Engineering and About; Catalog and Feed Readiness removed (11 offers now); plain-language credit terms approved; path cards equal height.
 
 **Phase 1 (Design system and shell): done, 2026-11-09** (branch `p1/design-shell`).
 
@@ -384,4 +393,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 2 (marketing pages). The headshot is in `public/images/david-rhodes.jpg` (1600px web copy, no metadata).
+Next: Phase 3 (blog).
