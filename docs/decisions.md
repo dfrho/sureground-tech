@@ -103,7 +103,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Prices are formatted, never written.** `lib/offers/format.ts` turns `startingAt` into labels with `Intl.NumberFormat`, so no component contains a price.
 - **JSON-LD** goes through `components/seo/JsonLd.tsx` (nonce attached) and `lib/seo/jsonld.ts` (escapes `<`, U+2028, U+2029). `ProfessionalService` on the home page, `Person` on About, `Service` and `BreadcrumbList` on each service page.
 - **Contrast:** Signal Blue on Graphite is 4.4:1, so links inside dark cards use the text color with an underline; Signal Blue text stays on the page background or at large sizes.
-- **Facts carry no end dates.** The resume lists the most recent role as current; the site never implies David works anywhere but SureGround, so roles are shown without dates.
+- **Role dates come from LinkedIn.** David asked (2026-11-11) for the months on his LinkedIn profile. LinkedIn shows Feedonomics as current, so its end month is October 2026, when David left, and a unit test requires every role to have an end month in the past. BloomForge, his own consultancy from July 2024 to May 2025, is named at his request; the home proof strip still lists only the four former employers.
 - **Home latest posts** are left out until Phase 3 adds the blog.
 - **Sitemap and robots** list only static public pages; later phases add scorecard, contact and blog.
 

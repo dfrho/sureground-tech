@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { facts, yearsOfExperience } from "@/content/facts";
+import { facts, formatMonth, yearsOfExperience } from "@/content/facts";
 import { services } from "@/content/services";
 import { sources } from "@/content/sources";
 import { offers } from "@/lib/config/offers";
@@ -17,9 +17,27 @@ describe("facts", () => {
       "FullStory",
       "Shogun",
     ]);
+    // BloomForge is David's own former consultancy, approved by name 2026-11-11.
+    const allowed = [...facts.formerEmployers, "BloomForge"];
     for (const role of facts.career) {
-      if (role.named) expect(facts.formerEmployers).toContain(role.employer);
+      if (role.named) expect(allowed).toContain(role.employer);
     }
+  });
+
+  it("gives every role a start and end month, in order, all in the past", () => {
+    let previousEnd = "";
+    for (const role of facts.career) {
+      expect(role.start, role.id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+      expect(role.end, role.id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+      expect(role.start <= role.end, role.id).toBe(true);
+      expect(role.start >= previousEnd, role.id).toBe(true);
+      previousEnd = role.end;
+    }
+    expect(previousEnd <= "2026-10").toBe(true);
+  });
+
+  it("formats months for display", () => {
+    expect(formatMonth("2025-05")).toBe("May 2025");
   });
 
   it("holds no personal contact details", () => {

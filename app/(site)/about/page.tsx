@@ -4,7 +4,7 @@ import Image from "next/image";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CTA } from "@/components/site/CTA";
 import { cardClass } from "@/components/site/Section";
-import { facts, yearsOfExperience } from "@/content/facts";
+import { facts, formatMonth, yearsOfExperience } from "@/content/facts";
 import { breadcrumbLd, personLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = {
@@ -63,10 +63,11 @@ export default function AboutPage() {
           engineer on the React and TypeScript rebuild of a Fortune 500 ecommerce site.
         </p>
         <p>
-          Then I moved into solutions engineering at Shogun, FullStory and Feedonomics, working with
-          C-level buyers, security teams and global consultancies. I ran proofs of concept that had
-          to turn into production deals, and I answered the security questions that decide whether a
-          deal survives review.
+          Then I moved into solutions engineering at Shogun, FullStory and Feedonomics, with a
+          stretch running my own consultancy, BloomForge, in between. I worked with C-level buyers,
+          security teams and global consultancies. I ran proofs of concept that had to turn into
+          production deals, and I answered the security questions that decide whether a deal
+          survives review.
         </p>
         <p>
           That is why SureGround exists. After {years} years of watching what works, I&apos;ve seen
@@ -106,6 +107,9 @@ export default function AboutPage() {
           <ol className="mt-4 flex flex-col gap-4 border-l border-border pl-6">
             {facts.career.map((c) => (
               <li key={c.id}>
+                <p className="font-mono text-label text-muted">
+                  {formatMonth(c.start)} to {formatMonth(c.end)}
+                </p>
                 <h3 className="font-semibold">
                   {c.title}, {c.employer}
                 </h3>
@@ -113,6 +117,7 @@ export default function AboutPage() {
               </li>
             ))}
             <li>
+              <p className="font-mono text-label text-muted">Now</p>
               <h3 className="font-semibold">{facts.role}, SureGround</h3>
               <p className="text-muted">
                 AI engineering and enablement for small and mid-size businesses in Nashville and
