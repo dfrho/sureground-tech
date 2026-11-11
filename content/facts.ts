@@ -122,7 +122,7 @@ export const facts = {
     },
     {
       id: "fullstory-ai-summary",
-      text: "Prototyped an AI session summary feature at FullStory that leadership recognized as a standout demo.",
+      text: "Prototyped an AI session summary feature at FullStory that became a standout demo feature.",
     },
     {
       id: "security-reviews",
