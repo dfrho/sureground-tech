@@ -148,8 +148,8 @@ const offerList = [
     duration: "1 to 2 weeks",
     startingAt: 2500,
     cadence: "one-time",
-    terms: ["Credited in full toward any next offer within 60 days"],
-    confirmed: true,
+    terms: ["Your full fee comes off any next offer you start within 60 days"],
+    confirmed: false,
   },
   {
     slug: "opportunity-assessment",
@@ -166,8 +166,8 @@ const offerList = [
     duration: "2 to 3 weeks",
     startingAt: 3500,
     cadence: "one-time",
-    terms: ["Credited in full toward a Pilot Sprint within 60 days"],
-    confirmed: true,
+    terms: ["Your full fee comes off a Pilot Sprint you start within 60 days"],
+    confirmed: false,
   },
 
   // Build
@@ -206,8 +206,8 @@ const offerList = [
     duration: "2 weeks",
     startingAt: 7500,
     cadence: "one-time",
-    terms: ["Half credited toward a build", "Fee returned if no blocker is named"],
-    confirmed: true,
+    terms: ["Half your fee comes off a build with us", "Fee returned if no blocker is named"],
+    confirmed: false,
   },
   {
     slug: "answer-engine",
