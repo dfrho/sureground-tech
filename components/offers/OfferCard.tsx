@@ -5,15 +5,17 @@ import { ArrowRight } from "@/components/site/icons";
 import type { Offer } from "@/lib/config/offers";
 import { serviceHref } from "@/lib/offers/format";
 
-/** A card for one offer: name, summary, duration and starting price. */
+/** A card for one offer: name, summary, duration and (unless hidden) starting price. */
 export function OfferCard({
   offer,
   headingLevel = 3,
   showDuration = true,
+  showPrice = true,
 }: {
   offer: Offer;
   headingLevel?: 2 | 3;
   showDuration?: boolean;
+  showPrice?: boolean;
 }) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
@@ -29,7 +31,7 @@ export function OfferCard({
       <p className="text-muted">{offer.summary}</p>
       <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-2">
         <div>
-          <PriceTag offer={offer} />
+          {showPrice ? <PriceTag offer={offer} /> : null}
           {showDuration ? (
             <p className="font-mono text-label text-muted">{offer.duration}</p>
           ) : null}

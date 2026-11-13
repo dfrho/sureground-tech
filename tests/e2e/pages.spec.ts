@@ -73,6 +73,13 @@ test("pricing lists every offer with its price from offers.ts", async ({ page })
   expect(text).not.toMatch(/per hour|hourly/i);
 });
 
+test("the services index shows no prices", async ({ page }) => {
+  await page.goto("/services");
+  const text = await page.locator("main").innerText();
+  expect(text).not.toMatch(/\$\s?\d/);
+  expect(text).not.toMatch(/starting at|per month/i);
+});
+
 for (const s of services) {
   test(`service page ${s.slug} shows its offer and structured data`, async ({ page }) => {
     const offer = offers.find((o) => o.slug === s.slug)!;
@@ -100,6 +107,15 @@ test("about shows David's photo and Person data", async ({ page }) => {
   expect(await jsonLdTypes(page)).toContain("Person");
   const text = await page.locator("main").innerText();
   expect(text).not.toMatch(/gmail|\(\d{3}\)/i);
+});
+
+test("about photo lines up with the heading block on wide screens", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) < 768, "photo stacks above the heading on phones");
+  await page.goto("/about");
+  const photo = await page.getByRole("img", { name: /David Rhodes/ }).boundingBox();
+  const text = await page.locator("#about-title").locator("..").boundingBox();
+  expect(Math.round(photo!.y)).toBe(Math.round(text!.y));
+  expect(Math.round(photo!.y + photo!.height)).toBe(Math.round(text!.y + text!.height));
 });
 
 test("legal pages are marked as drafts", async ({ page }) => {
