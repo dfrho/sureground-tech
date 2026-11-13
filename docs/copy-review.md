@@ -36,3 +36,13 @@ Prices, durations and terms on these pages are read from `offers.ts` (approved).
 | `content/blog/posts.ts`                                 | That post's description and tags ("Home services", "AI in operations")                                                                                                     | Draft, needs approval         |
 | `app/(site)/blog/page.tsx`                              | Blog heading "Notes from proven ground." and intro                                                                                                                         | Draft, needs approval         |
 | `app/(site)/blog/[slug]/page.tsx`                       | Closing CTA on posts                                                                                                                                                       | Draft, needs approval         |
+
+## Phase 4 (2026-11-13)
+
+| Where                              | What                                                                                                        | Status                |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------- |
+| `app/(site)/contact/page.tsx`      | Heading "Let's talk.", intro, "Send a message" and "Book a free AI Fit Call" section text, booking fallback | Draft, needs approval |
+| `components/forms/ContactForm.tsx` | Success message "Message sent. Thanks for writing. David will reply to the email address you gave."         | Draft, needs approval |
+| `lib/forms/pipeline.ts`            | Form error messages (security check, rate limit, send failure, generic)                                     | Draft, needs approval |
+| `lib/forms/contact-schema.ts`      | Field error messages and topic list (topics are from CLAUDE.md)                                             | Draft, needs approval |
+| `emails/ContactNotify.tsx`         | Notification email to David (layout and fixed text)                                                         | Draft, needs approval |

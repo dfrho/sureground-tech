@@ -12,6 +12,7 @@ const pages = [
   ...services.map((s) => ({ path: `/services/${s.slug}`, name: `service-${s.slug}`, status: 200 })),
   { path: "/pricing", name: "pricing", status: 200 },
   { path: "/about", name: "about", status: 200 },
+  { path: "/contact", name: "contact", status: 200 },
   { path: "/legal/privacy", name: "privacy", status: 200 },
   { path: "/legal/terms", name: "terms", status: 200 },
   { path: "/blog", name: "blog", status: 200 },

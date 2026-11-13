@@ -106,7 +106,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Role dates come from LinkedIn.** David asked (2026-11-11) for the months on his LinkedIn profile. LinkedIn shows Feedonomics as current, so its end month is October 2026, when David left, and a unit test requires every role to have an end month in the past. BloomForge, his own consultancy from July 2024 to May 2025, is named at his request; the home proof strip still lists only the four former employers.
 - **Catalog and Feed Readiness removed** (David, 2026-11-11): too soon after leaving Feedonomics. The offer, its service page and its content file are gone; the home page shows two specialty offers. Do not reintroduce it unless David asks.
 - **Home latest posts** are left out until Phase 3 adds the blog.
-- **Sitemap and robots** list only static public pages; later phases add scorecard, contact and blog.
+- **Sitemap and robots** list only static public pages; later phases add scorecard, contact and blog. (Blog added in Phase 3, contact in Phase 4.)
 
 ## Blog (Phase 3, 2026-11-13)
 
@@ -117,6 +117,23 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Open Graph images** come from `app/(site)/blog/[slug]/opengraph-image.tsx` (`next/og`, default font). Next.js adds a hash to the image URL, so the BlogPosting JSON-LD leaves `image` out rather than hard-code a path. Unknown slugs are a 404 (audit OWASP-A06-001).
 - **Citations in posts** are links on the source name in the text plus a Sources list at the end, since post facts come from articles rather than `content/sources.ts` statistics. Statistics in posts still use `<Stat id=… />`.
 
+## Contact and booking (Phase 4, 2026-11-13)
+
+- **One shared form pipeline** in `lib/forms/pipeline.ts`, in the order CLAUDE.md gives: Turnstile, honeypot, rate limit, Zod, then the send step. Every dependency is injected, so the order and the fail-closed paths are unit tested without network calls. The Scorecard (Phase 5) reuses it with an extra email-hash limit (`lateLimits`).
+- **Fails closed everywhere.** Turnstile errors, timeouts (5 s) and non-success answers reject. The Upstash limiter runs with `timeout: 0` (the library otherwise lets requests through when Redis is slow) and a Redis error rejects. A failed or thrown send never shows success. Configuration errors in the action return a generic form error instead of the error page.
+- **Honeypot hits get an error, not a fake success.** CLAUDE.md says never show a false success; people never see the field, so only bots get the error.
+- **Turnstile hostname check in production.** Siteverify must report `sureground.tech` or `www.sureground.tech`. Previews and local runs skip the check (Cloudflare's test keys report `example.com`).
+- **Rate limits:** 5 contact messages per IP per hour, sliding window, keyed by `SHA-256(RATE_LIMIT_SALT:ip:value)`. The client IP comes from `x-real-ip` / `x-forwarded-for`, which Vercel sets. Without Upstash (local and tests only; production requires it) a per-process memory limiter is used.
+- **Spike alert (A09):** `rate_limited` (20 an hour), `email_send_failed` (3) and `form_error` (3) are counted per hour in Upstash; when a count reaches its threshold, David gets one fixed-text alert email for that hour.
+- **Email:** `lib/email/send.ts` is the only Resend caller. Templates are React components rendered with `@react-email/render`, in plain table markup. `@react-email/components` 1.x depends on sub-packages npm marks as no longer supported, so it was not added. Subjects and reply-to pass through `headerSafe` (control characters stripped, length capped); reply-to is set only after Zod email validation. `EMAIL_TRANSPORT=outbox` writes `.outbox/*.html` and `.json` locally and in e2e tests.
+- **Cal.com embed uses `@calcom/embed-react`.** A plain iframe of the booking page does not work: the page waits for embed.js when framed. embed.js injects `<style>` elements into shadow roots without a nonce, and a nonce in `style-src` disables `'unsafe-inline'`.
+- **So the CSP is per page.** `/contact` gets `style-src 'self' 'unsafe-inline'` plus the Turnstile and Cal.com hosts; every other page keeps the strict nonce policy with no third-party hosts. Scripts stay nonce plus `'strict-dynamic'` on every page. Client-side navigation keeps the first document's CSP, so every link to `/contact` is a full page load (`needsFullPageLoad` in `lib/security/csp.ts`, used by `ButtonLink`, `MobileNav` and `Footer`). A unit test fails if a `next/link` points at `/contact`, and an e2e test clicks through from the home page.
+- **The Cal.com iframe follows the theme** by remounting with the resolved theme; it renders only after mount to avoid a hydration mismatch.
+- **Form errors use brand tokens,** not a new red: a 2px text-color border on the field and an "Error:" label in mono. Ask David if he wants an error color added to the palette.
+- **Upstash variable names:** the Vercel Marketplace connected Upstash as `KV_REST_API_URL` and `KV_REST_API_TOKEN`. `withEnvAliases` in `lib/env.schema.ts` maps them to the `UPSTASH_*` names before validation (server env and `check-env`).
+- **Feature gate:** `enabledFeatures` now includes `forms` and `booking`, so a production build fails until the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` are set in Vercel Production. Previews do not require them.
+- **E2E tests** use Cloudflare's public always-pass Turnstile test keys, the outbox transport and Cal.com's public demo booking page (`rick/get-rick-rolled`), set in `playwright.config.ts`. Each submission test sends its own `x-real-ip`, which also tests the per-IP limit.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
@@ -124,10 +141,14 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 | `server-only`                       | Makes a client bundle fail at build time if it imports `lib/env.ts`. |
 | `tsx` (dev)                         | Runs the TypeScript check scripts in `scripts/`.                     |
 | `prettier-plugin-tailwindcss` (dev) | Stable class order so diffs stay small.                              |
+| `@react-email/render`               | Renders the React email templates to HTML (peer of `resend`).        |
+| `@upstash/redis`                    | Redis client that `@upstash/ratelimit` needs.                        |
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 and `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings). Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings), `docs/security/audit-2026-11-13-phase3.md` for Phase 3 and `docs/security/audit-2026-11-13-phase4.md` for Phase 4. Medium and Low items not fixed are listed there with an owner.
 
 - **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
 - **OWASP-A08-001 (Phase 1, Informational):** `next/font/google` downloads font files at build time without a pinned hash. Kept for now; switching to committed `woff2` files with `next/font/local` would remove it. Owner: Claude, Phase 6.
+- **OWASP-A08-002 (Phase 4, Low):** Cal.com's `embed.js` is loaded live from `app.cal.com` without an integrity hash and runs on `/contact`. Accepted: the inline embed is required, Cal.com does not publish versioned builds, and a plain iframe does not work. Limited to `/contact` by the per-page CSP. Revisit if Cal.com ships versioned embeds, or switch to a link-out button. Owner: Claude.
+- **Phase 4 Informational:** inline styles on `/contact` (Cal.com needs them), Turnstile checked before the rate limit (as CLAUDE.md orders it), and per-instance rate limits on previews without Upstash. Details in the Phase 4 audit. Owner: Claude.

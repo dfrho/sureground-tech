@@ -1,6 +1,6 @@
 import "server-only";
 
-import { describeEnvIssues, serverEnvSchema, type ServerEnv } from "./env.schema";
+import { describeEnvIssues, serverEnvSchema, withEnvAliases, type ServerEnv } from "./env.schema";
 
 let cached: ServerEnv | undefined;
 
@@ -11,7 +11,7 @@ let cached: ServerEnv | undefined;
 export function getServerEnv(): ServerEnv {
   if (cached) return cached;
   const mode = process.env.VERCEL_ENV === "production" ? "production" : "development";
-  const result = serverEnvSchema(mode).safeParse(process.env);
+  const result = serverEnvSchema(mode).safeParse(withEnvAliases(process.env));
   if (!result.success) {
     throw new Error(`Invalid server environment:\n${describeEnvIssues(result.error)}`);
   }

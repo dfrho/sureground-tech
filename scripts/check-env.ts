@@ -4,12 +4,17 @@
  * variable must be present or the build fails. Elsewhere it validates only
  * what is set. Prints variable names, never values.
  */
-import { describeEnvIssues, publicEnvSchema, serverEnvSchema } from "../lib/env.schema";
+import {
+  describeEnvIssues,
+  publicEnvSchema,
+  serverEnvSchema,
+  withEnvAliases,
+} from "../lib/env.schema";
 
 const production = process.env.VERCEL_ENV === "production";
 
 const result = production
-  ? serverEnvSchema("production").safeParse(process.env)
+  ? serverEnvSchema("production").safeParse(withEnvAliases(process.env))
   : publicEnvSchema.partial().safeParse(process.env);
 
 if (!result.success) {

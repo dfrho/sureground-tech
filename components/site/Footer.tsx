@@ -38,9 +38,10 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/contact" className={linkClass}>
+              {/* A full page load: /contact has its own CSP (lib/security/csp.ts). */}
+              <a href="/contact" className={linkClass}>
                 Contact
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>

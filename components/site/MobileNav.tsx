@@ -85,9 +85,10 @@ export function MobileNav({ className = "" }: { className?: string }) {
         </nav>
 
         <div className="flex flex-col gap-6 px-4 sm:px-6">
-          <Link href="/contact#book" onClick={close} className={buttonClass("primary", "w-full")}>
+          {/* A full page load: /contact has its own CSP (lib/security/csp.ts). */}
+          <a href="/contact#book" onClick={close} className={buttonClass("primary", "w-full")}>
             Book a call
-          </Link>
+          </a>
           <div className="flex items-center justify-between gap-4">
             <span className="font-mono text-label text-muted uppercase">Theme</span>
             <ThemeToggle />

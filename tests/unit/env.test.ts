@@ -9,6 +9,7 @@ import {
   featureEnv,
   requiredInProduction,
   serverEnvSchema,
+  withEnvAliases,
   type Feature,
 } from "@/lib/env.schema";
 
@@ -126,5 +127,22 @@ describe("feature gating", () => {
       }
     }
     expect(offending).toEqual([]);
+  });
+});
+
+describe("withEnvAliases", () => {
+  it("accepts the Vercel Marketplace KV_* names for Upstash", () => {
+    const env: Record<string, string> = { ...full };
+    delete env.UPSTASH_REDIS_REST_URL;
+    delete env.UPSTASH_REDIS_REST_TOKEN;
+    env.KV_REST_API_URL = "https://example.upstash.io";
+    env.KV_REST_API_TOKEN = "token";
+    expect(serverEnvSchema("production").safeParse(env).success).toBe(false);
+    expect(serverEnvSchema("production").safeParse(withEnvAliases(env)).success).toBe(true);
+  });
+
+  it("prefers UPSTASH_* when both are set", () => {
+    const out = withEnvAliases({ UPSTASH_REDIS_REST_URL: "a", KV_REST_API_URL: "b" });
+    expect(out.UPSTASH_REDIS_REST_URL).toBe("a");
   });
 });

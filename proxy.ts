@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { buildCsp, createNonce } from "@/lib/security/csp";
+import { buildCsp, createNonce, integrationsForPath } from "@/lib/security/csp";
 import { securityHeaders } from "@/lib/security/headers";
 import { logSecurityEvent } from "@/lib/security/log";
 import { checkSameOrigin } from "@/lib/security/origin";
@@ -21,7 +21,11 @@ export function proxy(request: NextRequest) {
   }
 
   const nonce = createNonce();
-  const csp = buildCsp({ nonce, dev });
+  const csp = buildCsp({
+    nonce,
+    dev,
+    integrations: integrationsForPath(request.nextUrl.pathname),
+  });
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);

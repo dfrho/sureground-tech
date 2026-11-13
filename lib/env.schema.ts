@@ -54,8 +54,8 @@ export const featureEnv = {
 export type Feature = keyof typeof featureEnv;
 type EnvKey = (typeof featureEnv)[Feature][number];
 
-/** Features the site ships today. Phase 4 adds "forms" and "booking". */
-export const enabledFeatures: readonly Feature[] = ["core", "email"];
+/** Features the site ships today. Phase 4 added "forms" and "booking". */
+export const enabledFeatures: readonly Feature[] = ["core", "email", "forms", "booking"];
 
 /** Variables a production deployment cannot run without. */
 export function requiredInProduction(features: readonly Feature[] = enabledFeatures): EnvKey[] {
@@ -96,6 +96,18 @@ export function serverEnvSchema(
 }
 
 export type ServerEnv = z.infer<ReturnType<typeof serverEnvSchema>>;
+
+/**
+ * The Vercel Marketplace connects Upstash with KV_REST_API_URL and
+ * KV_REST_API_TOKEN. Those names fill in the UPSTASH_* variables when the
+ * UPSTASH_* ones are not set. Returns a copy; never logs values.
+ */
+export function withEnvAliases(env: Record<string, string | undefined>) {
+  const out = { ...env };
+  out.UPSTASH_REDIS_REST_URL ||= env.KV_REST_API_URL;
+  out.UPSTASH_REDIS_REST_TOKEN ||= env.KV_REST_API_TOKEN;
+  return out;
+}
 
 /** Formats issues by variable name only. Never prints values. */
 export function describeEnvIssues(error: z.ZodError): string {
