@@ -42,6 +42,7 @@ test.describe("security baseline", () => {
     "/services/pilot-sprint",
     "/pricing",
     "/about",
+    "/contact",
     "/blog",
     "/blog/google-ai-mode-home-services-booking",
   ]) {
