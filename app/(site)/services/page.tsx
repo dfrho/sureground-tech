@@ -40,8 +40,7 @@ export default function ServicesPage() {
             AI on proven ground, one step at a time.
           </h1>
           <p className="max-w-2xl text-muted">
-            Every offer has a fixed scope and a starting price. Start with the smallest step that
-            answers your question.
+            Every offer has a fixed scope. Start with the smallest step that answers your question.
           </p>
         </div>
       </section>
@@ -58,7 +57,7 @@ export default function ServicesPage() {
         >
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {offersInGroup(group).map((offer) => (
-              <OfferCard key={offer.slug} offer={offer} />
+              <OfferCard key={offer.slug} offer={offer} showPrice={false} />
             ))}
           </div>
         </Section>

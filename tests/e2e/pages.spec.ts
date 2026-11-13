@@ -73,6 +73,13 @@ test("pricing lists every offer with its price from offers.ts", async ({ page })
   expect(text).not.toMatch(/per hour|hourly/i);
 });
 
+test("the services index shows no prices", async ({ page }) => {
+  await page.goto("/services");
+  const text = await page.locator("main").innerText();
+  expect(text).not.toMatch(/\$\s?\d/);
+  expect(text).not.toMatch(/starting at|per month/i);
+});
+
 for (const s of services) {
   test(`service page ${s.slug} shows its offer and structured data`, async ({ page }) => {
     const offer = offers.find((o) => o.slug === s.slug)!;
