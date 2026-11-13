@@ -372,7 +372,15 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
-**Phase 3 (Blog): built, 2026-11-13** (branch `p3/blog`, waiting for David to merge).
+**Phase 4 (Contact and booking): built, 2026-11-13** (branch `p4/contact-booking`, waiting for David).
+
+- `/contact` with the contact form (Server Action `app/actions/contact.ts` through the shared pipeline in `lib/forms/`: Turnstile, honeypot, Upstash rate limit of 5 per IP per hour, Zod, then `ContactNotify` to `CONTACT_TO_EMAIL` with reply-to) and the Cal.com inline embed (`@calcom/embed-react`), both themed.
+- `lib/email/send.ts` (Resend, or `.outbox/` in development), `lib/rate-limit.ts`, spike alert emails (`lib/security/alert.ts`).
+- Per-page CSP: only `/contact` allows Turnstile, Cal.com and inline styles; links to it are full page loads. See `docs/decisions.md`.
+- `enabledFeatures` now includes `forms` and `booking`: production builds need the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` in Vercel before this merges.
+- OWASP audit (full): `docs/security/audit-2026-11-13-phase4.md`, one Low fixed, one Low accepted.
+
+**Phase 3 (Blog): done, 2026-11-13** (merged as PR 15).
 
 - MDX pipeline (`@next/mdx`), metadata registry with Zod, `/blog` (paginated), `/blog/[slug]`, `/blog/tag/[tag]`, `/blog/rss.xml`, Open Graph images, BlogPosting and BreadcrumbList JSON-LD, previous and next links, a closing scorecard CTA, latest three posts on the home page, blog in the sitemap.
 - First published post: "Google AI Mode Now Books Home Services: What Local Owners Should Do Next" (David's, reworked with him in a Claude Doc). The three seeded outline drafts were removed at David's request.
@@ -400,4 +408,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 4 (contact and booking), after Phase 3 merges.
+Next: Phase 5 (First Step Scorecard), after Phase 4 merges.

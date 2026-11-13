@@ -14,7 +14,8 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] Turnstile site and secret keys in Vercel Production and Preview
 - [ ] Upstash Redis provisioned through the Vercel Marketplace
 - [ ] `RATE_LIMIT_SALT` generated (32+ random characters) and set in Vercel
-- [ ] Cal.com event "AI Fit Call (30 min)" created and `NEXT_PUBLIC_CAL_LINK` set
+- [ ] Cal.com event "AI Fit Call (30 min)" created and `NEXT_PUBLIC_CAL_LINK` set (format `username/event-slug`)
+- [ ] Phase 4 merge gate: production builds now require the Turnstile keys, the Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` in Vercel Production
 - [ ] Every variable in `.env.example` set in Vercel Production
 
 ## GitHub repository (public since 2026-11-09)
