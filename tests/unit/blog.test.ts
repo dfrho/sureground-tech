@@ -67,6 +67,10 @@ describe("drafts", () => {
     expect(listPosts({ drafts: false }).some((p) => p.draft)).toBe(false);
     expect(listPosts({ drafts: true })).toHaveLength(allPosts.length);
   });
+
+  it("never include David's removed outline drafts (2026-11-13)", () => {
+    expect(allPosts.every((p) => !p.draft)).toBe(true);
+  });
 });
 
 describe("blog helpers", () => {
@@ -81,10 +85,12 @@ describe("blog helpers", () => {
   });
 
   it("finds newer and older neighbours", () => {
-    const posts = listPosts({ drafts: true });
-    const { newer, older } = neighbours(posts[1]!.slug, posts);
-    expect(newer?.slug).toBe(posts[0]!.slug);
-    expect(older?.slug).toBe(posts[2]?.slug);
+    const base = allPosts[0]!;
+    const posts = ["c", "b", "a"].map((slug) => ({ ...base, slug }));
+    const { newer, older } = neighbours("b", posts);
+    expect(newer?.slug).toBe("c");
+    expect(older?.slug).toBe("a");
+    expect(neighbours("c", posts).newer).toBeUndefined();
   });
 
   it("formats dates without time zone drift", () => {

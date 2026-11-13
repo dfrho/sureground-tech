@@ -276,7 +276,7 @@ Fields: name (max 80), email, company (optional, max 120), topic (enum: Fit Call
 - Each post: reading time, `BlogPosting` JSON-LD, Open Graph image, canonical URL, previous and next links, and a closing CTA to the scorecard.
 - Drafts (`draft: true`) build locally but are excluded from production, the sitemap and RSS.
 - MDX components available to posts: `Callout`, `Figure`, `Stat` (takes a `sources.ts` id and renders the citation), `OfferLink` (takes an offer slug and reads the price from `offers.ts`).
-- Seed three draft posts for David to edit, from the research report: "You don't have to be the AI pioneer" (why most owners are still experimenting and how to catch up safely), "Shadow AI is already in your business" (what to inventory and a starter acceptable-use policy), "What a security reviewer will ask about your AI vendor" (questions buyers now send in pre-sales).
+- Seeded outline drafts were removed at David's request (2026-11-13). Do not add draft posts unless he asks; possible future topics: the AI pioneer, shadow AI, what a security reviewer will ask about your AI vendor.
 
 ## Security
 
@@ -343,7 +343,7 @@ A production build fails if any required variable is missing. "Required" grows w
 | 0   | Foundation              | Next.js 16 app on Node 24 with pnpm; strict TS; ESLint, Prettier; `lint:copy`, `check:contrast`, `check:offers` scripts; `lib/env.ts`; security headers and CSP baseline in `proxy.ts`; CI (GitHub Actions) running typecheck, lint, lint:copy, format:check, test, audit:deps; Dependabot; Vercel project linked; first OWASP audit saved. |
 | 1   | Design system and shell | Tokens for both themes, fonts via `next/font`, Logo and Wordmark, Header, Footer, MobileNav, three-state ThemeToggle with no flash, 404 and error pages; contrast check passes; Playwright screenshots at 360, 768 and 1280 in both themes.                                                                                                 |
 | 2   | Marketing pages         | Home, Services index and pages, Pricing, About (placeholder photo), Legal drafts; all prices from `offers.ts`; facts from `facts.ts`; stats from `sources.ts`; JSON-LD; copy drafts listed in `docs/copy-review.md`.                                                                                                                        |
-| 3   | Blog                    | MDX pipeline with Zod-validated metadata, index, post, tag pages, RSS, OG images, drafts excluded from production; three seeded draft posts.                                                                                                                                                                                                |
+| 3   | Blog                    | MDX pipeline with Zod-validated metadata, index, post, tag pages, RSS, OG images, drafts excluded from production. (Seeded draft posts dropped by David, 2026-11-13.)                                                                                                                                                                                                |
 | 4   | Contact and booking     | Contact form pipeline (Turnstile, honeypot, rate limit, Zod, Resend, outbox in dev); Cal.com inline embed themed to the site; CSP updated for both; unit tests for the pipeline and an e2e test with Turnstile test keys.                                                                                                                   |
 | 5   | First Step Scorecard    | Questions, scoring, bands and recommendations in content files; the flow at 360px; server-side scoring; both emails; abuse rules met; unit tests for every band boundary and mapping; e2e test of the full flow.                                                                                                                            |
 | 6   | Launch hardening        | Full OWASP audit with no open Critical or High; Lighthouse mobile 95+ for performance, accessibility, best practices and SEO on home, a service page, a post and the scorecard; securityheaders.com grade A or better; `check:offers` passes (David confirmed every price); `docs/launch-checklist.md` complete.                            |
@@ -375,8 +375,8 @@ A production build fails if any required variable is missing. "Required" grows w
 **Phase 3 (Blog): built, 2026-11-13** (branch `p3/blog`, waiting for David to merge).
 
 - MDX pipeline (`@next/mdx`), metadata registry with Zod, `/blog` (paginated), `/blog/[slug]`, `/blog/tag/[tag]`, `/blog/rss.xml`, Open Graph images, BlogPosting and BreadcrumbList JSON-LD, previous and next links, a closing scorecard CTA, latest three posts on the home page, blog in the sitemap.
-- First published post: "Google AI Mode Now Books Home Services: What Local Owners Should Do Next" (David's, reworked with him in a Claude Doc). Three seeded outline drafts (`draft: true`) for David to write.
-- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (85), test:e2e (522), audit:deps.
+- First published post: "Google AI Mode Now Books Home Services: What Local Owners Should Do Next" (David's, reworked with him in a Claude Doc). The three seeded outline drafts were removed at David's request.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (86), test:e2e (522), audit:deps.
 - OWASP audit (full, since `next.config.ts` changed): `docs/security/audit-2026-11-13-phase3.md`, one Low found and fixed, nothing open.
 
 **Phase 2 (Marketing pages): done, 2026-11-10** (branch `p2/marketing-pages`).
