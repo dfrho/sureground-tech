@@ -44,6 +44,26 @@ export const integrationSources: Record<Integration, Partial<Record<Directive, s
   },
 };
 
+/**
+ * Third-party integrations are allowed only on the pages that use them.
+ * Client-side navigation keeps the CSP of the first document loaded, so
+ * every link to these pages is a full page load (needsFullPageLoad below,
+ * used by ButtonLink, Header, MobileNav and Footer). See docs/decisions.md.
+ */
+const pageIntegrations: Record<string, readonly Integration[]> = {
+  "/contact": ["turnstile", "cal"],
+};
+
+export function integrationsForPath(pathname: string): readonly Integration[] {
+  return pageIntegrations[pathname.replace(/\/+$/, "") || "/"] ?? [];
+}
+
+/** True when a link must load a new document so the target page gets its own CSP. */
+export function needsFullPageLoad(href: string): boolean {
+  const path = href.split(/[?#]/)[0].replace(/\/+$/, "") || "/";
+  return path in pageIntegrations;
+}
+
 export interface CspOptions {
   nonce: string;
   dev?: boolean;
@@ -77,6 +97,11 @@ export function buildCsp({ nonce, dev = false, integrations = [] }: CspOptions):
 
   // React needs eval in development only, for server error stack replay.
   if (dev) policy["script-src"].push("'unsafe-eval'");
+
+  // Cal.com's embed.js injects <style> elements without a nonce, and a nonce
+  // in style-src disables 'unsafe-inline', so pages with the embed allow
+  // inline styles instead. Scripts keep the nonce and 'strict-dynamic'.
+  if (integrations.includes("cal")) policy["style-src"] = ["'self'", "'unsafe-inline'"];
 
   for (const name of integrations) {
     for (const [directive, sources] of Object.entries(integrationSources[name])) {

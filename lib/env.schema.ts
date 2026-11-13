@@ -54,8 +54,8 @@ export const featureEnv = {
 export type Feature = keyof typeof featureEnv;
 type EnvKey = (typeof featureEnv)[Feature][number];
 
-/** Features the site ships today. Phase 4 adds "forms" and "booking". */
-export const enabledFeatures: readonly Feature[] = ["core", "email"];
+/** Features the site ships today. Phase 4 added "forms" and "booking". */
+export const enabledFeatures: readonly Feature[] = ["core", "email", "forms", "booking"];
 
 /** Variables a production deployment cannot run without. */
 export function requiredInProduction(features: readonly Feature[] = enabledFeatures): EnvKey[] {

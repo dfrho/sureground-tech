@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { needsFullPageLoad } from "@/lib/security/csp";
+
 export type ButtonVariant = "primary" | "secondary";
 
 const base =
@@ -27,6 +29,14 @@ export function ButtonLink({
   className?: string;
   children: React.ReactNode;
 }) {
+  // Pages with their own CSP (/contact) need a full page load.
+  if (needsFullPageLoad(href)) {
+    return (
+      <a href={href} className={buttonClass(variant, className)}>
+        {children}
+      </a>
+    );
+  }
   return (
     <Link href={href} className={buttonClass(variant, className)}>
       {children}
