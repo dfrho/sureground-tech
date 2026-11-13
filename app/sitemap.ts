@@ -4,7 +4,7 @@ import { services } from "@/content/services";
 import { listPosts, listTags, postHref } from "@/lib/blog/posts";
 import { absoluteUrl } from "@/lib/seo/jsonld";
 
-/** Every public page. Drafts never appear. Later phases add the scorecard and contact. */
+/** Every public page. Drafts never appear. Phase 5 adds the scorecard. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const published = listPosts({ drafts: false });
   const paths = [
@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((s) => `/services/${s.slug}`),
     "/pricing",
     "/about",
+    "/contact",
     "/legal/privacy",
     "/legal/terms",
     "/blog",
