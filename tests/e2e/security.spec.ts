@@ -37,7 +37,14 @@ test.describe("security baseline", () => {
 
   // Pages with every kind of content so far: JSON-LD, next/image, the step
   // motif animation, tables.
-  for (const path of ["/", "/services/pilot-sprint", "/pricing", "/about"]) {
+  for (const path of [
+    "/",
+    "/services/pilot-sprint",
+    "/pricing",
+    "/about",
+    "/blog",
+    "/blog/google-ai-mode-home-services-booking",
+  ]) {
     test(`${path} runs with no CSP violations`, async ({ page }) => {
       const violations: string[] = [];
       page.on("console", (msg) => {

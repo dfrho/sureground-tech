@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 import { noindexRule, securityHeaders } from "./lib/security/headers";
@@ -35,4 +36,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// MDX compiles only repository files (content/blog); no remark or rehype
+// plugins, and nothing is compiled from user input (A05).
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

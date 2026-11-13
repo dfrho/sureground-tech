@@ -6,11 +6,13 @@ import { StepMotif } from "@/components/brand/StepMotif";
 import { StatCard } from "@/components/content/StatCard";
 import { OfferCard } from "@/components/offers/OfferCard";
 import { OfferLadder } from "@/components/offers/OfferLadder";
+import { PostCard } from "@/components/blog/PostCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CTA, CtaButtons } from "@/components/site/CTA";
 import { CheckIcon } from "@/components/site/icons";
 import { Section } from "@/components/site/Section";
 import { facts, yearsOfExperience } from "@/content/facts";
+import { listPosts } from "@/lib/blog/posts";
 import { getOffer, type OfferSlug } from "@/lib/config/offers";
 import { offersInGroup, serviceHref } from "@/lib/offers/format";
 import { organizationLd } from "@/lib/seo/jsonld";
@@ -39,6 +41,7 @@ const riskOffers: OfferSlug[] = [
 const specialty: OfferSlug[] = ["pilot-triage", "answer-engine"];
 
 export default function Home() {
+  const latestPosts = listPosts().slice(0, 3);
   const years = yearsOfExperience();
 
   return (
@@ -233,7 +236,32 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 9. Latest posts arrive with the blog in Phase 3. */}
+      {/* 9. Latest posts */}
+      {latestPosts.length > 0 ? (
+        <Section
+          id="blog"
+          number="07"
+          label="Blog"
+          title="Latest from the blog."
+          className="border-t border-border"
+        >
+          <ul className="grid gap-4 md:grid-cols-3">
+            {latestPosts.map((p) => (
+              <li key={p.slug}>
+                <PostCard post={p} headingLevel={3} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6">
+            <Link
+              href="/blog"
+              className="inline-flex min-h-11 items-center font-semibold text-accent-text underline-offset-4 hover:underline"
+            >
+              All posts
+            </Link>
+          </p>
+        </Section>
+      ) : null}
 
       {/* 10. Final CTA */}
       <CTA />

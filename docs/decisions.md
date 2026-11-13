@@ -108,6 +108,15 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Home latest posts** are left out until Phase 3 adds the blog.
 - **Sitemap and robots** list only static public pages; later phases add scorecard, contact and blog.
 
+## Blog (Phase 3, 2026-11-13)
+
+- **`@next/mdx` with no plugins.** `next.config.ts` is wrapped with `createMDX({})`; the wrapper spreads the existing config, so headers and Server Actions settings are unchanged. No remark or rehype plugins (Turbopack needs serializable plugin options, and none are needed yet). `mdx-components.tsx` at the root supplies `a` (external links get `rel="noopener noreferrer"`), `Callout`, `Figure`, `Stat` and `OfferLink`. The four MDX packages are the ones the Next.js MDX guide lists, pinned exactly.
+- **Metadata lives in `content/blog/posts.ts`, not as an MDX export.** CLAUDE.md first described each MDX file exporting `metadata`. Keeping it in one TypeScript registry lets unit tests, the sitemap and RSS read and validate it without compiling MDX, and gives `generateStaticParams` a closed list. Each body is `content/blog/<slug>.mdx`; a unit test fails if a file and a registry entry do not match.
+- **Reading time is stored, then checked.** `readingMinutes` is in the metadata (230 words a minute, rounded up) and a unit test recomputes it from the MDX file. This avoids reading files at request time, which Vercel's per-request rendering (nonce CSP) would need to trace.
+- **Drafts:** shown in local development and on Vercel preview deployments (behind deployment protection) so David can review them on his phone; never in production builds, the sitemap or RSS. Draft pages also set `robots: noindex`.
+- **Open Graph images** come from `app/(site)/blog/[slug]/opengraph-image.tsx` (`next/og`, default font). Next.js adds a hash to the image URL, so the BlogPosting JSON-LD leaves `image` out rather than hard-code a path. Unknown slugs are a 404 (audit OWASP-A06-001).
+- **Citations in posts** are links on the source name in the text plus a Sources list at the end, since post facts come from articles rather than `content/sources.ts` statistics. Statistics in posts still use `<Stat id=… />`.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
