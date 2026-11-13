@@ -27,7 +27,7 @@ Owner: David unless noted. Check items off as they are done.
 ## MFA (A07)
 
 - [ ] GitHub
-- [ ] Vercel
+- [x] Vercel (2FA on, confirmed by David 2026-11-13)
 - [ ] Resend
 - [ ] Cloudflare
 - [ ] Upstash
