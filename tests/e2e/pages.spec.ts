@@ -102,6 +102,15 @@ test("about shows David's photo and Person data", async ({ page }) => {
   expect(text).not.toMatch(/gmail|\(\d{3}\)/i);
 });
 
+test("about photo lines up with the heading block on wide screens", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) < 768, "photo stacks above the heading on phones");
+  await page.goto("/about");
+  const photo = await page.getByRole("img", { name: /David Rhodes/ }).boundingBox();
+  const text = await page.locator("#about-title").locator("..").boundingBox();
+  expect(Math.round(photo!.y)).toBe(Math.round(text!.y));
+  expect(Math.round(photo!.y + photo!.height)).toBe(Math.round(text!.y + text!.height));
+});
+
 test("legal pages are marked as drafts", async ({ page }) => {
   for (const path of ["/legal/privacy", "/legal/terms"]) {
     await page.goto(path);

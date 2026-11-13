@@ -29,15 +29,15 @@ export default function AboutPage() {
       />
       {/* COPY: draft (David's story, first person, facts from content/facts.ts only) */}
       <section aria-labelledby="about-title" className="border-b border-border">
-        <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-12 sm:px-6 sm:py-16 md:flex-row md:items-center md:gap-10">
+        <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-12 sm:px-6 sm:py-16 md:flex-row md:items-stretch md:gap-10">
           <Image
             src="/images/david-rhodes.jpg"
             alt={`${facts.name}, ${facts.role} of SureGround`}
             width={1600}
             height={1066}
             priority
-            sizes="(min-width: 768px) 208px, 176px"
-            className="aspect-[4/3] w-44 shrink-0 rounded-card object-cover md:w-52"
+            sizes="(min-width: 768px) 288px, 176px"
+            className="aspect-[4/3] w-44 shrink-0 rounded-card object-cover md:aspect-auto md:h-auto md:w-72"
           />
           <div className="flex flex-col gap-4">
             <p className="font-mono text-label text-muted uppercase">About</p>
