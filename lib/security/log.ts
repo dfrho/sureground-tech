@@ -10,7 +10,8 @@ export type SecurityEvent =
   | "honeypot_hit"
   | "rate_limited"
   | "validation_failed"
-  | "email_send_failed";
+  | "email_send_failed"
+  | "form_error";
 
 export interface SecurityEventFields {
   path?: string;
