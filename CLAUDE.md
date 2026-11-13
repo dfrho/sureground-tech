@@ -372,12 +372,21 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
-**Phase 4 (Contact and booking): built, 2026-11-13** (branch `p4/contact-booking`, waiting for David).
+**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, waiting for David).
+
+- `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
+- Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
+- `/scorecard` has its own CSP (Turnstile only); header and footer links to it are full page loads.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (154), test:e2e (641: 614 passed, 27 skipped; one timeout under load fixed by a longer limit, passed on rerun), audit:deps.
+- OWASP audit (full): `docs/security/audit-2026-11-13-phase5.md`, one Low found and fixed, two Informational accepted.
+- Waiting on David: approve the scorecard content (open item 4) and the other Phase 5 copy in `docs/copy-review.md`.
+
+**Phase 4 (Contact and booking): done, 2026-11-13** (merged as PR 16).
 
 - `/contact` with the contact form (Server Action `app/actions/contact.ts` through the shared pipeline in `lib/forms/`: Turnstile, honeypot, Upstash rate limit of 5 per IP per hour, Zod, then `ContactNotify` to `CONTACT_TO_EMAIL` with reply-to) and the Cal.com inline embed (`@calcom/embed-react`), both themed.
 - `lib/email/send.ts` (Resend, or `.outbox/` in development), `lib/rate-limit.ts`, spike alert emails (`lib/security/alert.ts`).
 - Per-page CSP: only `/contact` allows Turnstile, Cal.com and inline styles; links to it are full page loads. See `docs/decisions.md`.
-- `enabledFeatures` now includes `forms` and `booking`: production builds need the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` in Vercel before this merges.
+- `enabledFeatures` now includes `forms` and `booking`: production builds need the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` (all set in Vercel). Upstash is connected as `KV_REST_API_*`, mapped by `withEnvAliases`.
 - OWASP audit (full): `docs/security/audit-2026-11-13-phase4.md`, one Low fixed, one Low accepted.
 
 **Phase 3 (Blog): done, 2026-11-13** (merged as PR 15).
@@ -408,4 +417,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 5 (First Step Scorecard), after Phase 4 merges.
+Next: Phase 6 (Launch hardening), after Phase 5 merges.

@@ -167,6 +167,8 @@ test.describe("contact form submission", () => {
   });
 
   test("blocks the sixth message from one IP within an hour", async ({ page }) => {
+    // Six submissions, each waiting for a fresh Turnstile token: slow under full-suite load.
+    test.setTimeout(90_000);
     await openContact(page);
     // Five attempts are allowed (invalid ones count too, so nothing is sent).
     for (let i = 0; i < 5; i++) {

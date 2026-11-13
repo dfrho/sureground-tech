@@ -45,6 +45,8 @@ export interface PipelineInput<S extends z.ZodType<Record<string, unknown>>> {
   limits: RateLimitKey[];
   lateLimits?: (data: z.output<S>) => Promise<RateLimitKey[]>;
   deps: PipelineDeps;
+  /** Per-form wording for the error messages. */
+  messages?: Partial<Record<keyof typeof messages, string>>;
   /** Sends the email(s). Returns false on failure; the pipeline never claims success then. */
   send(data: z.output<S>): Promise<boolean>;
 }
@@ -54,6 +56,7 @@ export async function runFormPipeline<S extends z.ZodType<Record<string, unknown
 ): Promise<FormState<keyof z.output<S> & string>> {
   type F = keyof z.output<S> & string;
   const { formData, schema, fields, deps } = input;
+  const text = { ...messages, ...input.messages };
 
   const values: Partial<Record<F, string>> = {};
   for (const f of fields) {
@@ -68,21 +71,21 @@ export async function runFormPipeline<S extends z.ZodType<Record<string, unknown
     const verdict = await deps.verifyTurnstile(formData.get(fieldNames.turnstile));
     if (!verdict.ok) {
       await deps.onSecurityEvent("turnstile_failed", verdict.reason);
-      return fail(messages.turnstile);
+      return fail(text.turnstile);
     }
 
     // 2. Honeypot: a hidden field people never see. No false success for bots either.
     const trap = formData.get(fieldNames.honeypot);
     if (typeof trap === "string" && trap.length > 0) {
       await deps.onSecurityEvent("honeypot_hit");
-      return fail(messages.generic);
+      return fail(text.generic);
     }
 
     // 3. Rate limits by salted hash.
     for (const { bucket, key } of input.limits) {
       if (!(await deps.allow(bucket, key))) {
         await deps.onSecurityEvent("rate_limited", bucket);
-        return fail(messages.rateLimited);
+        return fail(text.rateLimited);
       }
     }
 
@@ -100,14 +103,14 @@ export async function runFormPipeline<S extends z.ZodType<Record<string, unknown
         if (typeof key === "string" && !(key in fieldErrors)) fieldErrors[key as F] = issue.message;
       }
       await deps.onSecurityEvent("validation_failed", Object.keys(fieldErrors).join(","));
-      return fail(messages.invalid, { fieldErrors });
+      return fail(text.invalid, { fieldErrors });
     }
 
     if (input.lateLimits) {
       for (const { bucket, key } of await input.lateLimits(parsed.data)) {
         if (!(await deps.allow(bucket, key))) {
           await deps.onSecurityEvent("rate_limited", bucket);
-          return fail(messages.rateLimited);
+          return fail(text.rateLimited);
         }
       }
     }
@@ -115,12 +118,12 @@ export async function runFormPipeline<S extends z.ZodType<Record<string, unknown
     // 5. Send. Only a confirmed send is a success.
     if (!(await input.send(parsed.data))) {
       await deps.onSecurityEvent("email_send_failed");
-      return fail(messages.sendFailed);
+      return fail(text.sendFailed);
     }
     return { status: "success" };
   } catch {
     // Limiter or other infrastructure errors: fail closed with no details.
     await Promise.resolve(deps.onSecurityEvent("form_error")).catch(() => {});
-    return fail(messages.generic);
+    return fail(text.generic);
   }
 }

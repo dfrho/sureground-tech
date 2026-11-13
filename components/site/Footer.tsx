@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { site } from "@/lib/config/site";
+import { needsFullPageLoad } from "@/lib/security/csp";
 
 const linkClass = "inline-flex min-h-11 min-w-11 items-center text-muted hover:text-text";
 
@@ -32,9 +33,15 @@ export function Footer() {
           <ul className="mt-2">
             {site.nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={linkClass}>
-                  {item.label}
-                </Link>
+                {needsFullPageLoad(item.href) ? (
+                  <a href={item.href} className={linkClass}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li>
