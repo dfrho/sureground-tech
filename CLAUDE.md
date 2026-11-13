@@ -271,7 +271,7 @@ Fields: name (max 80), email, company (optional, max 120), topic (enum: Fit Call
 
 ## Blog
 
-- Posts are MDX files in `content/blog/` exporting `metadata` (title, description, date, updated, tags, draft, ogImage optional), validated with Zod at build time. Invalid metadata fails the build.
+- Posts are MDX files in `content/blog/<slug>.mdx`; their metadata (slug, title, description, date, updated, tags, draft, readingMinutes, ogImage optional) lives in `content/blog/posts.ts`, validated with Zod at build time. Invalid metadata fails the build. See `docs/decisions.md`.
 - Routes: `/blog` (paginated index with tags), `/blog/[slug]` (static, `dynamicParams = false`), `/blog/tag/[tag]`, `/blog/rss.xml`.
 - Each post: reading time, `BlogPosting` JSON-LD, Open Graph image, canonical URL, previous and next links, and a closing CTA to the scorecard.
 - Drafts (`draft: true`) build locally but are excluded from production, the sitemap and RSS.
@@ -372,6 +372,13 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
+**Phase 3 (Blog): built, 2026-11-13** (branch `p3/blog`, waiting for David to merge).
+
+- MDX pipeline (`@next/mdx`), metadata registry with Zod, `/blog` (paginated), `/blog/[slug]`, `/blog/tag/[tag]`, `/blog/rss.xml`, Open Graph images, BlogPosting and BreadcrumbList JSON-LD, previous and next links, a closing scorecard CTA, latest three posts on the home page, blog in the sitemap.
+- First published post: "Google AI Mode Now Books Home Services: What Local Owners Should Do Next" (David's, reworked with him in a Claude Doc). Three seeded outline drafts (`draft: true`) for David to write.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (85), test:e2e (522), audit:deps.
+- OWASP audit (full, since `next.config.ts` changed): `docs/security/audit-2026-11-13-phase3.md`, one Low found and fixed, nothing open.
+
 **Phase 2 (Marketing pages): done, 2026-11-10** (branch `p2/marketing-pages`).
 
 - Home, Services index, 12 service pages, Pricing, About (with the headshot), privacy and terms drafts; `sitemap.ts` and `robots.ts`.
@@ -393,4 +400,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 3 (blog).
+Next: Phase 4 (contact and booking), after Phase 3 merges.

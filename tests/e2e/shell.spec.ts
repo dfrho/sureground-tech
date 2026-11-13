@@ -14,6 +14,13 @@ const pages = [
   { path: "/about", name: "about", status: 200 },
   { path: "/legal/privacy", name: "privacy", status: 200 },
   { path: "/legal/terms", name: "terms", status: 200 },
+  { path: "/blog", name: "blog", status: 200 },
+  {
+    path: "/blog/google-ai-mode-home-services-booking",
+    name: "blog-post-ai-mode",
+    status: 200,
+  },
+  { path: "/blog/tag/home-services", name: "blog-tag", status: 200 },
   { path: "/this-page-does-not-exist", name: "not-found", status: 404 },
 ];
 

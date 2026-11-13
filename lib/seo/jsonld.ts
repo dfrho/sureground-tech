@@ -104,3 +104,27 @@ export function breadcrumbLd(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+export function blogPostingLd(post: {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  updated?: string;
+  tags: string[];
+}) {
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.updated ?? post.date,
+    keywords: post.tags.join(", "),
+    url,
+    mainEntityOfPage: url,
+    author: { "@id": personId },
+    publisher: { "@id": orgId },
+  };
+}
