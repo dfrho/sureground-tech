@@ -121,7 +121,11 @@ export function SelectField({
   return (
     <div className="flex flex-col gap-1.5">
       <Label id={id} label={label} />
+      {/* Keyed by its default so a returned value remounts it: React does not
+          update a select's default after mount, and the form reset that
+          follows an action would otherwise put it back to "Choose one". */}
       <select
+        key={defaultValue ?? ""}
         id={id}
         name={name}
         required
@@ -160,6 +164,44 @@ export function Honeypot({ name }: { name: string }) {
         autoComplete="off"
         defaultValue=""
       />
+    </div>
+  );
+}
+
+/** A required checkbox with its label beside it and an inline error. */
+export function CheckboxField({
+  name,
+  label,
+  value = "yes",
+  error,
+  defaultChecked,
+}: {
+  name: string;
+  label: string;
+  value?: string;
+  error?: string;
+  defaultChecked?: boolean;
+}) {
+  const id = `field-${name}`;
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex min-h-11 items-start gap-3">
+        <input
+          id={id}
+          name={name}
+          type="checkbox"
+          value={value}
+          required
+          defaultChecked={defaultChecked}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy(id, undefined, error)}
+          className="mt-0.5 size-6 shrink-0 accent-accent-fill"
+        />
+        <label htmlFor={id} className="text-body">
+          {label}
+        </label>
+      </div>
+      <Help id={id} error={error} />
     </div>
   );
 }

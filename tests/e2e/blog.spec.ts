@@ -45,9 +45,7 @@ test("a post shows its title, date, reading time, sources and structured data", 
   expect(image.status()).toBe(200);
   expect(image.headers()["content-type"]).toContain("image/png");
   // The closing call to action points at the scorecard.
-  await expect(
-    page.getByRole("link", { name: /Take the First Step Scorecard/ }).last(),
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /Check your AI readiness/ }).last()).toBeVisible();
 });
 
 test("drafts and unknown slugs are 404 in production", async ({ page }) => {

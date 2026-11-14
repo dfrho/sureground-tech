@@ -42,8 +42,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
+export default async function ServicePage({ params, searchParams }: PageProps<"/services/[slug]">) {
   const { slug } = await params;
+  // Set by the scorecard results link. Only this exact value counts.
+  const scorecardDone = (await searchParams).from === "scorecard";
   const found = load(slug);
   if (!found) notFound();
   const { offer, content } = found;
@@ -224,7 +226,15 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </section>
       ) : null}
 
-      <CTA />
+      {scorecardDone ? (
+        <CTA
+          title="Talk through your results."
+          body="You have your scorecard results. On a free AI Fit Call we go over them and whether this is the right first step."
+          scorecardDone
+        />
+      ) : (
+        <CTA />
+      )}
     </>
   );
 }

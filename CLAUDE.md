@@ -4,7 +4,7 @@ You are building and maintaining sureground.tech for David Rhodes. Read this fil
 
 ## What this is
 
-SureGround is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees) put AI to work without becoming the experiment.
+SureGround is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees, with no in-house team that builds with AI) put AI to work without becoming the experiment. (Target refined by David, 2026-11-13: an in-house engineering team predicts fit better than headcount. This wording is internal; public copy changes only when he approves it.)
 
 Positioning line: **"You don't have to be the pioneer."**
 Tagline: **"AI on sure ground."**
@@ -167,7 +167,7 @@ Measured contrast: Bone on Carbon 16.9:1; Steel on Carbon 7.4:1; Signal Blue on 
 
 Its job is to lower the temperature, show proof, and start the scorecard. Sections in order:
 
-1. **Hero.** Eyebrow `> grounded_ai + enablement`. H1: "You don't have to be the pioneer." Subhead: "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it." Primary CTA: "Take the First Step Scorecard" (with "5 minutes"). Secondary CTA: "Book a free AI Fit Call". The step motif sits beside the copy; its steps draw in once on load when motion is allowed.
+1. **Hero.** Eyebrow `> grounded_ai + enablement`. H1: "You don't have to be the pioneer." Subhead: "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it." Primary CTA: "Check your AI readiness" (with "5 min"; label chosen by David, 2026-11-13, it opens the First Step Scorecard). Secondary CTA: "Book a free AI Fit Call". The step motif sits beside the copy; its steps draw in once on load when motion is allowed.
 2. **Proof strip.** "20 years building for enterprise buyers" with former employer names as plain text from `content/facts.ts`.
 3. **Why owners hold back.** Three short cards on the real barriers (privacy, accuracy, not knowing where to start), each with one cited statistic from `content/sources.ts`.
 4. **Core services.** Three cards: AI Engineering, Agent Development, AI Enablement, each linking to its page.
@@ -254,12 +254,12 @@ A five-minute self-assessment that tells an owner how solid their ground is and 
 5. Safety: is there a policy for which AI tools staff may use and what data they may share?
 6. Tools: are current systems connected, or do people re-key data between them?
 
-**Scoring.** `lib/scorecard/score.ts` is a pure function: answers in, total (0 to 48), per-dimension scores, band and recommended next offer out. Bands (copy drafts): 36 to 48 "Solid ground", 24 to 35 "Firm footing", 12 to 23 "Uneven ground", 0 to 11 "Soft ground". The recommendation maps the weakest dimension to an offer (for example Safety to AI Safe Start, Goals to AI Opportunity Assessment, People to AI Enablement). Unit-test every band boundary and every mapping. No AI model is called anywhere in the scorecard.
+**Scoring.** `lib/scorecard/score.ts` is a pure function: answers in, total (0 to 48), per-dimension scores, band and recommended next offer out. Bands (copy drafts): 36 to 48 "Solid ground", 24 to 35 "Firm footing", 12 to 23 "Uneven ground", 0 to 11 "Soft ground". The recommendation maps the weakest dimension to an offer (Safety to AI Safe Start; Goals, Workflows, Data and Tools to AI Opportunity Assessment; People to AI Enablement; every area ready to the Pilot Sprint), then swaps build offers for teams that can build (`teamOverrides`). Mapping approved by David, 2026-11-13. Unit-test every band boundary and every mapping. No AI model is called anywhere in the scorecard.
 
 **Flow (email required for results, as David decided).**
 
 1. One question per screen on mobile, a progress bar, back and next, answers kept in client state only (never in the URL or local storage).
-2. Email gate: first name, work email, company name, company size (enum), role (enum), a required checkbox "Email me my results", Turnstile, honeypot.
+2. Email gate: first name, work email, company name, company size (enum), role (enum), who would build and run an AI project today (enum, unscored; a team that can build gets a non-build offer, see `teamOverrides`), a required checkbox "Email me my results", Turnstile, honeypot.
 3. Server action `app/actions/scorecard.ts`: verify Turnstile, check the honeypot, rate-limit by IP and by email hash, validate every answer against the enum in `scorecard.ts` with Zod, **recompute the score on the server** (never trust a client score), send `ScorecardResult` to the visitor and `ScorecardLeadNotify` to `CONTACT_TO_EMAIL`, then return the result for display.
 4. Results screen: band, per-dimension bars, two or three plain-language observations, the recommended first step with its starting price, CTAs to book a Fit Call and to read the matching service page. Nothing is persisted; refreshing the page clears it.
 
@@ -366,18 +366,27 @@ A production build fails if any required variable is missing. "Required" grows w
 1. Done 2026-11-09: every price, duration, credit and guarantee in the Offers section confirmed as written, including both AI Enablement prices.
 2. Done 2026-11-09: Vercel team moved to Pro.
 3. Done 2026-11-09: headshot saved as `public/images/david-rhodes.jpg`. Still open: approve the About story, the facts in `content/facts.ts` and the Phase 2 copy in `docs/copy-review.md`.
-4. Approve the scorecard questions, band names and recommendations.
+4. Done 2026-11-13: scorecard questions, answers, bands, observations, recommendations and tie order approved.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
 
 ## Current status
 
-**Phase 4 (Contact and booking): built, 2026-11-13** (branch `p4/contact-booking`, waiting for David).
+**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, PR open, waiting for David to merge).
+
+- `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent, an unscored in-house team question that swaps build offers for teams that can build), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
+- Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
+- `/scorecard` has its own CSP (Turnstile only); header and footer links to it are full page loads.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (154), test:e2e (641: 614 passed, 27 skipped; one timeout under load fixed by a longer limit, passed on rerun), audit:deps.
+- OWASP audit (full): `docs/security/audit-2026-11-13-phase5.md`, one Low found and fixed, two Informational accepted.
+- David approved the scorecard content on 2026-11-13 (open item 4). The other Phase 5 copy in `docs/copy-review.md` (page, gate, results screen, emails, error messages) is still a draft.
+
+**Phase 4 (Contact and booking): done, 2026-11-13** (merged as PR 16).
 
 - `/contact` with the contact form (Server Action `app/actions/contact.ts` through the shared pipeline in `lib/forms/`: Turnstile, honeypot, Upstash rate limit of 5 per IP per hour, Zod, then `ContactNotify` to `CONTACT_TO_EMAIL` with reply-to) and the Cal.com inline embed (`@calcom/embed-react`), both themed.
 - `lib/email/send.ts` (Resend, or `.outbox/` in development), `lib/rate-limit.ts`, spike alert emails (`lib/security/alert.ts`).
 - Per-page CSP: only `/contact` allows Turnstile, Cal.com and inline styles; links to it are full page loads. See `docs/decisions.md`.
-- `enabledFeatures` now includes `forms` and `booking`: production builds need the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` in Vercel before this merges.
+- `enabledFeatures` now includes `forms` and `booking`: production builds need the Turnstile keys, Upstash variables, `RATE_LIMIT_SALT` and `NEXT_PUBLIC_CAL_LINK` (all set in Vercel). Upstash is connected as `KV_REST_API_*`, mapped by `withEnvAliases`.
 - OWASP audit (full): `docs/security/audit-2026-11-13-phase4.md`, one Low fixed, one Low accepted.
 
 **Phase 3 (Blog): done, 2026-11-13** (merged as PR 15).
@@ -408,4 +417,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 5 (First Step Scorecard), after Phase 4 merges.
+Next: Phase 6 (Launch hardening), after Phase 5 merges.

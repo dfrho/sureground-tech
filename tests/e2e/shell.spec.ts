@@ -13,6 +13,7 @@ const pages = [
   { path: "/pricing", name: "pricing", status: 200 },
   { path: "/about", name: "about", status: 200 },
   { path: "/contact", name: "contact", status: 200 },
+  { path: "/scorecard", name: "scorecard", status: 200 },
   { path: "/legal/privacy", name: "privacy", status: 200 },
   { path: "/legal/terms", name: "terms", status: 200 },
   { path: "/blog", name: "blog", status: 200 },
@@ -89,10 +90,9 @@ for (const { path, name, status } of pages) {
 test("the 404 page points to the scorecard", async ({ page }) => {
   await page.goto("/this-page-does-not-exist");
   await expect(page).toHaveTitle("Page not found | SureGround");
-  await expect(page.getByRole("main").getByRole("link", { name: /Scorecard/ })).toHaveAttribute(
-    "href",
-    "/scorecard",
-  );
+  await expect(
+    page.getByRole("main").getByRole("link", { name: "Check your AI readiness" }),
+  ).toHaveAttribute("href", "/scorecard");
 });
 
 test("the skip link is the first tab stop and moves focus to main", async ({ page }) => {

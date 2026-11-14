@@ -43,6 +43,7 @@ test.describe("security baseline", () => {
     "/pricing",
     "/about",
     "/contact",
+    "/scorecard",
     "/blog",
     "/blog/google-ai-mode-home-services-booking",
   ]) {

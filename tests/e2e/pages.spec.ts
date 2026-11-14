@@ -15,9 +15,10 @@ test("home: hero, cited stats, the path and both calls to action", async ({ page
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "You don't have to be the pioneer.",
   );
-  await expect(
-    page.getByRole("link", { name: /Take the First Step Scorecard/ }).first(),
-  ).toHaveAttribute("href", "/scorecard");
+  await expect(page.getByRole("link", { name: /Check your AI readiness/ }).first()).toHaveAttribute(
+    "href",
+    "/scorecard",
+  );
   await expect(page.getByRole("link", { name: "Book a free AI Fit Call" }).first()).toHaveAttribute(
     "href",
     "/contact#book",

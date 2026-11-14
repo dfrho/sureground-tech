@@ -18,7 +18,7 @@ export default function NotFound() {
         First Step Scorecard is a good place to start.
       </p>
       <div className="mt-10 flex flex-wrap gap-4">
-        <ButtonLink href="/scorecard">Take the First Step Scorecard</ButtonLink>
+        <ButtonLink href="/scorecard">Check your AI readiness</ButtonLink>
         <ButtonLink href="/" variant="secondary">
           Go to the home page
         </ButtonLink>

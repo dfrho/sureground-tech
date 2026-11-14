@@ -204,6 +204,16 @@ describe("rate-limit keys", () => {
       hashKey("email", "pat@example.com", "s"),
     );
     expect(hashKey("email", "x", "s")).not.toBe(hashKey("ip", "x", "s"));
+    // One key per inbox: plus tags share the base address's limit.
+    expect(hashKey("email", "Pat+1@example.com", "s")).toBe(
+      hashKey("email", "pat@example.com", "s"),
+    );
+    expect(hashKey("email", "pat+a+b@example.com", "s")).toBe(
+      hashKey("email", "pat@example.com", "s"),
+    );
+    expect(hashKey("email", "+x@example.com", "s")).not.toBe(
+      hashKey("email", "x@example.com", "s"),
+    );
   });
 
   it("reads the client IP from the platform headers", () => {
@@ -415,11 +425,12 @@ describe("CSP for Phase 4 integrations", () => {
     expect(contact).toContain("frame-ancestors 'none'");
   });
 
-  it("marks links to /contact as full page loads", () => {
+  it("marks links to /contact and /scorecard as full page loads", () => {
     expect(needsFullPageLoad("/contact")).toBe(true);
     expect(needsFullPageLoad("/contact#book")).toBe(true);
     expect(needsFullPageLoad("/contact?x=1")).toBe(true);
-    expect(needsFullPageLoad("/scorecard")).toBe(false);
+    expect(needsFullPageLoad("/scorecard")).toBe(true);
+    expect(needsFullPageLoad("/services")).toBe(false);
     expect(needsFullPageLoad("/")).toBe(false);
   });
 
@@ -431,7 +442,7 @@ describe("CSP for Phase 4 integrations", () => {
       });
     const offending = ["app", "components"]
       .flatMap((d) => files(join(process.cwd(), d)))
-      .filter((f) => /<Link[^>]*href=["{`]*\/contact/.test(readFileSync(f, "utf8")));
+      .filter((f) => /<Link[^>]*href=["{`]*\/(contact|scorecard)/.test(readFileSync(f, "utf8")));
     expect(offending).toEqual([]);
   });
 });
