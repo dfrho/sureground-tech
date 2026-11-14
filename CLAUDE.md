@@ -386,7 +386,7 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
-**Phase 7 (Guided Demo Site Build): done, 2026-11-14** (branch `p7/demo-site-build`, PR open, not merged).
+**Phase 7 (Guided Demo Site Build): done, 2026-11-14** (merged as PR 19).
 
 - `demo-site-build` in `offers.ts`: Demo Pilot and Demo Site Build as `tiers`, three `addOns`, approved terms (live in 4 weeks), `confirmed: true`. `components/offers/PriceDetails.tsx` shows tiers and add-ons on the service page and on Pricing (third Specialty).
 - `/services/demo-site-build` from `content/services/demo-site-build.ts`, with a per-service closing CTA (`cta` on `ServiceContent`) that links to `/contact?topic=demo-build#book` and `/contact?topic=demo-build` instead of the scorecard. New proof point `se-roles` in `facts.ts` (draft).
@@ -449,4 +449,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: David reviews and merges Phase 7, then the remaining launch checklist items. The Demo Site Build joins the home Specialty block only after its first pilot ships and David approves.
+Next: the remaining launch checklist items, and David's copy approvals in `docs/copy-review.md` (Phase 7 items included). The draft banners on the privacy and terms pages were removed at his request (2026-11-14); both pages still await a lawyer's review. The Demo Site Build joins the home Specialty block only after its first pilot ships and David approves.
