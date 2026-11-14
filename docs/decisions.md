@@ -153,6 +153,14 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Zod runs jitless (`lib/zod.ts`).** Zod 4 probes `new Function` once to decide whether to compile faster parsers. The probe is caught, but under the site's CSP (no `'unsafe-eval'`) Chrome reports it as a violation, which Lighthouse counted against Best Practices on `/scorecard`. `z.config({ jitless: true })` skips the probe and parses the same way. Every module imports `z` from `@/lib/zod`; ESLint blocks direct `zod` imports. The e2e CSP checks now also listen for `securitypolicyviolation` events, which catch violations that never reach the console.
 - **Lighthouse runs locally** against the production build (`pnpm build && pnpm start`, Lighthouse 13.6.0, mobile defaults). Off sureground.tech the site sends `X-Robots-Tag: noindex` on purpose, so the SEO audit `is-crawlable` fails everywhere except the real domain. The SEO score is confirmed again on sureground.tech after the DNS cutover.
 
+## Phase 7: Guided Demo Site Build (2026-11-14)
+
+- **Add-ons on the offer shape.** `offerSchema` gained an optional `addOns` array (`name`, `startingAt`, `cadence`), as CLAUDE.md asks. The two packages (Demo Pilot and Demo Site Build) use the existing `tiers` field, so `startingAt` stays the pilot price. Upkeep is listed once, as a monthly add-on, not repeated in `terms`. One component, `components/offers/PriceDetails.tsx`, renders tiers and add-ons on both the service page and the Pricing page.
+- **Left out on purpose.** The research doc's Demo Program ($30,000), the five-version bundle and the platform pack are not in CLAUDE.md's approved list, so they are not on the site. The Gartner and Forrester conference demos stay out of `facts.ts` until David confirms them.
+- **Per-service closing CTA.** `ServiceContent` has an optional `cta` (title, body, one or two site-path links). When set, the service page shows it instead of the scorecard and Fit Call buttons, including on the `?from=scorecard` arrival. Only `demo-site-build` uses it.
+- **Contact topic preset.** `/contact?topic=demo-build` preselects "Demo build". `topicFromQuery` maps exact, known slugs to the topic enum through an own-property lookup and ignores everything else (arrays, other values, prototype names); the value is never rendered or redirected. The contact page already renders per request for its nonce CSP, so reading `searchParams` costs nothing.
+- **Home page.** The home Specialty block was already an explicit slug list, so the new offer stays off it until David approves adding it after the first pilot.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
@@ -165,7 +173,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings), `docs/security/audit-2026-11-13-phase3.md` for Phase 3 `docs/security/audit-2026-11-13-phase4.md` for Phase 4 `docs/security/audit-2026-11-13-phase5.md` for Phase 5 and `docs/security/audit-2026-11-13-launch.md` for the pre-launch full audit (no Critical, High, Medium or Low). Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings), `docs/security/audit-2026-11-13-phase3.md` for Phase 3 `docs/security/audit-2026-11-13-phase4.md` for Phase 4 `docs/security/audit-2026-11-13-phase5.md` for Phase 5 `docs/security/audit-2026-11-13-launch.md` for the pre-launch full audit (no Critical, High, Medium or Low) and `docs/security/audit-2026-11-14-phase7.md` for Phase 7 (no findings). Medium and Low items not fixed are listed there with an owner.
 
 - **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
 - **OWASP-A08-001 (Phase 1, Informational): fixed in Phase 6.** Fonts are now committed `woff2` files loaded with `next/font/local`; nothing is downloaded at build time.

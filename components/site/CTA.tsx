@@ -26,16 +26,24 @@ export function CtaButtons({
   );
 }
 
+export interface CtaLink {
+  label: string;
+  href: string;
+}
+
 /** Closing call to action at the end of a page. */
 export function CTA({
   title = "Start with one small, safe step.",
   body = "Find out how solid your ground is in five minutes, or talk it through on a free call.",
   scorecardDone = false,
+  links,
 }: {
   title?: string;
   body?: string;
   /** The visitor arrived from their scorecard results. */
   scorecardDone?: boolean;
+  /** Replaces the standard buttons; the first is the primary button. */
+  links?: readonly CtaLink[];
 }) {
   return (
     <section aria-labelledby="cta-title" className="py-14 sm:py-18">
@@ -45,7 +53,21 @@ export function CTA({
             {title}
           </h2>
           <p className="mt-3 max-w-2xl text-muted">{body}</p>
-          <CtaButtons className="mt-6" scorecardDone={scorecardDone} />
+          {links ? (
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {links.map((link, i) => (
+                <ButtonLink
+                  key={link.href + link.label}
+                  href={link.href}
+                  variant={i === 0 ? "primary" : "secondary"}
+                >
+                  {link.label}
+                </ButtonLink>
+              ))}
+            </div>
+          ) : (
+            <CtaButtons className="mt-6" scorecardDone={scorecardDone} />
+          )}
         </div>
       </div>
     </section>

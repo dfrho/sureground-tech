@@ -173,7 +173,7 @@ Its job is to lower the temperature, show proof, and start the scorecard. Sectio
 4. **Core services.** Three cards: AI Engineering, Agent Development, AI Enablement, each linking to its page.
 5. **The path.** A stepped, numbered ladder (the signature visual): Step 1 Scorecard or Fit Call, Step 2 Assess, Step 3 Pilot, Step 4 Operate. Each step names its offer and reads its starting price from `offers.ts`.
 6. **Risk off your plate.** The approved guarantees and credits from `offers.ts` (assessment fee credited, live-in-90-days, no lock-in).
-7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine. (Catalog and Feed Readiness was removed on 2026-11-11, David: too soon after leaving Feedonomics. Do not bring it back unless he asks.)
+7. **Specialty offers.** Pilot Triage, Security Questionnaire and RFP Answer Engine. (Guided Demo Site Build is added here only after its first pilot ships and David approves.) (Catalog and Feed Readiness was removed on 2026-11-11, David: too soon after leaving Feedonomics. Do not bring it back unless he asks.)
 8. **About teaser** with David's photo and two lines from `facts.ts`.
 9. **Latest three blog posts.**
 10. **Final CTA** repeating the scorecard and Fit Call.
@@ -181,6 +181,17 @@ Its job is to lower the temperature, show proof, and start the scorecard. Sectio
 ### Services (`/services`, `/services/[slug]`)
 
 One page per offer, generated from `content/services/*.ts` plus `offers.ts`. Each page: who it is for, the problem, what you get (deliverables list), how it works (numbered steps), duration, starting price, the guarantee or credit if any, "why SureGround" (only facts from `facts.ts`), FAQ, and a CTA. Add `Service` JSON-LD.
+
+**`/services/demo-site-build` (Guided Demo Site Build)**
+
+Page template follows the standard service template above. Specific requirements:
+
+- Target buyer: Head, Director or VP of Solutions Engineering or Presales at a B2B SaaS company with 2 to 10 SEs and no demo engineer; secondary buyer is a PMM or demand-gen director. Copy speaks to this audience, not to small-business owners.
+- "Why SureGround" bullets draw only from `content/facts.ts`. The Gartner and Forrester conference demo references in the research doc are not yet in `facts.ts`; do not publish them until David confirms. Use only the Feedonomics, FullStory and Shogun SE roles and the Shogun troubleshooting result, which are already sourced.
+- The page CTA replaces the standard "Check your AI readiness" scorecard link with two specific CTAs: "Book a free call" (to `/contact#book`, Topic preset to "Demo build") and "Send us the demo you want to fix" (to `/contact`, Topic preset to "Demo build"). Do not link to the scorecard on this page.
+- Add this page to the "Related offers" section on the Answer Engine (`/services/answer-engine`) and Fractional AI Solutions Engineer (`/services/fractional-se`) pages so the B2B-seller offers link to each other.
+- The home page Specialty block does not include this offer until after the first pilot ships and David approves. The page and pricing card are live from day one; the home block is not.
+- All prices (pilot $7,500, full build $15,000, upkeep $2,000 per month, industry version $3,500, named-customer version $1,500) are in `offers.ts`. David confirmed them on 2026-11-14 and changed the guarantee to "live in 4 weeks", so the offer is `confirmed: true` and live. The pilot and full build are `tiers`; the add-on prices are an `addOns` array on the offer shape.
 
 ### Pricing (`/pricing`)
 
@@ -212,7 +223,7 @@ Header: Wordmark, Services, Pricing, Scorecard, Blog, About, theme toggle, "Book
 
 ## Offers
 
-All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `group`, `summary`, `deliverables[]`, `duration`, `startingAt` (number in USD or `0` for free), `cadence` (`one-time` or `monthly`), `terms` (credits and guarantees, exact approved wording), `confirmed` (boolean). The prices and terms below started as recommendations from the research report; **David confirmed all of them as written on 2026-11-09** and every offer is `confirmed: true`. Any later change needs his approval again.
+All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `group`, `summary`, `deliverables[]`, `duration`, `startingAt` (number in USD or `0` for free), `cadence` (`one-time` or `monthly`), `terms` (credits and guarantees, exact approved wording), `confirmed` (boolean). The prices and terms below started as recommendations from the research report; **David confirmed all of them as written on 2026-11-09** (and the Guided Demo Site Build on 2026-11-14) and every offer is `confirmed: true`. Any later change needs his approval again.
 
 ### Core services (the three pillars)
 
@@ -232,6 +243,7 @@ All values live in `lib/config/offers.ts` with this shape: `slug`, `name`, `grou
 | Build     | `pilot-sprint`           | Proven-Pattern Pilot Sprint                  | One back-office workflow, agent or knowledge assistant on proven tools, with approval points, testing, training and a written data-handling note | 4 to 8 weeks    | $10,000, paid in milestones | Live in 90 days or we keep working at no charge                   |
 | Specialty | `pilot-triage`           | AI Pilot Triage                              | Go, kill or fix verdict on up to two stalled AI projects, the named data or integration blocker, a fixed-price next step                         | 2 weeks         | $7,500                      | Half your fee comes off a build with us; fee returned if no blocker is named |
 | Specialty | `answer-engine`          | Security Questionnaire and RFP Answer Engine | Curated answer library, AI-governance answer set, tool selection and setup, refresh process for B2B sellers                                      | 3 to 4 weeks    | $7,500                      | Optional upkeep $750 per month                                    |
+| Specialty | `demo-site-build`        | Guided Demo Site Build                       | A guided, click-through demo site built on synthetic data, versioned by industry or named account, with tokenized share links and CRM-connected engagement tracking | 2 to 6 weeks | $7,500 (Demo Pilot); full build from $15,000 | Full pilot fee comes off a full build started within 60 days; paid in milestones; live in 4 weeks or we keep working at no charge (conditioned on client access within 5 business days and reviews within 3); optional Demo Upkeep from $2,000 per month |
 | Operate   | `managed-ops`            | Managed AI Operations                        | Monitoring, maintenance, a monthly block of improvements, plain-language monthly report                                                          | Monthly         | $1,000 per month            | Month to month, no lock-in                                        |
 | Operate   | `fractional-se`          | Fractional AI Solutions Engineer             | Hands-on AI lead: roadmap, vendor approvals, governance updates, customer security answers, one build slot                                       | 3-month minimum | $5,000 per month            |                                                                   |
 
@@ -267,7 +279,7 @@ A five-minute self-assessment that tells an owner how solid their ground is and 
 
 ## Contact form
 
-Fields: name (max 80), email, company (optional, max 120), topic (enum: Fit Call question, Services, Speaking or workshop, Other), message (max 2,000), honeypot, Turnstile. Server action `app/actions/contact.ts` runs the shared pipeline in `lib/forms/`: Turnstile verify, honeypot, rate limit, Zod parse, then `ContactNotify` to `CONTACT_TO_EMAIL` with `reply_to` set to the visitor's validated address. No auto-reply to the visitor. On any failure show a clear error and never a false success.
+Fields: name (max 80), email, company (optional, max 120), topic (enum: Fit Call question, Services, Demo build, Speaking or workshop, Other; the topic can be preset from a `?topic=demo-build` query value, validated against the enum and ignored if unknown), message (max 2,000), honeypot, Turnstile. Server action `app/actions/contact.ts` runs the shared pipeline in `lib/forms/`: Turnstile verify, honeypot, rate limit, Zod parse, then `ContactNotify` to `CONTACT_TO_EMAIL` with `reply_to` set to the visitor's validated address. No auto-reply to the visitor. On any failure show a clear error and never a false success.
 
 ## Blog
 
@@ -347,6 +359,7 @@ A production build fails if any required variable is missing. "Required" grows w
 | 4   | Contact and booking     | Contact form pipeline (Turnstile, honeypot, rate limit, Zod, Resend, outbox in dev); Cal.com inline embed themed to the site; CSP updated for both; unit tests for the pipeline and an e2e test with Turnstile test keys.                                                                                                                   |
 | 5   | First Step Scorecard    | Questions, scoring, bands and recommendations in content files; the flow at 360px; server-side scoring; both emails; abuse rules met; unit tests for every band boundary and mapping; e2e test of the full flow.                                                                                                                            |
 | 6   | Launch hardening        | Full OWASP audit with no open Critical or High; Lighthouse mobile 95+ for performance, accessibility, best practices and SEO on home, a service page, a post and the scorecard; securityheaders.com grade A or better; `check:offers` passes (David confirmed every price); `docs/launch-checklist.md` complete.                            |
+| 7   | Guided Demo Site Build  | `demo-site-build` in `offers.ts` (with `addOns`; David confirmed the prices on 2026-11-14, so it is `confirmed: true` and live); `content/services/demo-site-build.ts`; the service page and Pricing card (third Specialty); "Demo build" contact topic with query preset and unit tests; page CTAs swapped from scorecard to contact as specified under Services; Related-offer links on Answer Engine and Fractional SE; not on the home page; copy listed in `docs/copy-review.md`; e2e at 360/768/1280 in both themes; OWASP audit scoped to changed files (full audit, since `app/actions/contact.ts` and `lib/forms/` change). Source: `docs/research/demo-site-build.md` (copy of David's research doc). |
 
 ## Launch checklist (track in `docs/launch-checklist.md`)
 
@@ -369,10 +382,21 @@ A production build fails if any required variable is missing. "Required" grows w
 4. Done 2026-11-13: scorecard questions, answers, bands, observations, recommendations and tie order approved.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
+7. Guided Demo Site Build (added 2026-11-14). Done 2026-11-14: prices, add-ons and terms confirmed, with the guarantee changed to live in 4 weeks. Still open: confirm whether the Gartner and Forrester conference demos can go in `facts.ts`; confirm the "live" definition for the SOW (deployed on the client's domain or a SureGround subdomain, tracking verified end to end, one share link sent to a real prospect).
 
 ## Current status
 
-**Phase 6 (Launch hardening): code work done, 2026-11-13** (branch `p6/launch-hardening`). Launch waits on David's items in `docs/launch-checklist.md` (DNS cutover, MFA, lawyer review, copy approvals).
+**Phase 7 (Guided Demo Site Build): done, 2026-11-14** (branch `p7/demo-site-build`, PR open, not merged).
+
+- `demo-site-build` in `offers.ts`: Demo Pilot and Demo Site Build as `tiers`, three `addOns`, approved terms (live in 4 weeks), `confirmed: true`. `components/offers/PriceDetails.tsx` shows tiers and add-ons on the service page and on Pricing (third Specialty).
+- `/services/demo-site-build` from `content/services/demo-site-build.ts`, with a per-service closing CTA (`cta` on `ServiceContent`) that links to `/contact?topic=demo-build#book` and `/contact?topic=demo-build` instead of the scorecard. New proof point `se-roles` in `facts.ts` (draft).
+- Contact topic "Demo build"; `topicFromQuery` presets it only from the exact slug `demo-build`.
+- Answer Engine and Fractional SE list it under Related offers. Not on the home page, as planned.
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers (12 offers), format:check, test (171), test:e2e (738: 706 passed, 32 skipped), audit:deps.
+- OWASP audit (full): `docs/security/audit-2026-11-14-phase7.md`, no findings.
+- Copy drafts listed in `docs/copy-review.md` under Phase 7.
+
+**Phase 6 (Launch hardening): done, 2026-11-13** (merged as PR 18). sureground.tech points at Vercel and is live (2026-11-14). Remaining launch items are David's, in `docs/launch-checklist.md` (form tests on the live domain, MFA, lawyer review, copy approvals, DMARC after launch).
 
 - Full pre-launch OWASP audit: `docs/security/audit-2026-11-13-launch.md`, no Critical, High, Medium or Low; two Informational (DMARC `p=none`, HSTS `includeSubDomains`), both in the launch checklist.
 - Lighthouse mobile (local production build): 100 for performance, accessibility and best practices on home, a service page, the post and the scorecard. SEO is 100 except `is-crawlable`, which fails off sureground.tech on purpose (noindex); recheck on the real domain after the cutover.
@@ -425,4 +449,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: merge Phase 6, then David's launch checklist items, starting with pointing sureground.tech at Vercel.
+Next: David reviews and merges Phase 7, then the remaining launch checklist items. The Demo Site Build joins the home Specialty block only after its first pilot ships and David approves.

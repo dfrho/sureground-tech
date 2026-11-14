@@ -40,9 +40,11 @@ test.describe("security baseline", () => {
   for (const path of [
     "/",
     "/services/pilot-sprint",
+    "/services/demo-site-build",
     "/pricing",
     "/about",
     "/contact",
+    "/contact?topic=demo-build",
     "/scorecard",
     "/blog",
     "/blog/google-ai-mode-home-services-booking",

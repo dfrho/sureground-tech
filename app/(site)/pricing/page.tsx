@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { PriceDetails } from "@/components/offers/PriceDetails";
 import { PriceTag } from "@/components/offers/PriceTag";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CTA } from "@/components/site/CTA";
 import { offerGroups, type Offer } from "@/lib/config/offers";
-import { formatUsd, groupLabels, offersInGroup, serviceHref } from "@/lib/offers/format";
+import { groupLabels, offersInGroup, serviceHref } from "@/lib/offers/format";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = {
@@ -16,19 +17,6 @@ export const metadata: Metadata = {
 };
 
 const linkClass = "font-semibold text-accent-text underline-offset-4 hover:underline";
-
-function Tiers({ offer }: { offer: Offer }) {
-  if (!offer.tiers) return null;
-  return (
-    <ul className="mt-1 flex flex-col gap-1 text-small text-muted">
-      {offer.tiers.map((t) => (
-        <li key={t.name}>
-          {t.name} ({t.duration}): {formatUsd(t.startingAt)}
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 function Terms({ offer }: { offer: Offer }) {
   if (offer.terms.length === 0) return <span className="text-muted">None</span>;
@@ -104,7 +92,7 @@ export default function PricingPage() {
                   <td className="py-4 pr-6">{offer.duration}</td>
                   <td className="py-4 pr-6">
                     <PriceTag offer={offer} />
-                    <Tiers offer={offer} />
+                    <PriceDetails offer={offer} />
                   </td>
                   <td className="py-4">
                     <Terms offer={offer} />
@@ -139,7 +127,7 @@ export default function PricingPage() {
                         <dt className="font-mono text-label text-muted uppercase">Price</dt>
                         <dd>
                           <PriceTag offer={offer} />
-                          <Tiers offer={offer} />
+                          <PriceDetails offer={offer} />
                         </dd>
                       </div>
                       <div>
