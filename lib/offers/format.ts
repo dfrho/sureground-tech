@@ -40,3 +40,10 @@ export function serviceHref(slug: OfferSlug | string): string {
 }
 
 export { getOffer };
+
+type AddOn = NonNullable<Offer["addOns"]>[number];
+
+/** The add-on name and its price, with "per month" for monthly add-ons. */
+export function addOnLabel(addOn: AddOn): string {
+  return `${addOn.name}: ${priceLabel(addOn)}`;
+}

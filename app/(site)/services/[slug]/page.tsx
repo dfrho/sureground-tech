@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { OfferCard } from "@/components/offers/OfferCard";
+import { PriceDetails } from "@/components/offers/PriceDetails";
 import { PriceTag } from "@/components/offers/PriceTag";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CTA } from "@/components/site/CTA";
@@ -11,7 +12,7 @@ import { cardClass } from "@/components/site/Section";
 import { facts } from "@/content/facts";
 import { getService, services } from "@/content/services";
 import { offers, type Offer, type OfferSlug } from "@/lib/config/offers";
-import { formatUsd, groupLabels, serviceHref } from "@/lib/offers/format";
+import { groupLabels, serviceHref } from "@/lib/offers/format";
 import { breadcrumbLd, serviceLd } from "@/lib/seo/jsonld";
 
 // Only the offers in offers.ts have pages; any other slug is a 404 (A01).
@@ -95,18 +96,8 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                 <dt className="font-mono text-label text-muted uppercase">Price</dt>
                 <dd>
                   <PriceTag offer={offer} className="text-body" />
+                  <PriceDetails offer={offer} />
                 </dd>
-                {offer.tiers ? (
-                  <dd>
-                    <ul className="mt-2 flex flex-col gap-1 text-small text-muted">
-                      {offer.tiers.map((t) => (
-                        <li key={t.name}>
-                          {t.name} ({t.duration}): {formatUsd(t.startingAt)}
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                ) : null}
               </div>
               <div>
                 <dt className="font-mono text-label text-muted uppercase">Duration</dt>
@@ -226,7 +217,9 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         </section>
       ) : null}
 
-      {scorecardDone ? (
+      {content.cta ? (
+        <CTA title={content.cta.title} body={content.cta.body} links={content.cta.links} />
+      ) : scorecardDone ? (
         <CTA
           title="Talk through your results."
           body="You have your scorecard results. On a free AI Fit Call we go over them and whether this is the right first step."

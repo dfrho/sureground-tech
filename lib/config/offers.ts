@@ -7,7 +7,8 @@ import { z } from "@/lib/zod";
  *
  * Values started as recommendations from docs/research/offerings-report.md.
  * David confirmed every price, duration, credit and guarantee as written on
- * 2026-11-09, and the plain-language credit wording on 2026-11-11. Any change needs his approval again: set that offer's
+ * 2026-11-09, and the plain-language credit wording on 2026-11-11. The Guided
+ * Demo Site Build (prices, add-ons and terms) was confirmed on 2026-11-14. Any change needs his approval again: set that offer's
  * `confirmed` to false until he approves, and production builds fail
  * (`pnpm check:offers`) while any offer is unconfirmed.
  */
@@ -43,6 +44,19 @@ export const offerSchema = z
           .strict(),
       )
       .min(2)
+      .optional(),
+    /** Optional extras sold on top of the offer, each with its own price. */
+    addOns: z
+      .array(
+        z
+          .object({
+            name: z.string().min(1),
+            startingAt: z.number().int().positive(),
+            cadence: z.enum(["one-time", "monthly"]),
+          })
+          .strict(),
+      )
+      .min(1)
       .optional(),
     confirmed: z.boolean(),
   })
@@ -225,6 +239,39 @@ const offerList = [
     startingAt: 7500,
     cadence: "one-time",
     terms: ["Optional upkeep $750 per month"],
+    confirmed: true,
+  },
+
+  {
+    slug: "demo-site-build",
+    name: "Guided Demo Site Build",
+    group: "specialty",
+    summary:
+      "A guided, shareable demo site for your product, built on synthetic data, tailored by industry or named account, with view tracking that shows which deals are engaging.",
+    deliverables: [
+      "A guided, click-through demo site of the workflows that win deals",
+      "A synthetic dataset built around your buyer's story, with dates that stay current",
+      "Versions by industry, customer segment or named customer from one shared base",
+      "Share links that track views, completion and new viewers, sent to your CRM and Slack",
+      "Handover, a short playbook and training for your team",
+    ],
+    duration: "2 to 6 weeks",
+    startingAt: 7500,
+    cadence: "one-time",
+    terms: [
+      "Full pilot fee comes off a full build started within 60 days",
+      "Paid in milestones",
+      "Live in 4 weeks or we keep working at no charge (conditioned on client access within 5 business days and reviews within 3)",
+    ],
+    tiers: [
+      { name: "Demo Pilot", duration: "2 to 3 weeks", startingAt: 7500 },
+      { name: "Demo Site Build", duration: "4 to 6 weeks", startingAt: 15000 },
+    ],
+    addOns: [
+      { name: "Industry or segment version", startingAt: 3500, cadence: "one-time" },
+      { name: "Named-customer version", startingAt: 1500, cadence: "one-time" },
+      { name: "Demo Upkeep", startingAt: 2000, cadence: "monthly" },
+    ],
     confirmed: true,
   },
 

@@ -8,6 +8,7 @@ import {
   contactLimits,
   contactSchema,
   contactTopics,
+  topicFromQuery,
   fieldNames,
   type ContactField,
   type ContactInput,
@@ -92,6 +93,32 @@ describe("contactSchema", () => {
   it("keeps line breaks in the message but drops other control characters", () => {
     const r = contactSchema.safeParse({ ...valid, message: "One\r\nTwo\u0007" });
     expect(r.success && r.data.message).toBe("One\nTwo");
+  });
+});
+
+describe("topicFromQuery", () => {
+  it("includes Demo build in the topic list", () => {
+    expect(contactTopics).toContain("Demo build");
+  });
+
+  it("presets only known slugs", () => {
+    expect(topicFromQuery("demo-build")).toBe("Demo build");
+    for (const value of [
+      undefined,
+      "",
+      "Demo build",
+      "DEMO-BUILD",
+      "demo-build ",
+      "other",
+      "toString",
+      "__proto__",
+      "constructor",
+      ["demo-build"],
+      ["demo-build", "demo-build"],
+      "x".repeat(5000),
+    ]) {
+      expect(topicFromQuery(value)).toBeUndefined();
+    }
   });
 });
 

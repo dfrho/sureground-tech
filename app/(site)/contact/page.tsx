@@ -4,6 +4,7 @@ import { CalEmbed } from "@/components/booking/CalEmbed";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/config/site";
+import { topicFromQuery } from "@/lib/forms/contact-schema";
 import { publicEnv } from "@/lib/env.public";
 import { getOffer } from "@/lib/offers/format";
 import { breadcrumbLd } from "@/lib/seo/jsonld";
@@ -16,7 +17,9 @@ export const metadata: Metadata = {
 
 const linkClass = "text-accent-text underline underline-offset-2";
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
+  // Only a known slug presets the topic (lib/forms/contact-schema.ts).
+  const defaultTopic = topicFromQuery((await searchParams).topic);
   const fitCall = getOffer("fit-call");
   const calLink = publicEnv.NEXT_PUBLIC_CAL_LINK;
 
@@ -59,6 +62,7 @@ export default function ContactPage() {
           <ContactForm
             siteKey={publicEnv.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
             email={site.contactEmail}
+            defaultTopic={defaultTopic}
           />
         </section>
 

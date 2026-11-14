@@ -8,10 +8,25 @@ import { z } from "@/lib/zod";
 export const contactTopics = [
   "Fit Call question",
   "Services",
+  "Demo build",
   "Speaking or workshop",
   "Other",
 ] as const;
 export type ContactTopic = (typeof contactTopics)[number];
+
+/**
+ * Topics a link may preset with `/contact?topic=<slug>`. Only these exact
+ * slugs count; anything else is ignored and the visitor picks a topic.
+ */
+const topicPresets: Readonly<Record<string, ContactTopic>> = {
+  "demo-build": "Demo build",
+};
+
+/** The topic a `?topic=` query value presets, or undefined if it is not a known slug. */
+export function topicFromQuery(value: string | string[] | undefined): ContactTopic | undefined {
+  if (typeof value !== "string") return undefined;
+  return Object.hasOwn(topicPresets, value) ? topicPresets[value] : undefined;
+}
 
 export const contactLimits = {
   name: 80,
