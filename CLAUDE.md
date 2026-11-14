@@ -167,7 +167,7 @@ Measured contrast: Bone on Carbon 16.9:1; Steel on Carbon 7.4:1; Signal Blue on 
 
 Its job is to lower the temperature, show proof, and start the scorecard. Sections in order:
 
-1. **Hero.** Eyebrow `> grounded_ai + enablement`. H1: "You don't have to be the pioneer." Subhead: "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it." Primary CTA: "Take the First Step Scorecard" (with "5 minutes"). Secondary CTA: "Book a free AI Fit Call". The step motif sits beside the copy; its steps draw in once on load when motion is allowed.
+1. **Hero.** Eyebrow `> grounded_ai + enablement`. H1: "You don't have to be the pioneer." Subhead: "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it." Primary CTA: "Check your AI readiness" (with "5 min"; label chosen by David, 2026-11-13, it opens the First Step Scorecard). Secondary CTA: "Book a free AI Fit Call". The step motif sits beside the copy; its steps draw in once on load when motion is allowed.
 2. **Proof strip.** "20 years building for enterprise buyers" with former employer names as plain text from `content/facts.ts`.
 3. **Why owners hold back.** Three short cards on the real barriers (privacy, accuracy, not knowing where to start), each with one cited statistic from `content/sources.ts`.
 4. **Core services.** Three cards: AI Engineering, Agent Development, AI Enablement, each linking to its page.

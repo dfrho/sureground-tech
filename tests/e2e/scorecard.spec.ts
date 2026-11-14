@@ -157,11 +157,11 @@ test.describe("First Step Scorecard", () => {
     await page.goto("/services/opportunity-assessment?from=scorecard");
     const cta = page.locator("section[aria-labelledby=cta-title]");
     await expect(cta.getByRole("heading", { name: "Talk through your results." })).toBeVisible();
-    await expect(cta.getByRole("link", { name: /Take the First Step Scorecard/ })).toHaveCount(0);
+    await expect(cta.getByRole("link", { name: /Check your AI readiness/ })).toHaveCount(0);
     await expect(cta.getByRole("link", { name: "Book a free AI Fit Call" })).toBeVisible();
 
     await page.goto("/services/opportunity-assessment");
-    await expect(cta.getByRole("link", { name: /Take the First Step Scorecard/ })).toBeVisible();
+    await expect(cta.getByRole("link", { name: /Check your AI readiness/ })).toBeVisible();
   });
 
   test("needs an answer to move on, and Back keeps answers", async ({ page }) => {
@@ -217,7 +217,7 @@ test.describe("First Step Scorecard", () => {
         new URL(r.url()).pathname === "/scorecard" && r.request().resourceType() === "document",
     );
     await page
-      .getByRole("link", { name: /Take the First Step Scorecard/ })
+      .getByRole("link", { name: /Check your AI readiness/ })
       .first()
       .click();
     const response = await load;

@@ -15,7 +15,7 @@ export function CtaButtons({
     <div className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${className}`.trim()}>
       {scorecardDone ? null : (
         <ButtonLink href="/scorecard">
-          Take the First Step Scorecard
+          Check your AI readiness
           <span className="font-mono text-label font-normal">5 min</span>
         </ButtonLink>
       )}
