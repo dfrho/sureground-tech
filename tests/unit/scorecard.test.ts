@@ -148,8 +148,8 @@ describe("score", () => {
     ["goals", "opportunity-assessment"],
     ["workflows", "opportunity-assessment"],
     ["people", "ai-enablement"],
-    ["data", "ai-engineering"],
-    ["tools", "ai-engineering"],
+    ["data", "opportunity-assessment"],
+    ["tools", "opportunity-assessment"],
   ] as const)("maps a weak %s score to %s", (dimension, offer) => {
     const result = score(withScores({ [dimension]: 0 }));
     expect(result.weakest).toBe(dimension);
@@ -216,15 +216,6 @@ describe("team adjustment", () => {
   const engNew = "An engineering team with little AI experience" as const;
   const engAi = "An engineering team that already builds with AI" as const;
 
-  it.each(["data", "tools"] as const)(
-    "replaces AI Engineering for a weak %s score when the client has engineers",
-    (dimension) => {
-      const answers = withScores({ [dimension]: 0 });
-      expect(score(answers, engNew).recommendation.offer).toBe("fractional-se");
-      expect(score(answers, engAi).recommendation.offer).toBe("pilot-triage");
-    },
-  );
-
   it("replaces the Pilot Sprint when every area is ready", () => {
     const answers = withScores({}, READY_THRESHOLD);
     expect(score(answers, engNew).recommendation.offer).toBe("fractional-se");
@@ -237,14 +228,15 @@ describe("team adjustment", () => {
     ["goals", "opportunity-assessment"],
     ["workflows", "opportunity-assessment"],
     ["people", "ai-enablement"],
+    ["data", "opportunity-assessment"],
+    ["tools", "opportunity-assessment"],
   ] as const)("keeps %s -> %s for every team", (dimension, offer) => {
     for (const team of teams) {
       expect(score(withScores({ [dimension]: 0 }), team).recommendation.offer).toBe(offer);
     }
   });
 
-  it.each([teams[0], teams[1], teams[2]])("leaves build offers alone for %s", (team) => {
-    expect(score(withScores({ data: 0 }), team).recommendation.offer).toBe("ai-engineering");
+  it.each([teams[0], teams[1], teams[2]])("leaves the Pilot Sprint alone for %s", (team) => {
     expect(score(withScores({}, READY_THRESHOLD), team).recommendation.offer).toBe("pilot-sprint");
   });
 

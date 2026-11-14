@@ -315,14 +315,14 @@ export const recommendations: Record<Dimension, Recommendation> = {
       "Your weakest area is people. Start by giving your team the skills and the rules to use AI well, so new tools get used.",
   },
   data: {
-    offer: "ai-engineering",
+    offer: "opportunity-assessment",
     reason:
-      "Your weakest area is data. Start by getting the right information organized and connected, so AI answers from facts.",
+      "Your weakest area is data. Start by finding which information your best AI uses depend on, and what it takes to get it in shape.",
   },
   tools: {
-    offer: "ai-engineering",
+    offer: "opportunity-assessment",
     reason:
-      "Your weakest area is tools. Start by connecting the systems people re-key between, which saves time with or without AI.",
+      "Your weakest area is tools. Start by finding where people re-key data between systems and which connections would save the most time.",
   },
 };
 

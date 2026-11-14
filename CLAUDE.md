@@ -4,7 +4,7 @@ You are building and maintaining sureground.tech for David Rhodes. Read this fil
 
 ## What this is
 
-SureGround is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees) put AI to work without becoming the experiment.
+SureGround is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees, with no in-house team that builds with AI) put AI to work without becoming the experiment. (Target refined by David, 2026-11-13: an in-house engineering team predicts fit better than headcount. This wording is internal; public copy changes only when he approves it.)
 
 Positioning line: **"You don't have to be the pioneer."**
 Tagline: **"AI on sure ground."**
@@ -254,7 +254,7 @@ A five-minute self-assessment that tells an owner how solid their ground is and 
 5. Safety: is there a policy for which AI tools staff may use and what data they may share?
 6. Tools: are current systems connected, or do people re-key data between them?
 
-**Scoring.** `lib/scorecard/score.ts` is a pure function: answers in, total (0 to 48), per-dimension scores, band and recommended next offer out. Bands (copy drafts): 36 to 48 "Solid ground", 24 to 35 "Firm footing", 12 to 23 "Uneven ground", 0 to 11 "Soft ground". The recommendation maps the weakest dimension to an offer (for example Safety to AI Safe Start, Goals to AI Opportunity Assessment, People to AI Enablement). Unit-test every band boundary and every mapping. No AI model is called anywhere in the scorecard.
+**Scoring.** `lib/scorecard/score.ts` is a pure function: answers in, total (0 to 48), per-dimension scores, band and recommended next offer out. Bands (copy drafts): 36 to 48 "Solid ground", 24 to 35 "Firm footing", 12 to 23 "Uneven ground", 0 to 11 "Soft ground". The recommendation maps the weakest dimension to an offer (Safety to AI Safe Start; Goals, Workflows, Data and Tools to AI Opportunity Assessment; People to AI Enablement; every area ready to the Pilot Sprint), then swaps build offers for teams that can build (`teamOverrides`). Mapping approved by David, 2026-11-13. Unit-test every band boundary and every mapping. No AI model is called anywhere in the scorecard.
 
 **Flow (email required for results, as David decided).**
 
