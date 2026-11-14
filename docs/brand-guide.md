@@ -1,4 +1,4 @@
-# SureGround Brand Guide
+# SureGround Tech Brand Guide
 
 **Direction:** The Engineer
 **Version:** 1.2 draft, November 10, 2026 (logo SVG corrected to three steps; 1.1 renamed the brand from Inflection Works)
@@ -22,7 +22,7 @@ The brand is technical, precise, and proof-driven. It should read like a seasone
 
 ## 2. Name and Story
 
-**Name:** SureGround
+**Name:** SureGround Tech (changed from SureGround by David, 2026-11-14; the domain stays sureground.tech)
 
 **Primary story:** You don't have to be the AI pioneer. We've walked this path, and we'll get you across on sure ground.
 
@@ -30,8 +30,9 @@ The brand is technical, precise, and proof-driven. It should read like a seasone
 
 **How to write the name**
 
-- In copy, headlines, and the logo: **SureGround** (capital S, capital G, one word).
-- In legal filings and plain text where styling is unavailable: SUREGROUND or Sureground.
+- In the logo, titles and formal spots (copyright, legal pages, boilerplate, email footers, first mention on a page): **SureGround Tech** ("SureGround" one word, capital S and G, then "Tech").
+- In running copy after the first mention, the short name **SureGround** is fine (for example "Why SureGround").
+- In plain text where styling is unavailable: SureGround Tech.
 - Never: Sure Ground, Sure-Ground, Shureground, or SG on its own.
 
 ---
@@ -88,10 +89,11 @@ Three solid steps rising inside a rounded square tile, with a Volt node resting 
 
 ### The wordmark
 
-**Sure**Ground
+**Sure**Ground Tech
 
 - "Sure" in Bone (#F2F2EF) on dark backgrounds, or Carbon (#0E1116) on light ones
 - "Ground" in Signal Blue (#4C7DFF) on both
+- " Tech" in the same color as "Sure", same size and weight, after a space
 - Set in Space Grotesk Bold 700 with -2% letter spacing
 
 ### Versions
@@ -204,7 +206,7 @@ All three typefaces are free on Google Fonts.
 
 ### Tagline
 
-**AI on sure ground.**
+**AI on solid ground.**
 
 Alternates:
 
@@ -215,10 +217,10 @@ Alternates:
 ### Boilerplate
 
 **Short (one line):**
-SureGround is an AI engineering and enablement firm that puts AI to work on proven ground.
+SureGround Tech is an AI engineering and enablement firm that puts AI to work on proven ground.
 
 **Standard (about 45 words):**
-SureGround helps business leaders adopt AI without becoming the experiment. We design, build, and deploy AI systems grounded in your real data and workflows, then train your teams to own them. Our work spans agents, integrations, evaluations, and adoption programs, all built on patterns we've already proven.
+SureGround Tech helps business leaders adopt AI without becoming the experiment. We design, build, and deploy AI systems grounded in your real data and workflows, then train your teams to own them. Our work spans agents, integrations, evaluations, and adoption programs, all built on patterns we've already proven.
 
 ### Do
 
@@ -283,7 +285,7 @@ SureGround helps business leaders adopt AI without becoming the experiment. We d
 
 ```
 David Rhodes
-Founder, SureGround
+Founder, SureGround Tech
 david@sureground.tech
 sureground.tech
 ```
@@ -293,17 +295,17 @@ Plain text with no images, so it renders cleanly everywhere.
 ### LinkedIn
 
 - **Avatar:** mark only, Signal Blue tile
-- **Banner:** Carbon background, "AI on sure ground." in Space Grotesk, with a mono eyebrow
-- **Headline example:** Founder, SureGround | AI engineering and enablement on proven ground
+- **Banner:** Carbon background, "AI on solid ground." in Space Grotesk, with a mono eyebrow
+- **Headline example:** Founder, SureGround Tech | AI engineering and enablement on proven ground
 
 ---
 
 ## 10. Quick Reference
 
 ```
-Name:        SureGround
+Name:        SureGround Tech
 Domain:      sureground.tech
-Tagline:     AI on sure ground.
+Tagline:     AI on solid ground.
 Story:       You don't have to be the pioneer.
 
 Carbon       #0E1116   background

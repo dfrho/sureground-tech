@@ -10,7 +10,7 @@ import { breadcrumbLd, personLd } from "@/lib/seo/jsonld";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "David Rhodes founded SureGround after years on the enterprise side of the table: selling, building software and answering security reviews.",
+    "David Rhodes founded SureGround Tech after years on the enterprise side of the table: selling, building software and answering security reviews.",
   alternates: { canonical: "/about" },
 };
 
@@ -32,7 +32,7 @@ export default function AboutPage() {
         <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-12 sm:px-6 sm:py-16 md:flex-row md:items-stretch md:gap-10">
           <Image
             src="/images/david-rhodes.jpg"
-            alt={`${facts.name}, ${facts.role} of SureGround`}
+            alt={`${facts.name}, ${facts.role} of SureGround Tech`}
             width={1600}
             height={1066}
             priority
@@ -45,7 +45,7 @@ export default function AboutPage() {
               Experience as a builder, GTM leader, and communicator
             </h1>
             <p className="text-h3 font-normal text-muted">
-              {facts.name}, {facts.role} of SureGround, {facts.location}
+              {facts.name}, {facts.role} of SureGround Tech, {facts.location}
             </p>
           </div>
         </div>

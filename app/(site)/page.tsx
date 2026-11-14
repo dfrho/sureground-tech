@@ -26,7 +26,7 @@ const subhead =
   "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it.";
 
 export const metadata: Metadata = {
-  title: { absolute: "SureGround | AI on sure ground" },
+  title: { absolute: "SureGround Tech | AI on solid ground" },
   description: subhead,
   alternates: { canonical: "/" },
 };
@@ -207,7 +207,7 @@ export default function Home() {
         <div className="grid items-center gap-8 md:grid-cols-[1fr_2fr]">
           <Image
             src="/images/david-rhodes.jpg"
-            alt={`${facts.name}, ${facts.role} of SureGround`}
+            alt={`${facts.name}, ${facts.role} of SureGround Tech`}
             width={1600}
             height={1066}
             sizes="(min-width: 768px) 33vw, 100vw"

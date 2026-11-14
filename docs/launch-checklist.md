@@ -12,6 +12,7 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] After the DNS cutover: send one contact message and one scorecard on sureground.tech (Turnstile accepts only that hostname in production), and confirm the Turnstile widget's hostnames in Cloudflare include sureground.tech
 - [x] During the cutover: confirm no subdomain serves plain HTTP only (HSTS `includeSubDomains`): the only other names are email and verification records (2026-11-13)
 - [x] Resend sending subdomain `send.sureground.tech` verified; a preview test send was delivered (2026-11-13)
+- [ ] After the SureGround Tech rename (2026-11-14): set `EMAIL_FROM` in Vercel Production and Preview to `SureGround Tech <hello@send.sureground.tech>` and redeploy
 - [x] Google Workspace SPF, DKIM and DMARC records in place for the root domain (checked with dig, 2026-11-13; DMARC is `p=none` for now)
 - [x] Google Admin: DKIM status reads "Authenticating email with DKIM", and the published `google._domainkey` key matches (2026-11-13)
 - [x] Turnstile site and secret keys in Vercel Production and Preview (2026-11-13)
@@ -48,7 +49,7 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] Any other social handles chosen
 - [ ] Privacy policy and terms reviewed by a lawyer (David is engaging an attorney, 2026-11-11)
 - [ ] Every row in `docs/copy-review.md` approved
-- [x] Trademark: "SureGround" used without the registered symbol until a registration issues (no ® anywhere in the site source, checked 2026-11-13)
+- [x] Trademark: "SureGround" (now "SureGround Tech", 2026-11-14) used without the registered symbol until a registration issues (no ® anywhere in the site source, checked 2026-11-13)
 
 ## Security and quality gates (Claude)
 

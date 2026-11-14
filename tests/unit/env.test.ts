@@ -18,7 +18,7 @@ const full = {
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: "site-key",
   NEXT_PUBLIC_CAL_LINK: "sureground/ai-fit-call",
   CONTACT_TO_EMAIL: "david@sureground.tech",
-  EMAIL_FROM: "SureGround <hello@send.sureground.tech>",
+  EMAIL_FROM: "SureGround Tech <hello@send.sureground.tech>",
   EMAIL_TRANSPORT: "resend",
   RESEND_API_KEY: "re_test",
   TURNSTILE_SECRET_KEY: "secret",
@@ -76,7 +76,7 @@ describe("serverEnvSchema", () => {
     const env = {
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000",
       CONTACT_TO_EMAIL: "david@sureground.tech",
-      EMAIL_FROM: "SureGround <hello@send.sureground.tech>",
+      EMAIL_FROM: "SureGround Tech <hello@send.sureground.tech>",
       EMAIL_TRANSPORT: "outbox",
     };
     expect(serverEnvSchema("development").safeParse(env).success).toBe(true);

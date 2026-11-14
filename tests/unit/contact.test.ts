@@ -400,7 +400,7 @@ describe("ContactNotify email", () => {
     expect(html).not.toContain("<script>");
     expect(html).not.toContain("<img src=x");
     expect(html).toContain("&lt;script&gt;");
-    expect(html).toContain("SureGround, Nashville, TN");
+    expect(html).toContain("SureGround Tech, Nashville, TN");
     expect(html).toContain("/legal/privacy");
   });
 
@@ -408,7 +408,7 @@ describe("ContactNotify email", () => {
     const text = contactNotifyText({ ...data, name: "Pat", message: "Hi" });
     expect(text).toContain("Name: Pat");
     expect(text).toContain("Company: Not given");
-    expect(text).toContain("SureGround, Nashville, TN");
+    expect(text).toContain("SureGround Tech, Nashville, TN");
   });
 
   it("produces a header-safe subject", () => {
