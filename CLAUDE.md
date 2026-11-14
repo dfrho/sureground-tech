@@ -372,7 +372,7 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
-**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, PR open, waiting for David to merge).
+**Phase 5 (First Step Scorecard): done, 2026-11-13** (merged as PR 17).
 
 - `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent, an unscored in-house team question that swaps build offers for teams that can build), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
 - Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
@@ -417,4 +417,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 6 (Launch hardening), after Phase 5 merges.
+Next: Phase 6 (Launch hardening), in progress on branch `p6/launch-hardening`.
