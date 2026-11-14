@@ -366,20 +366,20 @@ A production build fails if any required variable is missing. "Required" grows w
 1. Done 2026-11-09: every price, duration, credit and guarantee in the Offers section confirmed as written, including both AI Enablement prices.
 2. Done 2026-11-09: Vercel team moved to Pro.
 3. Done 2026-11-09: headshot saved as `public/images/david-rhodes.jpg`. Still open: approve the About story, the facts in `content/facts.ts` and the Phase 2 copy in `docs/copy-review.md`.
-4. Approve the scorecard questions, band names and recommendations.
+4. Done 2026-11-13: scorecard questions, answers, bands, observations, recommendations and tie order approved.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
 
 ## Current status
 
-**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, waiting for David).
+**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, PR open, waiting for David to merge).
 
 - `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent, an unscored in-house team question that swaps build offers for teams that can build), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
 - Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
 - `/scorecard` has its own CSP (Turnstile only); header and footer links to it are full page loads.
 - Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (154), test:e2e (641: 614 passed, 27 skipped; one timeout under load fixed by a longer limit, passed on rerun), audit:deps.
 - OWASP audit (full): `docs/security/audit-2026-11-13-phase5.md`, one Low found and fixed, two Informational accepted.
-- Waiting on David: approve the scorecard content (open item 4) and the other Phase 5 copy in `docs/copy-review.md`.
+- David approved the scorecard content on 2026-11-13 (open item 4). The other Phase 5 copy in `docs/copy-review.md` (page, gate, results screen, emails, error messages) is still a draft.
 
 **Phase 4 (Contact and booking): done, 2026-11-13** (merged as PR 16).
 

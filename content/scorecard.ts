@@ -4,8 +4,8 @@ import type { OfferSlug } from "@/lib/config/offers";
  * First Step Scorecard content: questions, answer points, bands, observations
  * and recommendations. Scoring itself lives in lib/scorecard/score.ts.
  *
- * COPY: draft. Every question, answer, band, observation and recommendation
- * here waits for David's approval (docs/copy-review.md, Phase 5).
+ * Approved by David on 2026-11-13: questions, answers, bands, observations,
+ * recommendations and tie order. Changes need his approval again.
  *
  * Rules: 12 questions, two per dimension, five answers each worth 0 to 4
  * points, listed from 0 to 4. Answer ids are what the form posts; the server
