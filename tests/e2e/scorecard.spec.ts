@@ -100,6 +100,11 @@ test.describe("First Step Scorecard", () => {
       "href",
       "/services/safe-start",
     );
+    // Opens in a new tab so the results stay on this page.
+    await expect(result.getByRole("link", { name: /Read about AI Safe Start/ })).toHaveAttribute(
+      "target",
+      "_blank",
+    );
 
     // No answers in the URL, and nothing horizontal to scroll.
     expect(new URL(page.url()).search).toBe("");

@@ -87,6 +87,8 @@ export function ResultSummary({
             href={recommendation.href}
             variant="secondary"
             className="py-2 text-center whitespace-normal!"
+            // A new tab keeps these results: they live only in this page.
+            newTab
           >
             Read about {recommendation.name}
           </ButtonLink>

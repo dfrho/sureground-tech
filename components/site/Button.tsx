@@ -22,13 +22,29 @@ export function ButtonLink({
   href,
   variant = "primary",
   className,
+  newTab = false,
   children,
 }: {
   href: string;
   variant?: ButtonVariant;
   className?: string;
+  /** Opens in a new tab, so the page the visitor is on keeps its state. */
+  newTab?: boolean;
   children: React.ReactNode;
 }) {
+  if (newTab) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={buttonClass(variant, className)}
+      >
+        {children}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
   // Pages with their own CSP (/contact) need a full page load.
   if (needsFullPageLoad(href)) {
     return (
