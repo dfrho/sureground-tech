@@ -187,7 +187,7 @@ One page per offer, generated from `content/services/*.ts` plus `offers.ts`. Eac
 Page template follows the standard service template above. Specific requirements:
 
 - Target buyer: Head, Director or VP of Solutions Engineering or Presales at a B2B SaaS company with 2 to 10 SEs and no demo engineer; secondary buyer is a PMM or demand-gen director. Copy speaks to this audience, not to small-business owners.
-- "Why SureGround" bullets draw only from `content/facts.ts`. The Gartner and Forrester conference demo references in the research doc are not yet in `facts.ts`; do not publish them until David confirms. Use only the Feedonomics, FullStory and Shogun SE roles and the Shogun troubleshooting result, which are already sourced.
+- "Why SureGround" bullets draw only from `content/facts.ts`. David approved the Gartner and Forrester conference demos for `facts.ts` on 2026-11-14; they are in the `se-roles` proof point with the Feedonomics, FullStory and Shogun SE roles. The page also uses the Shogun troubleshooting result.
 - The page CTA replaces the standard "Check your AI readiness" scorecard link with two specific CTAs: "Book a free call" (to `/contact#book`, Topic preset to "Demo build") and "Send us the demo you want to fix" (to `/contact`, Topic preset to "Demo build"). Do not link to the scorecard on this page.
 - Add this page to the "Related offers" section on the Answer Engine (`/services/answer-engine`) and Fractional AI Solutions Engineer (`/services/fractional-se`) pages so the B2B-seller offers link to each other.
 - The home page Specialty block does not include this offer until after the first pilot ships and David approves. The page and pricing card are live from day one; the home block is not.
@@ -382,14 +382,14 @@ A production build fails if any required variable is missing. "Required" grows w
 4. Done 2026-11-13: scorecard questions, answers, bands, observations, recommendations and tie order approved.
 5. Create the Cal.com event and Resend, Turnstile and Upstash accounts.
 6. LinkedIn company page set (linkedin.com/company/sureground, in the footer). Any other social handles are still open.
-7. Guided Demo Site Build (added 2026-11-14). Done 2026-11-14: prices, add-ons and terms confirmed, with the guarantee changed to live in 4 weeks. Still open: confirm whether the Gartner and Forrester conference demos can go in `facts.ts`; confirm the "live" definition for the SOW (deployed on the client's domain or a SureGround subdomain, tracking verified end to end, one share link sent to a real prospect).
+7. Done 2026-11-14: Guided Demo Site Build prices, add-ons and terms confirmed (guarantee changed to live in 4 weeks); the Gartner and Forrester conference demos approved for `facts.ts`; the "live" definition for the SOW approved: deployed on the client's domain or a SureGround subdomain, tracking verified end to end, and at least one share link sent to a real prospect.
 
 ## Current status
 
 **Phase 7 (Guided Demo Site Build): done, 2026-11-14** (merged as PR 19).
 
 - `demo-site-build` in `offers.ts`: Demo Pilot and Demo Site Build as `tiers`, three `addOns`, approved terms (live in 4 weeks), `confirmed: true`. `components/offers/PriceDetails.tsx` shows tiers and add-ons on the service page and on Pricing (third Specialty).
-- `/services/demo-site-build` from `content/services/demo-site-build.ts`, with a per-service closing CTA (`cta` on `ServiceContent`) that links to `/contact?topic=demo-build#book` and `/contact?topic=demo-build` instead of the scorecard. New proof point `se-roles` in `facts.ts` (draft).
+- `/services/demo-site-build` from `content/services/demo-site-build.ts`, with a per-service closing CTA (`cta` on `ServiceContent`) that links to `/contact?topic=demo-build#book` and `/contact?topic=demo-build` instead of the scorecard. Proof point `se-roles` in `facts.ts` (with the Gartner and Forrester conference demos, approved 2026-11-14).
 - Contact topic "Demo build"; `topicFromQuery` presets it only from the exact slug `demo-build`.
 - Answer Engine and Fractional SE list it under Related offers. Not on the home page, as planned.
 - Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers (12 offers), format:check, test (171), test:e2e (738: 706 passed, 32 skipped), audit:deps.

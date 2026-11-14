@@ -118,7 +118,7 @@ export const facts = {
     },
     {
       id: "se-roles",
-      text: "Senior solutions engineer at Feedonomics, FullStory and Shogun, running enterprise discovery, solution design and proofs of concept.",
+      text: "Senior solutions engineer at Feedonomics, FullStory and Shogun, running enterprise demos, proofs of concept and conference demos at Gartner and Forrester events.",
     },
     {
       id: "shogun-troubleshooting",
