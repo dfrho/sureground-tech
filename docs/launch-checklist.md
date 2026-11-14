@@ -8,9 +8,9 @@ Owner: David unless noted. Check items off as they are done.
 - [x] Vercel project `david-rhodes-projects/sureground-tech` created and linked to the GitHub repository (2026-11-09)
 - [x] Vercel deployment protection on (Standard: every deployment except the custom domain needs a Vercel login)
 - [x] Vercel team moved from Hobby to Pro (David, 2026-11-09)
-- [ ] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex
+- [x] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex (2026-11-13: A `@` to Vercel, CNAME `www` to Vercel, Squarespace Defaults preset removed; `www` and plain HTTP answer 308 to `https://sureground.tech`; Let's Encrypt certificates issued for both names; email records unchanged)
 - [ ] After the DNS cutover: send one contact message and one scorecard on sureground.tech (Turnstile accepts only that hostname in production), and confirm the Turnstile widget's hostnames in Cloudflare include sureground.tech
-- [ ] During the cutover: confirm no subdomain serves plain HTTP only (HSTS `includeSubDomains`)
+- [x] During the cutover: confirm no subdomain serves plain HTTP only (HSTS `includeSubDomains`): the only other names are email and verification records (2026-11-13)
 - [x] Resend sending subdomain `send.sureground.tech` verified; a preview test send was delivered (2026-11-13)
 - [x] Google Workspace SPF, DKIM and DMARC records in place for the root domain (checked with dig, 2026-11-13; DMARC is `p=none` for now)
 - [x] Google Admin: DKIM status reads "Authenticating email with DKIM", and the published `google._domainkey` key matches (2026-11-13)
@@ -56,7 +56,7 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] HSTS `preload` added only after David confirms every subdomain serves HTTPS
 - [x] securityheaders.com grade A or better: A+ on `/` and `/contact` (production on sureground-tech.vercel.app, 2026-11-13). Rerun on sureground.tech after the DNS cutover.
 - [x] Lighthouse mobile 95+ (performance, accessibility, best practices, SEO) on home, a service page, a post and the scorecard (local production build, Lighthouse 13.6.0, 2026-11-13): 100 for performance, accessibility and best practices on all four. SEO is 100 on every audit except `is-crawlable`, which fails off sureground.tech on purpose (`X-Robots-Tag: noindex`).
-- [ ] Rerun Lighthouse SEO on sureground.tech after the DNS cutover (PageSpeed Insights is fine) to confirm SEO 100 with indexing allowed
+- [x] Rerun Lighthouse on sureground.tech after the DNS cutover (2026-11-13, production `main`): SEO 100, accessibility 100, performance 99 to 100 on all four pages; best practices 100 except the scorecard at 96 from Zod's CSP report, fixed by this branch. securityheaders.com: A+ on sureground.tech.
 - [ ] `security.txt` Expires date renewed (yearly)
 
 ## After launch
