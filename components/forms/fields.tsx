@@ -121,7 +121,11 @@ export function SelectField({
   return (
     <div className="flex flex-col gap-1.5">
       <Label id={id} label={label} />
+      {/* Keyed by its default so a returned value remounts it: React does not
+          update a select's default after mount, and the form reset that
+          follows an action would otherwise put it back to "Choose one". */}
       <select
+        key={defaultValue ?? ""}
         id={id}
         name={name}
         required

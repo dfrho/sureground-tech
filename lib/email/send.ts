@@ -65,8 +65,20 @@ export async function sendEmail(email: OutgoingEmail): Promise<boolean> {
       text: email.text,
       ...(email.replyTo ? { replyTo: headerSafe(email.replyTo, 254) } : {}),
     });
+    if (error) logResendError(error.name);
     return !error;
   } catch {
+    logResendError("exception");
     return false;
   }
+}
+
+/**
+ * Logs why Resend refused a send, as its error code only (for example
+ * "validation_error"). Resend's message can include the recipient address,
+ * so it is never logged.
+ */
+function logResendError(code: unknown): void {
+  const safe = typeof code === "string" && /^[a-z_]{1,50}$/.test(code) ? code : "unknown";
+  console.warn(JSON.stringify({ type: "email", event: "resend_error", code: safe }));
 }

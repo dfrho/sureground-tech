@@ -150,6 +150,7 @@ test.describe("contact form submission", () => {
     );
     await expect(page.locator("#field-message")).toHaveValue("Keep this text.");
     await expect(page.locator("#field-name")).toHaveValue("Pat Example");
+    await expect(page.locator("#field-topic")).toHaveValue("Services");
     expect(outboxMessages().length).toBe(before);
   });
 

@@ -186,6 +186,9 @@ test.describe("First Step Scorecard", () => {
       "fix the highlighted fields",
     );
     await expect(page.locator("#field-company")).toHaveValue("Example Co");
+    await expect(page.locator("#field-size")).toHaveValue("10 to 49 people");
+    await expect(page.locator("#field-role")).toHaveValue("Owner or founder");
+    await expect(page.locator("#field-team")).toHaveValue("No one in-house");
     await expect(page.locator("#field-consent")).toBeChecked();
   });
 
