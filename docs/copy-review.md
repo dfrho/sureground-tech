@@ -73,3 +73,15 @@ Prices, tiers, add-ons and terms are read from `offers.ts` (approved by David on
 | `content/facts.ts`                    | Proof point `se-roles`: "Senior solutions engineer at Feedonomics, FullStory and Shogun, running enterprise demos, proofs of concept and conference demos at Gartner and Forrester events." (the research doc's wording) | Gartner and Forrester demos approved by David, 2026-11-14 |
 | `lib/forms/contact-schema.ts`         | New contact topic "Demo build" (from CLAUDE.md)                                                                                                                                                                          | From CLAUDE.md                                            |
 | `components/offers/PriceDetails.tsx`  | "Add-ons" label under the price on the service page and the Pricing page                                                                                                                                                 | Draft, needs approval                                     |
+
+## Name change to SureGround Tech (2026-11-14)
+
+David chose the name, the wordmark (option B) and where the full name goes. The reworded lines below are drafts until he approves them.
+
+| Where                                                       | What                                                                                                                                              | Status                                   |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `components/brand/Wordmark.tsx`                             | Wordmark **Sure**Ground Tech, "Tech" in the text color                                                                                            | Chosen by David, 2026-11-14              |
+| `lib/config/site.ts`                                        | Name "SureGround Tech"; boilerplate "SureGround Tech is an AI engineering and enablement firm that puts AI to work on proven ground."             | Name approved; boilerplate wording draft |
+| `app/(site)/page.tsx`                                       | Home title "SureGround Tech \| AI on sure ground"; photo alt "David Rhodes, Founder of SureGround Tech"                                           | Draft, needs approval                    |
+| `app/(site)/about/page.tsx`                                 | Description "David Rhodes founded SureGround Tech after years on the enterprise side of the table..."; photo alt and caption name SureGround Tech | Draft, needs approval                    |
+| `app/(site)/legal/privacy/page.tsx`, `legal/terms/page.tsx` | Descriptions name SureGround Tech; the body text reads `site.name`                                                                                | Draft, needs approval                    |

@@ -5,7 +5,7 @@ import { site } from "@/lib/config/site";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
-  description: "What SureGround collects through this site, why, and who processes it.",
+  description: "What SureGround Tech collects through this site, why, and who processes it.",
   alternates: { canonical: "/legal/privacy" },
 };
 

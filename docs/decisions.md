@@ -163,6 +163,13 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 - **"Live" for the Demo Site Build (approved 2026-11-14).** The guarantee's "live" means: deployed on the client's domain or a SureGround subdomain, tracking verified end to end, and at least one share link sent to a real prospect. This goes in each SOW, not on the site.
 
+## Name change to SureGround Tech (2026-11-14)
+
+- David renamed the company from SureGround to **SureGround Tech**. The domain (sureground.tech), email addresses, tagline ("AI on sure ground.") and logo icon are unchanged.
+- Wordmark: **Sure**Ground Tech, with "Tech" at full size and weight in the text color (option B of three mockups David reviewed).
+- The full name goes in formal spots: `site.name` (page titles, copyright, logo link labels, JSON-LD, RSS, email footers, legal pages), the boilerplate, the home page title, the founder photo captions and the first mention on About, the Privacy and Terms descriptions, and the blog Open Graph wordmark. Running copy keeps the short name, for example "Why SureGround" and the home subhead.
+- The email sender name comes from the `EMAIL_FROM` variable in Vercel, which David updates (tracked in `docs/launch-checklist.md`).
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |

@@ -5,7 +5,7 @@ import { site } from "@/lib/config/site";
 
 export const metadata: Metadata = {
   title: "Terms of use",
-  description: "The terms for using the SureGround website.",
+  description: "The terms for using the SureGround Tech website.",
   alternates: { canonical: "/legal/terms" },
 };
 

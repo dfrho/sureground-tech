@@ -62,6 +62,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         <div style={{ display: "flex", fontSize: 40, fontWeight: 700 }}>
           <span>Sure</span>
           <span style={{ color: dark["accent-text"] }}>Ground</span>
+          <span style={{ marginLeft: 12 }}>Tech</span>
         </div>
       </div>
       <div style={{ display: "flex", fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>{title}</div>

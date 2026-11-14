@@ -28,7 +28,7 @@ import { buildCsp, integrationsForPath } from "@/lib/security/csp";
 // The Server Action's collaborators: request headers, Turnstile and email.
 const mocks = vi.hoisted(() => {
   process.env.CONTACT_TO_EMAIL = "david@sureground.tech";
-  process.env.EMAIL_FROM = "SureGround <hello@send.sureground.tech>";
+  process.env.EMAIL_FROM = "SureGround Tech <hello@send.sureground.tech>";
   process.env.EMAIL_TRANSPORT = "outbox";
   process.env.NEXT_PUBLIC_SITE_URL = "http://localhost:3000";
   process.env.TURNSTILE_SECRET_KEY = "test-secret";

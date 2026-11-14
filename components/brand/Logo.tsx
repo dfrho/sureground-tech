@@ -1,5 +1,5 @@
 /**
- * The SureGround mark: three solid steps in a rounded tile with a Volt node
+ * The SureGround Tech mark: three solid steps in a rounded tile with a Volt node
  * on the top step (docs/brand-guide.md section 4). The tile and steps follow
  * the theme: Signal Blue tile and Carbon steps in dark mode, Carbon tile and
  * Bone steps in light mode. The node is always Volt. Minimum size is 24px.

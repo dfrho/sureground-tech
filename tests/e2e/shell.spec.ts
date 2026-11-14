@@ -87,9 +87,28 @@ for (const { path, name, status } of pages) {
   });
 }
 
+test("the header wordmark reads SureGround Tech on one line and fits", async ({ page }) => {
+  await page.goto("/");
+  const home = page.getByRole("banner").getByRole("link", { name: "SureGround Tech home" });
+  await expect(home).toHaveText("SureGround Tech");
+  const wordmark = home.locator("span.whitespace-nowrap");
+  const box = await wordmark.boundingBox();
+  const lineHeight = await wordmark.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+  const width = page.viewportSize()?.width ?? 0;
+  expect(box).not.toBeNull();
+  expect(box!.height).toBeLessThanOrEqual(lineHeight + 1);
+  expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+  // The menu button (or the desktop nav) must not overlap the wordmark.
+  const next = isDesktop(page)
+    ? page.getByRole("navigation", { name: "Main" })
+    : page.getByRole("button", { name: "Open menu" });
+  const nextBox = await next.boundingBox();
+  expect(box!.x + box!.width).toBeLessThanOrEqual(nextBox!.x);
+});
+
 test("the 404 page points to the scorecard", async ({ page }) => {
   await page.goto("/this-page-does-not-exist");
-  await expect(page).toHaveTitle("Page not found | SureGround");
+  await expect(page).toHaveTitle("Page not found | SureGround Tech");
   await expect(
     page.getByRole("main").getByRole("link", { name: "Check your AI readiness" }),
   ).toHaveAttribute("href", "/scorecard");

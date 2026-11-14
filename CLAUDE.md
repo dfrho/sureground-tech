@@ -1,10 +1,10 @@
-# SureGround website (sureground.tech)
+# SureGround Tech website (sureground.tech)
 
 You are building and maintaining sureground.tech for David Rhodes. Read this file at the start of every session. Supporting material lives in `docs/`: read `docs/brand-guide.md` before any UI work and `docs/research/offerings-report.md` before writing service or pricing copy.
 
 ## What this is
 
-SureGround is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees, with no in-house team that builds with AI) put AI to work without becoming the experiment. (Target refined by David, 2026-11-13: an in-house engineering team predicts fit better than headcount. This wording is internal; public copy changes only when he approves it.)
+SureGround Tech (renamed from SureGround by David, 2026-11-14; the short name "SureGround" is fine in running copy after the first mention) is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees, with no in-house team that builds with AI) put AI to work without becoming the experiment. (Target refined by David, 2026-11-13: an in-house engineering team predicts fit better than headcount. This wording is internal; public copy changes only when he approves it.)
 
 Positioning line: **"You don't have to be the pioneer."**
 Tagline: **"AI on sure ground."**
@@ -135,7 +135,7 @@ Use Node 24 (`nvm use`, from `.nvmrc`). Keep this list true; if you add or renam
 
 Follow `docs/brand-guide.md` (The Engineer direction). Summary:
 
-- **Logo:** three solid steps rising in a rounded square tile with a Volt node on the top step. SVG source is in the brand guide; build it as `components/brand/Logo.tsx`. Wordmark: **Sure**Ground, "Sure" in the text color and "Ground" in the accent text color, Space Grotesk 700, -2% tracking.
+- **Logo:** three solid steps rising in a rounded square tile with a Volt node on the top step. SVG source is in the brand guide; build it as `components/brand/Logo.tsx`. Wordmark: **Sure**Ground Tech, "Sure" and "Tech" in the text color and "Ground" in the accent text color, Space Grotesk 700, -2% tracking.
 - **Type:** Space Grotesk (display, 500/700), IBM Plex Sans (body, 400/600), IBM Plex Mono (labels, section numbers, metrics). Section numbers in mono: `01 / Services`. Hero eyebrow in mono: `> grounded_ai + enablement`.
 - **Radius and spacing:** cards 10px, buttons 8px, logo tile 12px; 8px spacing scale. Cards are a surface fill with a 1px border, no drop shadows.
 
@@ -320,13 +320,13 @@ Save each report to `docs/security/audit-YYYY-MM-DD.md`. Every Critical and High
 
 ## Email
 
-- Resend sends from a subdomain so it does not collide with Google Workspace mail: verify `send.sureground.tech` (or the subdomain Resend recommends) in Resend and add its DNS records at the registrar. From: `SureGround <hello@send.sureground.tech>`; Reply-To: `david@sureground.tech`.
+- Resend sends from a subdomain so it does not collide with Google Workspace mail: verify `send.sureground.tech` (or the subdomain Resend recommends) in Resend and add its DNS records at the registrar. From: `SureGround Tech <hello@send.sureground.tech>`; Reply-To: `david@sureground.tech`.
 - `lib/email/send.ts` is the only caller of Resend. In development, `EMAIL_TRANSPORT=outbox` writes rendered emails to `.outbox/` instead of sending.
-- Templates use the brand palette in light mode, a plain-text part, and the footer "SureGround, Nashville, TN" with a link to the privacy policy. No tracking pixels.
+- Templates use the brand palette in light mode, a plain-text part, and the footer "SureGround Tech, Nashville, TN" with a link to the privacy policy. No tracking pixels.
 
 ## SEO and metadata
 
-Per-page `generateMetadata` (title template "%s | SureGround"), canonical URLs, Open Graph and Twitter cards with generated images, `sitemap.ts`, `robots.ts` (allow all; scorecard results are never a URL, so there is nothing to disallow), JSON-LD: `ProfessionalService` (Nashville, TN; area served: United States), `Person` for David on `/about`, `Service` per offer, `BlogPosting` per post, `BreadcrumbList`.
+Per-page `generateMetadata` (title template "%s | SureGround Tech"), canonical URLs, Open Graph and Twitter cards with generated images, `sitemap.ts`, `robots.ts` (allow all; scorecard results are never a URL, so there is nothing to disallow), JSON-LD: `ProfessionalService` (Nashville, TN; area served: United States), `Person` for David on `/about`, `Service` per offer, `BlogPosting` per post, `BreadcrumbList`.
 
 ## Environment variables
 
@@ -335,7 +335,7 @@ Document every variable in `.env.example` (names only) and validate in `lib/env.
 ```
 NEXT_PUBLIC_SITE_URL=https://sureground.tech
 CONTACT_TO_EMAIL=david@sureground.tech
-EMAIL_FROM="SureGround <hello@send.sureground.tech>"
+EMAIL_FROM="SureGround Tech <hello@send.sureground.tech>"
 EMAIL_TRANSPORT=resend            # outbox in development
 RESEND_API_KEY=
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=
@@ -372,7 +372,7 @@ A production build fails if any required variable is missing. "Required" grows w
 - David's headshot added; About copy approved
 - Every offer `confirmed: true`; guarantees approved word for word
 - Privacy policy and terms reviewed by a lawyer
-- Trademark: use "SureGround" without the registered symbol until a registration issues
+- Trademark: use "SureGround Tech" without the registered symbol until a registration issues
 
 ## Open items for David
 
@@ -385,6 +385,8 @@ A production build fails if any required variable is missing. "Required" grows w
 7. Done 2026-11-14: Guided Demo Site Build prices, add-ons and terms confirmed (guarantee changed to live in 4 weeks); the Gartner and Forrester conference demos approved for `facts.ts`; the "live" definition for the SOW approved: deployed on the client's domain or a SureGround subdomain, tracking verified end to end, and at least one share link sent to a real prospect.
 
 ## Current status
+
+**Name change to SureGround Tech: 2026-11-14** (branch `rename-sureground-tech`). `site.name` is "SureGround Tech" (titles, copyright, JSON-LD, RSS, email footers, legal pages); the wordmark reads **Sure**Ground Tech; formal copy spots use the full name and running copy keeps "SureGround". Details in `docs/decisions.md`; reworded lines are drafts in `docs/copy-review.md`. David still sets `EMAIL_FROM` in Vercel to the new sender name (launch checklist).
 
 **Phase 7 (Guided Demo Site Build): done, 2026-11-14** (merged as PR 19).
 
