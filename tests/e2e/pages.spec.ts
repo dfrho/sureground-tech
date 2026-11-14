@@ -119,10 +119,15 @@ test("about photo lines up with the heading block on wide screens", async ({ pag
   expect(Math.round(photo!.y + photo!.height)).toBe(Math.round(text!.y + text!.height));
 });
 
-test("legal pages are marked as drafts", async ({ page }) => {
-  for (const path of ["/legal/privacy", "/legal/terms"]) {
+test("the legal pages show no draft banner", async ({ page }) => {
+  // David removed both draft banners on 2026-11-14.
+  for (const [path, title] of [
+    ["/legal/privacy", "Privacy policy"],
+    ["/legal/terms", "Terms of use"],
+  ] as const) {
     await page.goto(path);
-    await expect(page.getByRole("note")).toContainText("Draft");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
+    await expect(page.getByRole("note")).toHaveCount(0);
   }
 });
 
