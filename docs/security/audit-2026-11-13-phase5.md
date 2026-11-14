@@ -92,3 +92,13 @@ This matches CLAUDE.md ("the lead notification to David may include the submitte
 - Static review. Deployed headers, Vercel firewall settings and Upstash behavior under load were not observed in production.
 - Delivery behavior (Resend, recipients' providers) and Turnstile production hostname checks rely on Phase 4's configuration and were not exercised live.
 - Provider-specific email aliases beyond `+tags` are not normalized (see OWASP-A06-001, residual).
+
+## Addendum: in-house team question (2026-11-13)
+
+Scoped static review of one later change: a `team` field on the email gate (`content/scorecard.ts`, `lib/forms/scorecard-schema.ts`, `lib/scorecard/score.ts`, `app/actions/scorecard.ts`, `components/scorecard/EmailGate.tsx`, `emails/ScorecardLeadNotify.tsx`).
+
+- **A05 and A06:** `team` is a Zod enum of five fixed labels, so no visitor text enters it. It only selects one of our fixed recommendations (`teamOverrides`). The results email still takes only the computed outcome, so the abuse rule holds. Unit tests reject unknown and missing values.
+- **A01, A08:** the score and band are unchanged by the field (unit tested); the recommendation is still computed on the server.
+- **A09:** validation failures on the field are logged by field name only, through the shared pipeline.
+
+No new findings.

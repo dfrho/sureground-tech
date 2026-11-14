@@ -22,6 +22,7 @@ function leadRows(data: ScorecardInput): [string, string][] {
     ["Company", data.company],
     ["Company size", data.size],
     ["Role", data.role],
+    ["Who builds AI", data.team],
   ];
 }
 

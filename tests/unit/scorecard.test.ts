@@ -11,6 +11,8 @@ import {
   READY_THRESHOLD,
   recommendations,
   roles,
+  teamOverrides,
+  teams,
   tieBreakOrder,
   TOTAL_MAX,
   type Dimension,
@@ -210,12 +212,65 @@ describe("score", () => {
   });
 });
 
+describe("team adjustment", () => {
+  const engNew = "An engineering team with little AI experience" as const;
+  const engAi = "An engineering team that already builds with AI" as const;
+
+  it.each(["data", "tools"] as const)(
+    "replaces AI Engineering for a weak %s score when the client has engineers",
+    (dimension) => {
+      const answers = withScores({ [dimension]: 0 });
+      expect(score(answers, engNew).recommendation.offer).toBe("fractional-se");
+      expect(score(answers, engAi).recommendation.offer).toBe("pilot-triage");
+    },
+  );
+
+  it("replaces the Pilot Sprint when every area is ready", () => {
+    const answers = withScores({}, READY_THRESHOLD);
+    expect(score(answers, engNew).recommendation.offer).toBe("fractional-se");
+    expect(score(answers, engAi).recommendation.offer).toBe("pilot-triage");
+    expect(score(answers, engAi).weakest).toBeNull();
+  });
+
+  it.each([
+    ["safety", "safe-start"],
+    ["goals", "opportunity-assessment"],
+    ["workflows", "opportunity-assessment"],
+    ["people", "ai-enablement"],
+  ] as const)("keeps %s -> %s for every team", (dimension, offer) => {
+    for (const team of teams) {
+      expect(score(withScores({ [dimension]: 0 }), team).recommendation.offer).toBe(offer);
+    }
+  });
+
+  it.each([teams[0], teams[1], teams[2]])("leaves build offers alone for %s", (team) => {
+    expect(score(withScores({ data: 0 }), team).recommendation.offer).toBe("ai-engineering");
+    expect(score(withScores({}, READY_THRESHOLD), team).recommendation.offer).toBe("pilot-sprint");
+  });
+
+  it("only names real teams and real offers", () => {
+    const slugs = offers.map((o) => o.slug as string);
+    for (const [team, override] of Object.entries(teamOverrides)) {
+      expect(teams).toContain(team);
+      expect(slugs).toContain(override!.recommendation.offer);
+      for (const replaced of override!.replaces) expect(slugs).toContain(replaced);
+    }
+  });
+
+  it("does not change the score or band", () => {
+    const answers = withScores({ data: 1 });
+    expect(score(answers, engAi).total).toBe(score(answers).total);
+    expect(score(answers, engAi).band).toBe(score(answers).band);
+  });
+});
+
 const gate = {
   firstName: "Pat",
   email: "pat@example.com",
   company: "Example Co",
   size: companySizes[1],
   role: roles[0],
+  team: teams[0],
   consent: "yes",
 };
 
@@ -236,6 +291,8 @@ describe("scorecard schema", () => {
     fail({ ...all("c"), ...gate, consent: "on" }, "consent");
     fail({ ...all("c"), ...gate, size: "Huge" }, "size");
     fail({ ...all("c"), ...gate, role: "CTO" }, "role");
+    fail({ ...all("c"), ...gate, team: "Ten engineers" }, "team");
+    fail({ ...all("c"), ...gate, team: undefined }, "team");
     fail({ ...all("c"), ...gate, email: "pat@example" }, "email");
     fail({ ...all("c"), ...gate, firstName: "x".repeat(81) }, "firstName");
   });

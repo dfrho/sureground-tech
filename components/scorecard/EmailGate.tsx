@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { CheckboxField, Honeypot, SelectField, TextField } from "@/components/forms/fields";
 import { Turnstile } from "@/components/forms/Turnstile";
 import { buttonClass } from "@/components/site/Button";
-import { companySizes, roles } from "@/content/scorecard";
+import { companySizes, roles, teamQuestion, teams } from "@/content/scorecard";
 import { fieldNames } from "@/lib/forms/contact-schema";
 import {
   questionIds,
@@ -115,6 +115,13 @@ export function EmailGate({
         options={roles}
         error={errors.role}
         defaultValue={values.role}
+      />
+      <SelectField
+        name="team"
+        label={teamQuestion}
+        options={teams}
+        error={errors.team}
+        defaultValue={values.team}
       />
       <CheckboxField
         name="consent"

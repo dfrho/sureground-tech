@@ -339,6 +339,51 @@ export const readyRecommendation: Recommendation = {
 };
 
 /**
+ * Who would build and run an AI project today. Asked on the email gate and
+ * not scored: an in-house team does not make the ground more solid, but it
+ * changes which offer fits. David approved the options on 2026-11-13.
+ */
+export const teamQuestion = "Who would build and run an AI project for you today?";
+
+export const teams = [
+  "No one in-house",
+  "An outside IT provider",
+  "One or two IT or technical staff",
+  "An engineering team with little AI experience",
+  "An engineering team that already builds with AI",
+] as const;
+export type Team = (typeof teams)[number];
+
+export interface TeamOverride {
+  /** Build offers this team does not need from us. */
+  replaces: readonly OfferSlug[];
+  recommendation: Recommendation;
+}
+
+/**
+ * Teams that can build for themselves get a different first step in place of
+ * a build offer. Every other recommendation stands.
+ */
+export const teamOverrides: Partial<Record<Team, TeamOverride>> = {
+  "An engineering team with little AI experience": {
+    replaces: ["ai-engineering", "pilot-sprint"],
+    recommendation: {
+      offer: "fractional-se",
+      reason:
+        "You have engineers who can build, so the gap is AI experience. A part-time AI lead sets the roadmap, picks proven tools and works alongside your team on the first build.",
+    },
+  },
+  "An engineering team that already builds with AI": {
+    replaces: ["ai-engineering", "pilot-sprint"],
+    recommendation: {
+      offer: "pilot-triage",
+      reason:
+        "Your team already builds with AI, so another builder is rarely the missing piece. If a project has stalled, an outside review names the blocker and a fixed-price next step.",
+    },
+  },
+};
+
+/**
  * Ties for the weakest dimension go to the first one in this order: risk
  * first, then the steps that cost least to start.
  */

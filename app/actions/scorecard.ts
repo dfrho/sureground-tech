@@ -70,7 +70,7 @@ async function handle(formData: FormData): Promise<ScorecardFormState> {
     messages: scorecardMessages,
     send: async (data) => {
       // The server's own score from the answer ids. The browser never sends one.
-      const result = present(score(data));
+      const result = present(score(data, data.team));
       // Lead first: if it fails, nothing has gone to the visitor and a retry
       // is clean. Both must succeed before the visitor sees a success.
       const lead = await sendEmail({

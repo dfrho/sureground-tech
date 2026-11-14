@@ -51,12 +51,13 @@ async function answerAll(page: Page, index: number) {
   ).toBeFocused();
 }
 
-async function fillGate(page: Page, email: string) {
+async function fillGate(page: Page, email: string, team = "No one in-house") {
   await page.locator("#field-firstName").fill("Pat");
   await page.locator("#field-email").fill(email);
   await page.locator("#field-company").fill("Example Co");
   await page.locator("#field-size").selectOption("10 to 49 people");
   await page.locator("#field-role").selectOption("Owner or founder");
+  await page.locator("#field-team").selectOption(team);
   await page.locator("#field-consent").check();
   await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, {
     timeout: 15_000,
@@ -124,6 +125,25 @@ test.describe("First Step Scorecard", () => {
     await page.reload();
     await expect(page.getByText("Question 1 of 12")).toBeVisible();
     await expect(page.getByTestId("scorecard-result")).toHaveCount(0);
+  });
+
+  test("an engineering team that builds with AI is pointed to Pilot Triage", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "360-light", "runs once");
+    await openScorecard(page);
+    // Every area ready would be a Pilot Sprint, but this team can build.
+    await answerAll(page, 4);
+    const email = `eng-${unique()}@example.com`;
+    await fillGate(page, email, "An engineering team that already builds with AI");
+    await send(page);
+    const result = page.getByTestId("scorecard-result");
+    await expect(result.getByRole("heading", { name: "AI Pilot Triage" })).toBeVisible();
+    const toDavid = outboxFor(email).find((m) => m.to === "david@sureground.tech");
+    expect(toDavid!.text).toContain(
+      "Who builds AI: An engineering team that already builds with AI",
+    );
+    expect(toDavid!.text).toContain("Recommended: AI Pilot Triage");
   });
 
   test("needs an answer to move on, and Back keeps answers", async ({ page }) => {

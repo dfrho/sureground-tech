@@ -259,7 +259,7 @@ A five-minute self-assessment that tells an owner how solid their ground is and 
 **Flow (email required for results, as David decided).**
 
 1. One question per screen on mobile, a progress bar, back and next, answers kept in client state only (never in the URL or local storage).
-2. Email gate: first name, work email, company name, company size (enum), role (enum), a required checkbox "Email me my results", Turnstile, honeypot.
+2. Email gate: first name, work email, company name, company size (enum), role (enum), who would build and run an AI project today (enum, unscored; a team that can build gets a non-build offer, see `teamOverrides`), a required checkbox "Email me my results", Turnstile, honeypot.
 3. Server action `app/actions/scorecard.ts`: verify Turnstile, check the honeypot, rate-limit by IP and by email hash, validate every answer against the enum in `scorecard.ts` with Zod, **recompute the score on the server** (never trust a client score), send `ScorecardResult` to the visitor and `ScorecardLeadNotify` to `CONTACT_TO_EMAIL`, then return the result for display.
 4. Results screen: band, per-dimension bars, two or three plain-language observations, the recommended first step with its starting price, CTAs to book a Fit Call and to read the matching service page. Nothing is persisted; refreshing the page clears it.
 
@@ -374,7 +374,7 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, waiting for David).
 
-- `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
+- `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent, an unscored in-house team question that swaps build offers for teams that can build), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
 - Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
 - `/scorecard` has its own CSP (Turnstile only); header and footer links to it are full page loads.
 - Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (154), test:e2e (641: 614 passed, 27 skipped; one timeout under load fixed by a longer limit, passed on rerun), audit:deps.

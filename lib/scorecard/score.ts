@@ -7,12 +7,14 @@ import {
   READY_THRESHOLD,
   readyRecommendation,
   recommendations,
+  teamOverrides,
   tieBreakOrder,
   TOTAL_MAX,
   type Band,
   type Dimension,
   type QuestionId,
   type Recommendation,
+  type Team,
 } from "@/content/scorecard";
 
 /**
@@ -65,18 +67,28 @@ function weakestFirst(scores: DimensionScore[]): DimensionScore[] {
   );
 }
 
-export function recommend(scores: DimensionScore[]): {
+/**
+ * The weakest dimension picks the offer (or a pilot when every dimension is
+ * ready). A team that can build for itself then gets its team's offer in
+ * place of a build offer.
+ */
+export function recommend(
+  scores: DimensionScore[],
+  team?: Team,
+): {
   weakest: Dimension | null;
   recommendation: Recommendation;
 } {
-  const [weakest] = weakestFirst(scores);
-  if (!weakest || weakest.score >= READY_THRESHOLD) {
-    return { weakest: null, recommendation: readyRecommendation };
-  }
-  return { weakest: weakest.dimension, recommendation: recommendations[weakest.dimension] };
+  const [lowest] = weakestFirst(scores);
+  const weakest = lowest && lowest.score < READY_THRESHOLD ? lowest.dimension : null;
+  const base = weakest ? recommendations[weakest] : readyRecommendation;
+  const override = team ? teamOverrides[team] : undefined;
+  const recommendation =
+    override && override.replaces.includes(base.offer) ? override.recommendation : base;
+  return { weakest, recommendation };
 }
 
-export function score(answers: Answers): ScoreResult {
+export function score(answers: Answers, team?: Team): ScoreResult {
   const byDimension = new Map<Dimension, number>(dimensions.map((d) => [d, 0]));
   for (const q of questions) {
     byDimension.set(q.dimension, byDimension.get(q.dimension)! + pointsFor(q.id, answers[q.id]));
@@ -88,7 +100,7 @@ export function score(answers: Answers): ScoreResult {
     max: DIMENSION_MAX,
   }));
   const total = dimensionScores.reduce((sum, d) => sum + d.score, 0);
-  const { weakest, recommendation } = recommend(dimensionScores);
+  const { weakest, recommendation } = recommend(dimensionScores, team);
 
   return {
     total,

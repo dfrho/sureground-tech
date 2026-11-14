@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { companySizes, questions, roles, type QuestionId } from "@/content/scorecard";
+import { companySizes, questions, roles, teams, type QuestionId } from "@/content/scorecard";
 
 import { stripControl, type FormState } from "./contact-schema";
 
@@ -38,6 +38,7 @@ const gateSchema = z.object({
   company: text(scorecardLimits.company, "your company name"),
   size: z.enum(companySizes, { error: "Pick your company size." }),
   role: z.enum(roles, { error: "Pick your role." }),
+  team: z.enum(teams, { error: "Pick who would build it." }),
   consent: z.literal("yes", { error: "Tick the box so we can email your results." }),
 });
 
@@ -50,7 +51,15 @@ export const scorecardSchema = gateSchema.extend(answerShape) as unknown as z.Zo
 >;
 
 export const questionIds = questions.map((q) => q.id) as QuestionId[];
-export const gateFields = ["firstName", "email", "company", "size", "role", "consent"] as const;
+export const gateFields = [
+  "firstName",
+  "email",
+  "company",
+  "size",
+  "role",
+  "team",
+  "consent",
+] as const;
 export type GateField = (typeof gateFields)[number];
 export type ScorecardField = QuestionId | GateField;
 export const scorecardFields: readonly ScorecardField[] = [...questionIds, ...gateFields];
