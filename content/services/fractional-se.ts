@@ -41,5 +41,5 @@ export const fractionalSe: ServiceContent = {
       a: "Yes. It is listed above.",
     },
   ],
-  related: ["managed-ops", "answer-engine", "ai-enablement"],
+  related: ["answer-engine", "demo-site-build", "managed-ops"],
 };

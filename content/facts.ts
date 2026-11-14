@@ -117,6 +117,10 @@ export const facts = {
       text: "Cut page load times by 23% on AutoZone's ecommerce site.",
     },
     {
+      id: "se-roles",
+      text: "Senior solutions engineer at Feedonomics, FullStory and Shogun, running enterprise discovery, solution design and proofs of concept.",
+    },
+    {
       id: "shogun-troubleshooting",
       text: "Shrank average pre-sales troubleshooting at Shogun from 4 hours to 45 minutes with a real-time issue tracker.",
     },

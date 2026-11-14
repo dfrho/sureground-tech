@@ -30,6 +30,21 @@ export const serviceContentSchema = z
       .max(5),
     /** Other offers to point to at the end of the page. */
     related: z.array(z.string()).max(3),
+    /**
+     * Replaces the standard closing call to action (scorecard and Fit Call)
+     * for offers sold to a different buyer. Links must be site paths.
+     */
+    cta: z
+      .object({
+        title: z.string().min(1),
+        body: z.string().min(1),
+        links: z
+          .array(z.object({ label: z.string().min(1), href: z.string().regex(/^\/[^/]/) }).strict())
+          .min(1)
+          .max(2),
+      })
+      .strict()
+      .optional(),
   })
   .strict();
 

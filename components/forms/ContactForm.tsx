@@ -9,6 +9,7 @@ import {
   contactTopics,
   fieldNames,
   type ContactFormState,
+  type ContactTopic,
 } from "@/lib/forms/contact-schema";
 
 import { Honeypot, SelectField, TextArea, TextField } from "./fields";
@@ -16,7 +17,16 @@ import { Turnstile } from "./Turnstile";
 
 const idle: ContactFormState = { status: "idle" };
 
-export function ContactForm({ siteKey, email }: { siteKey?: string; email: string }) {
+export function ContactForm({
+  siteKey,
+  email,
+  defaultTopic,
+}: {
+  siteKey?: string;
+  email: string;
+  /** Preset from a known `?topic=` link; the visitor can still change it. */
+  defaultTopic?: ContactTopic;
+}) {
   const [state, action, pending] = useActionState(submitContact, idle);
   const [widgetFailed, setWidgetFailed] = useState(false);
   const statusRef = useRef<HTMLDivElement>(null);
@@ -97,7 +107,7 @@ export function ContactForm({ siteKey, email }: { siteKey?: string; email: strin
         label="Topic"
         options={contactTopics}
         error={errors.topic}
-        defaultValue={values.topic}
+        defaultValue={values.topic ?? defaultTopic}
       />
       <TextArea
         name="message"
