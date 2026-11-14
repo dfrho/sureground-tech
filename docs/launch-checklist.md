@@ -9,6 +9,8 @@ Owner: David unless noted. Check items off as they are done.
 - [x] Vercel deployment protection on (Standard: every deployment except the custom domain needs a Vercel login)
 - [x] Vercel team moved from Hobby to Pro (David, 2026-11-09)
 - [ ] sureground.tech added to Vercel; DNS records set at the registrar; `www` redirects to the apex
+- [ ] After the DNS cutover: send one contact message and one scorecard on sureground.tech (Turnstile accepts only that hostname in production), and confirm the Turnstile widget's hostnames in Cloudflare include sureground.tech
+- [ ] During the cutover: confirm no subdomain serves plain HTTP only (HSTS `includeSubDomains`)
 - [x] Resend sending subdomain `send.sureground.tech` verified; a preview test send was delivered (2026-11-13)
 - [x] Google Workspace SPF, DKIM and DMARC records in place for the root domain (checked with dig, 2026-11-13; DMARC is `p=none` for now)
 - [ ] Google Admin: click "Start authentication" under Apps, Google Workspace, Gmail, Authenticate email, and confirm the status reads "Authenticating email"
@@ -50,8 +52,12 @@ Owner: David unless noted. Check items off as they are done.
 
 ## Security and quality gates (Claude)
 
-- [ ] Full OWASP audit, no open Critical or High
+- [x] Full OWASP audit, no open Critical or High (`docs/security/audit-2026-11-13-launch.md`: no Critical, High, Medium or Low; two Informational)
 - [ ] HSTS `preload` added only after David confirms every subdomain serves HTTPS
 - [ ] securityheaders.com grade A or better
 - [ ] Lighthouse mobile 95+ (performance, accessibility, best practices, SEO) on home, a service page, a post and the scorecard
 - [ ] `security.txt` Expires date renewed (yearly)
+
+## After launch
+
+- [ ] DMARC: after two to four weeks of normal sending, change `_dmarc` from `p=none` to `p=quarantine` (add a `rua=mailto:` address first if you want reports), later `p=reject`
