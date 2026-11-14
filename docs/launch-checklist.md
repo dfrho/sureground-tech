@@ -13,7 +13,7 @@ Owner: David unless noted. Check items off as they are done.
 - [ ] During the cutover: confirm no subdomain serves plain HTTP only (HSTS `includeSubDomains`)
 - [x] Resend sending subdomain `send.sureground.tech` verified; a preview test send was delivered (2026-11-13)
 - [x] Google Workspace SPF, DKIM and DMARC records in place for the root domain (checked with dig, 2026-11-13; DMARC is `p=none` for now)
-- [ ] Google Admin: click "Start authentication" under Apps, Google Workspace, Gmail, Authenticate email, and confirm the status reads "Authenticating email"
+- [x] Google Admin: DKIM status reads "Authenticating email with DKIM", and the published `google._domainkey` key matches (2026-11-13)
 - [x] Turnstile site and secret keys in Vercel Production and Preview (2026-11-13)
 - [x] Upstash Redis provisioned through the Vercel Marketplace (connected as `KV_REST_API_*`, 2026-11-13)
 - [x] `RATE_LIMIT_SALT` generated (32+ random characters) and set in Vercel, one per environment
