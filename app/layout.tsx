@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { headers } from "next/headers";
 
 import { Footer } from "@/components/site/Footer";
@@ -11,25 +11,34 @@ import { tokens } from "@/lib/design/tokens";
 
 import "./globals.css";
 
-// next/font downloads these at build time and serves them from this site,
-// so visitors never request Google Fonts.
-const display = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "700"],
+// Fonts are committed woff2 files (latin subset, from the Fontsource npm
+// packages, SIL Open Font License; see app/fonts/LICENSE-*.txt). next/font
+// serves them from this site, so builds and visitors never fetch Google Fonts
+// (audit OWASP-A08-001, Phase 1).
+const display = localFont({
+  src: [
+    { path: "./fonts/space-grotesk-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/space-grotesk-latin-700-normal.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-space-grotesk",
   display: "swap",
 });
-const sans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "600"],
+const sans = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-plex-sans",
   display: "swap",
 });
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
+const mono = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+  ],
   variable: "--font-plex-mono",
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

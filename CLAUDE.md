@@ -372,7 +372,15 @@ A production build fails if any required variable is missing. "Required" grows w
 
 ## Current status
 
-**Phase 5 (First Step Scorecard): built, 2026-11-13** (branch `p5/scorecard`, PR open, waiting for David to merge).
+**Phase 6 (Launch hardening): code work done, 2026-11-13** (branch `p6/launch-hardening`). Launch waits on David's items in `docs/launch-checklist.md` (DNS cutover, MFA, lawyer review, copy approvals).
+
+- Full pre-launch OWASP audit: `docs/security/audit-2026-11-13-launch.md`, no Critical, High, Medium or Low; two Informational (DMARC `p=none`, HSTS `includeSubDomains`), both in the launch checklist.
+- Lighthouse mobile (local production build): 100 for performance, accessibility and best practices on home, a service page, the post and the scorecard. SEO is 100 except `is-crawlable`, which fails off sureground.tech on purpose (noindex); recheck on the real domain after the cutover.
+- securityheaders.com: A+ on `/` and `/contact` (production on vercel.app).
+- Fixes: Zod runs jitless through `lib/zod.ts` (its eval probe tripped the CSP; ESLint blocks direct `zod` imports; e2e now catches `securitypolicyviolation` events). Fonts are committed `woff2` files with `next/font/local` (closes OWASP-A08-001 from Phase 1).
+- Checks passing: typecheck, lint, lint:copy, check:contrast, check:offers, format:check, test (166), test:e2e (654: 622 passed, 32 skipped), audit:deps.
+
+**Phase 5 (First Step Scorecard): done, 2026-11-13** (merged as PR 17).
 
 - `/scorecard`: 12 questions one per screen, email gate (Turnstile, honeypot, consent, an unscored in-house team question that swaps build offers for teams that can build), results with per-area bars, observations and a recommended first step priced from `offers.ts`. Answers live in React state only.
 - Content in `content/scorecard.ts`; pure scoring in `lib/scorecard/score.ts`; Server Action `app/actions/scorecard.ts` recomputes the score from answer ids, limits by IP and email hash, sends `ScorecardLeadNotify` to David then `ScorecardResult` (fixed text and score only) to the visitor.
@@ -417,4 +425,4 @@ A production build fails if any required variable is missing. "Required" grows w
 
 **Phase 0 (Foundation): done, 2026-11-09.** Repo `dfrho/sureground-tech`, CI and Dependabot on, Vercel project `david-rhodes-projects/sureground-tech` (Node 24, Standard protection). Nonce CSP and headers in `proxy.ts`; audit `docs/security/audit-2026-11-09.md`.
 
-Next: Phase 6 (Launch hardening), after Phase 5 merges.
+Next: merge Phase 6, then David's launch checklist items, starting with pointing sureground.tech at Vercel.

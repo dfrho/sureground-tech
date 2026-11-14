@@ -54,6 +54,15 @@ test.describe("security baseline", () => {
           violations.push(msg.text());
         }
       });
+      // Some violations never reach the console, such as a caught eval probe
+      // (Zod's, before lib/zod.ts set jitless), so listen for the DOM event too.
+      await page.addInitScript(() => {
+        const seen: string[] = [];
+        (window as unknown as { __cspViolations: string[] }).__cspViolations = seen;
+        document.addEventListener("securitypolicyviolation", (e) =>
+          seen.push(`${e.effectiveDirective} ${e.blockedURI} ${e.sourceFile}`),
+        );
+      });
       await page.goto(path);
       // Wait for hydration (the theme toggle marks itself ready), then a beat
       // for late scripts and styles. Not "networkidle": link prefetches for
@@ -61,6 +70,11 @@ test.describe("security baseline", () => {
       await expect(page.locator("[data-theme-toggle][data-ready]").first()).toBeAttached();
       await page.waitForTimeout(500);
       expect(violations).toEqual([]);
+      expect(
+        await page.evaluate(
+          () => (window as unknown as { __cspViolations: string[] }).__cspViolations,
+        ),
+      ).toEqual([]);
       await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     });
   }

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 /**
  * Cited statistics. The only place market numbers come from (CLAUDE.md

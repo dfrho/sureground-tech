@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 /**
  * Metadata for one blog post. Every post is validated with this schema when
