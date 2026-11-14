@@ -7,7 +7,7 @@ const rules = (text: string, allowPrices = false) =>
 
 describe("checkCopy", () => {
   it("passes plain brand copy", () => {
-    expect(rules("You don't have to be the pioneer. AI on sure ground.")).toEqual([]);
+    expect(rules("You don't have to be the pioneer. AI on solid ground.")).toEqual([]);
   });
 
   it("flags em dashes", () => {

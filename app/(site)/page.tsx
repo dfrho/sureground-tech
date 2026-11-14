@@ -26,7 +26,7 @@ const subhead =
   "We've walked this path. SureGround builds AI into your business on proven ground, then trains your team to run it.";
 
 export const metadata: Metadata = {
-  title: { absolute: "SureGround Tech | AI on sure ground" },
+  title: { absolute: "SureGround Tech | AI on solid ground" },
   description: subhead,
   alternates: { canonical: "/" },
 };

@@ -7,7 +7,7 @@ You are building and maintaining sureground.tech for David Rhodes. Read this fil
 SureGround Tech (renamed from SureGround by David, 2026-11-14; the short name "SureGround" is fine in running copy after the first mention) is a one-person AI engineering and enablement firm in Nashville, TN. It helps owners and CEOs of small and mid-size businesses (roughly 10 to 250 employees, with no in-house team that builds with AI) put AI to work without becoming the experiment. (Target refined by David, 2026-11-13: an in-house engineering team predicts fit better than headcount. This wording is internal; public copy changes only when he approves it.)
 
 Positioning line: **"You don't have to be the pioneer."**
-Tagline: **"AI on sure ground."**
+Tagline: **"AI on solid ground."**
 Second story, for technical buyers: in AI, "grounding" means anchoring answers in verified data. SureGround builds AI that stands on facts.
 
 The site does five jobs:

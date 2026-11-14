@@ -206,7 +206,7 @@ All three typefaces are free on Google Fonts.
 
 ### Tagline
 
-**AI on sure ground.**
+**AI on solid ground.**
 
 Alternates:
 
@@ -295,7 +295,7 @@ Plain text with no images, so it renders cleanly everywhere.
 ### LinkedIn
 
 - **Avatar:** mark only, Signal Blue tile
-- **Banner:** Carbon background, "AI on sure ground." in Space Grotesk, with a mono eyebrow
+- **Banner:** Carbon background, "AI on solid ground." in Space Grotesk, with a mono eyebrow
 - **Headline example:** Founder, SureGround Tech | AI engineering and enablement on proven ground
 
 ---
@@ -305,7 +305,7 @@ Plain text with no images, so it renders cleanly everywhere.
 ```
 Name:        SureGround Tech
 Domain:      sureground.tech
-Tagline:     AI on sure ground.
+Tagline:     AI on solid ground.
 Story:       You don't have to be the pioneer.
 
 Carbon       #0E1116   background

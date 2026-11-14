@@ -3,7 +3,7 @@
  */
 export const site = {
   name: "SureGround Tech",
-  tagline: "AI on sure ground.",
+  tagline: "AI on solid ground.",
   positioning: "You don't have to be the pioneer.",
   /** Short boilerplate from docs/brand-guide.md section 7. */
   boilerplate:

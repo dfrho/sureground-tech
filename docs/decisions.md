@@ -165,7 +165,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Name change to SureGround Tech (2026-11-14)
 
-- David renamed the company from SureGround to **SureGround Tech**. The domain (sureground.tech), email addresses, tagline ("AI on sure ground.") and logo icon are unchanged.
+- David renamed the company from SureGround to **SureGround Tech**. The domain (sureground.tech), email addresses and logo icon are unchanged. The tagline changed from "AI on sure ground." to "AI on solid ground." (David, 2026-11-14).
 - Wordmark: **Sure**Ground Tech, with "Tech" at full size and weight in the text color (option B of three mockups David reviewed).
 - The full name goes in formal spots: `site.name` (page titles, copyright, logo link labels, JSON-LD, RSS, email footers, legal pages), the boilerplate, the home page title, the founder photo captions and the first mention on About, the Privacy and Terms descriptions, and the blog Open Graph wordmark. Running copy keeps the short name, for example "Why SureGround" and the home subhead.
 - The email sender name comes from the `EMAIL_FROM` variable in Vercel, which David updates (tracked in `docs/launch-checklist.md`).
