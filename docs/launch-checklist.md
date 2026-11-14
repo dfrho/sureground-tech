@@ -54,8 +54,9 @@ Owner: David unless noted. Check items off as they are done.
 
 - [x] Full OWASP audit, no open Critical or High (`docs/security/audit-2026-11-13-launch.md`: no Critical, High, Medium or Low; two Informational)
 - [ ] HSTS `preload` added only after David confirms every subdomain serves HTTPS
-- [ ] securityheaders.com grade A or better
-- [ ] Lighthouse mobile 95+ (performance, accessibility, best practices, SEO) on home, a service page, a post and the scorecard
+- [x] securityheaders.com grade A or better: A+ on `/` and `/contact` (production on sureground-tech.vercel.app, 2026-11-13). Rerun on sureground.tech after the DNS cutover.
+- [x] Lighthouse mobile 95+ (performance, accessibility, best practices, SEO) on home, a service page, a post and the scorecard (local production build, Lighthouse 13.6.0, 2026-11-13): 100 for performance, accessibility and best practices on all four. SEO is 100 on every audit except `is-crawlable`, which fails off sureground.tech on purpose (`X-Robots-Tag: noindex`).
+- [ ] Rerun Lighthouse SEO on sureground.tech after the DNS cutover (PageSpeed Insights is fine) to confirm SEO 100 with indexing allowed
 - [ ] `security.txt` Expires date renewed (yearly)
 
 ## After launch

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 import { companySizes, questions, roles, teams, type QuestionId } from "@/content/scorecard";
 

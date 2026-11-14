@@ -84,7 +84,7 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **Theme toggle:** three native radio buttons in a fieldset, so arrow keys and screen readers work without extra code. Until mount it renders the same controls disabled with none selected (no layout shift, no hydration mismatch).
 - **Mobile nav:** a native modal `<dialog>` (focus trap, Escape, inert page, focus returned to the menu button) instead of a dialog library. shadcn/ui is deferred until a component actually needs it.
 - **Breakpoint:** inline navigation from 1024px (`lg`); below that the menu button. At 768px five links, the toggle and the Book a call button do not fit beside the wordmark.
-- **Fonts:** `next/font/google` downloads Space Grotesk, IBM Plex Sans and IBM Plex Mono at build time and serves them from the site, so `font-src 'self'` is enough and visitors never contact Google. Builds need network access to Google Fonts.
+- **Fonts:** Space Grotesk (500, 700), IBM Plex Sans (400, 600) and IBM Plex Mono (400, 500) are committed as latin-subset `woff2` files in `app/fonts/` and loaded with `next/font/local`, so `font-src 'self'` is enough, visitors never contact Google and builds need no font download. The files come from the Fontsource npm packages 5.3.0 (SIL Open Font License, copies in `app/fonts/LICENSE-*.txt`). Until Phase 6 this was `next/font/google` (see OWASP-A08-001).
 - **Favicon:** the scaffold `favicon.ico` was replaced by `app/icon.svg` (primary mark).
 - **Error pages:** `error.tsx` and `global-error.tsx` show fixed text and never the error message or digest. `global-error.tsx` follows the operating-system theme only, since next-themes is not loaded there.
 - **E2E screenshots:** `tests/e2e/shell.spec.ts` saves a full-page screenshot of every page in every project (360, 768, 1280 by light and dark) to `test-results/`; CI uploads them as the `playwright-screenshots` artifact for 14 days. They are review artifacts, not pixel-diff baselines: baselines differ between macOS and the Linux CI runner.
@@ -148,6 +148,11 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 - **One question per screen at every width,** not only on mobile: simpler, and the flow is short. Focus moves to each new question, the email gate and the result heading.
 - **Shared server setup:** `lib/forms/server-deps.ts` builds the Turnstile, limiter and logging dependencies and the salted key helper for both actions. The pipeline takes per-form error wording.
 
+## Phase 6: launch hardening (2026-11-13)
+
+- **Zod runs jitless (`lib/zod.ts`).** Zod 4 probes `new Function` once to decide whether to compile faster parsers. The probe is caught, but under the site's CSP (no `'unsafe-eval'`) Chrome reports it as a violation, which Lighthouse counted against Best Practices on `/scorecard`. `z.config({ jitless: true })` skips the probe and parses the same way. Every module imports `z` from `@/lib/zod`; ESLint blocks direct `zod` imports. The e2e CSP checks now also listen for `securitypolicyviolation` events, which catch violations that never reach the console.
+- **Lighthouse runs locally** against the production build (`pnpm build && pnpm start`, Lighthouse 13.6.0, mobile defaults). Off sureground.tech the site sends `X-Robots-Tag: noindex` on purpose, so the SEO audit `is-crawlable` fails everywhere except the real domain. The SEO score is confirmed again on sureground.tech after the DNS cutover.
+
 ## Dependencies added outside the CLAUDE.md stack
 
 | Package                             | Reason                                                               |
@@ -160,10 +165,11 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 
 ## Accepted risks and open findings
 
-See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings), `docs/security/audit-2026-11-13-phase3.md` for Phase 3 `docs/security/audit-2026-11-13-phase4.md` for Phase 4 and `docs/security/audit-2026-11-13-phase5.md` for Phase 5. Medium and Low items not fixed are listed there with an owner.
+See `docs/security/audit-2026-11-09.md` for the Phase 0 audit, `docs/security/audit-2026-11-09-phase1.md` for Phase 1 `docs/security/audit-2026-11-10-phase2.md` for Phase 2 (no findings), `docs/security/audit-2026-11-13-phase3.md` for Phase 3 `docs/security/audit-2026-11-13-phase4.md` for Phase 4 `docs/security/audit-2026-11-13-phase5.md` for Phase 5 and `docs/security/audit-2026-11-13-launch.md` for the pre-launch full audit (no Critical, High, Medium or Low). Medium and Low items not fixed are listed there with an owner.
 
 - **OWASP-A03-001 (Phase 1, Informational):** `next-themes` 0.4.6 releases rarely. Kept: it is on the locked stack, has no dependencies or install scripts, and its inline script takes only static props. Revisit if 1.0 ships or an advisory appears. Owner: Claude.
-- **OWASP-A08-001 (Phase 1, Informational):** `next/font/google` downloads font files at build time without a pinned hash. Kept for now; switching to committed `woff2` files with `next/font/local` would remove it. Owner: Claude, Phase 6.
+- **OWASP-A08-001 (Phase 1, Informational): fixed in Phase 6.** Fonts are now committed `woff2` files loaded with `next/font/local`; nothing is downloaded at build time.
 - **OWASP-A08-002 (Phase 4, Low):** Cal.com's `embed.js` is loaded live from `app.cal.com` without an integrity hash and runs on `/contact`. Accepted: the inline embed is required, Cal.com does not publish versioned builds, and a plain iframe does not work. Limited to `/contact` by the per-page CSP. Revisit if Cal.com ships versioned embeds, or switch to a link-out button. Owner: Claude.
 - **Phase 4 Informational:** inline styles on `/contact` (Cal.com needs them), Turnstile checked before the rate limit (as CLAUDE.md orders it), and per-instance rate limits on previews without Upstash. Details in the Phase 4 audit. Owner: Claude.
 - **Phase 5 Informational:** results go to an unverified, visitor-typed address (fixed content, consent box, Turnstile and limits; David's decision that email is required), and provider aliases such as Gmail dots are not normalized for the per-email limit. Details in the Phase 5 audit. Owner: Claude.
+- **Pre-launch Informational (Phase 6):** DMARC is `p=none` (tighten after a few weeks of normal sending) and HSTS `includeSubDomains` needs every future subdomain on HTTPS. Both are in `docs/launch-checklist.md`. Owner: David.

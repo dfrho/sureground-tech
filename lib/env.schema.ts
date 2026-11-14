@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 
 /**
  * Environment schemas. Pure module (no "server-only") so build scripts and
