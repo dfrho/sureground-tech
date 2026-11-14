@@ -1,11 +1,14 @@
-/** Shared layout for the legal drafts: title, updated date and a draft notice. */
+/** Shared layout for the legal pages: title, updated date and, while a page is a draft, a notice. */
 export function LegalPage({
   title,
   updated,
+  draft = false,
   children,
 }: {
   title: string;
   updated: string;
+  /** Shows the "Draft" notice until David has the page reviewed. */
+  draft?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -14,9 +17,11 @@ export function LegalPage({
         <p className="font-mono text-label text-muted uppercase">Legal</p>
         <h1 className="font-display text-h1">{title}</h1>
         <p className="font-mono text-label text-muted">Last updated {updated}</p>
-        <p role="note" className="rounded-card border border-border bg-surface p-4 text-small">
-          Draft. This page has not yet been reviewed by a lawyer and may change before launch.
-        </p>
+        {draft ? (
+          <p role="note" className="rounded-card border border-border bg-surface p-4 text-small">
+            Draft. This page has not yet been reviewed by a lawyer and may change before launch.
+          </p>
+        ) : null}
       </header>
       <div className="legal flex flex-col gap-4">{children}</div>
     </article>

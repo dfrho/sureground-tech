@@ -156,10 +156,12 @@ Version-specific choices, new dependencies and accepted risks. Newest first with
 ## Phase 7: Guided Demo Site Build (2026-11-14)
 
 - **Add-ons on the offer shape.** `offerSchema` gained an optional `addOns` array (`name`, `startingAt`, `cadence`), as CLAUDE.md asks. The two packages (Demo Pilot and Demo Site Build) use the existing `tiers` field, so `startingAt` stays the pilot price. Upkeep is listed once, as a monthly add-on, not repeated in `terms`. One component, `components/offers/PriceDetails.tsx`, renders tiers and add-ons on both the service page and the Pricing page.
-- **Left out on purpose.** The research doc's Demo Program ($30,000), the five-version bundle and the platform pack are not in CLAUDE.md's approved list, so they are not on the site. The Gartner and Forrester conference demos stay out of `facts.ts` until David confirms them.
+- **Left out on purpose.** The research doc's Demo Program ($30,000), the five-version bundle and the platform pack are not in CLAUDE.md's approved list, so they are not on the site. David approved the Gartner and Forrester conference demos on 2026-11-14; they are now in the `se-roles` proof point.
 - **Per-service closing CTA.** `ServiceContent` has an optional `cta` (title, body, one or two site-path links). When set, the service page shows it instead of the scorecard and Fit Call buttons, including on the `?from=scorecard` arrival. Only `demo-site-build` uses it.
 - **Contact topic preset.** `/contact?topic=demo-build` preselects "Demo build". `topicFromQuery` maps exact, known slugs to the topic enum through an own-property lookup and ignores everything else (arrays, other values, prototype names); the value is never rendered or redirected. The contact page already renders per request for its nonce CSP, so reading `searchParams` costs nothing.
 - **Home page.** The home Specialty block was already an explicit slug list, so the new offer stays off it until David approves adding it after the first pilot.
+
+- **"Live" for the Demo Site Build (approved 2026-11-14).** The guarantee's "live" means: deployed on the client's domain or a SureGround subdomain, tracking verified end to end, and at least one share link sent to a real prospect. This goes in each SOW, not on the site.
 
 ## Dependencies added outside the CLAUDE.md stack
 
