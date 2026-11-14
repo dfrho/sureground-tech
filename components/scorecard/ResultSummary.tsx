@@ -84,7 +84,7 @@ export function ResultSummary({
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <ButtonLink href="/contact#book">Book a free AI Fit Call</ButtonLink>
           <ButtonLink
-            href={recommendation.href}
+            href={`${recommendation.href}?from=scorecard`}
             variant="secondary"
             className="py-2 text-center whitespace-normal!"
             // A new tab keeps these results: they live only in this page.

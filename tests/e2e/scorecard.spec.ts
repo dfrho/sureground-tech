@@ -98,7 +98,7 @@ test.describe("First Step Scorecard", () => {
     );
     await expect(result.getByRole("link", { name: /Read about AI Safe Start/ })).toHaveAttribute(
       "href",
-      "/services/safe-start",
+      "/services/safe-start?from=scorecard",
     );
     // Opens in a new tab so the results stay on this page.
     await expect(result.getByRole("link", { name: /Read about AI Safe Start/ })).toHaveAttribute(
@@ -149,6 +149,19 @@ test.describe("First Step Scorecard", () => {
       "Who builds AI: An engineering team that already builds with AI",
     );
     expect(toDavid!.text).toContain("Recommended: AI Pilot Triage");
+  });
+
+  test("a service page reached from the results offers the Fit Call, not the scorecard", async ({
+    page,
+  }) => {
+    await page.goto("/services/opportunity-assessment?from=scorecard");
+    const cta = page.locator("section[aria-labelledby=cta-title]");
+    await expect(cta.getByRole("heading", { name: "Talk through your results." })).toBeVisible();
+    await expect(cta.getByRole("link", { name: /Take the First Step Scorecard/ })).toHaveCount(0);
+    await expect(cta.getByRole("link", { name: "Book a free AI Fit Call" })).toBeVisible();
+
+    await page.goto("/services/opportunity-assessment");
+    await expect(cta.getByRole("link", { name: /Take the First Step Scorecard/ })).toBeVisible();
   });
 
   test("needs an answer to move on, and Back keeps answers", async ({ page }) => {
